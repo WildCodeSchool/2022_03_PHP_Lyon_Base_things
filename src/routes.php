@@ -13,6 +13,6 @@ return [
     'items/show' => ['ItemController', 'show', ['id']],
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
-    'jump' => ['JumpController', 'index',],
-    'jump/show' => ['JumpController', 'show', ['id']],
+    'jumps' => ['JumpController', 'index',],
+    'jumps/show' => ['JumpController', 'show', ['id']],
 ];

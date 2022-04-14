@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Jumps</h1>
+    <ul>
+        {% for jump in jumps %}
+            <li><a href="/jumps/show?id={{ jump.id }}">{{ jump.id }}. {{ jump.date_of_jump }}</a></li>
+        {% else %}
+            <li>Nothing to display</li>
+        {% endfor %}
+    </ul>
+    <a href="/jumps/add">Ajouter</a>
+{% endblock %}
