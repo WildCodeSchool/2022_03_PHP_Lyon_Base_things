@@ -1,9 +1,13 @@
+{# creation of the exit display list page and using boostrap to style the page #}
+
 {% extends 'layout.html.twig' %}
 
 {% block content %}
     <h1 class="text-center m-4" >Liste des exits</h1>
+    
+    {# creation of a drop-down list to contain the filters #}
     <div class="container">
-    <li class="list-group mb-5">
+    <li class="list-group">
           <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Filtres
           </a>
@@ -12,10 +16,12 @@
             <li><hr class="dropdown-divider"></li>
             <li>{% include "_typeJumpList.html.twig" %}</li>
         </ul>
+        
+        {# display of the list of exits #}
+        <ul class="list-group mt-3">
+            {% for exit in exits %}
+                <li class="list-group-item text-center bg-light m-1 border rounded-pill"><a href="/exit/show?id={{ exit.id }}">{{ exit.name}} </a></li>
+            {% endfor %}
+        </ul>
     </div>
-    <ul class="list-group">
-        {% for exit in exits %}
-            <li class="list-group-item text-center bg-light m-1 border rounded-pill"><a href="/exit/show?id={{ exit.id }}">{{ exit.name}} </a></li>
-        {% endfor %}
-    </ul>
 {% endblock %}
