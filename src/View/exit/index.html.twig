@@ -1,24 +1,21 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div>
-        {% include "_departmentList.html.twig" %}
-
-        <select name="type_jump" id="type_jump" class="m-2">
-            <option>Type de saut</option>
-            <option> Static-line</option>
-            <option> Sans Glisseur</option>
-            <option> Lisse</option>
-            <option> Track Pantz</option>
-            <option> Track Pantz Monopièce</option>
-            <option> Wingsuit</option> 
-        </select>
-    </div>
-    
     <h1 class="text-center m-4" >Liste des exits</h1>
+    <div class="container">
+    <li class="list-group mb-5">
+          <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Filtres
+          </a>
+        <ul class="dropdown-menu border rounded" aria-labelledby="navbarDropdown">
+            <li>{% include "_departmentList.html.twig" %}</li>
+            <li><hr class="dropdown-divider"></li>
+            <li>{% include "_typeJumpList.html.twig" %}</li>
+        </ul>
+    </div>
     <ul class="list-group">
-        {% for exit in exits %}  
-            <li class="list-group-item">{{ exit.name}}</li>  
+        {% for exit in exits %}
+            <li class="list-group-item text-center bg-light m-1 border rounded-pill"><a href="/exit/show?id={{ exit.id }}">{{ exit.name}} </a></li>
         {% endfor %}
     </ul>
 {% endblock %}
