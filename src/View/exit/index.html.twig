@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div>
+        {% include "_departmentList.html.twig" %}
+
+        <select name="type_jump" id="type_jump" class="m-2">
+            <option>Type de saut</option>
+            <option> Static-line</option>
+            <option> Sans Glisseur</option>
+            <option> Lisse</option>
+            <option> Track Pantz</option>
+            <option> Track Pantz Monopièce</option>
+            <option> Wingsuit</option> 
+        </select>
+    </div>
+    
+    <h1 class="text-center m-4" >Liste des exits</h1>
+    <ul class="list-group">
+        {% for exit in exits %}  
+            <li class="list-group-item">{{ exit.name}}</li>  
+        {% endfor %}
+    </ul>
+{% endblock %}
