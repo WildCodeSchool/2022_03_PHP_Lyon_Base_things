@@ -12,7 +12,7 @@ class JumpController extends AbstractController
     public function index(): string
     {
         $jumpManager = new JumpManager();
-        $jumps = $jumpManager->selectAll('date_of_jump');
+        $jumps = $jumpManager->selectJumpExit('date_of_jump');
 
         return $this->twig->render('Jump/index.html.twig', ['jumps' => $jumps]);
     }
