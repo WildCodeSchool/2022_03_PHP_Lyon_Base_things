@@ -1,13 +1,20 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Jumps</h1>
-    <ul>
-        {% for jump in jumps %}
-            <li><a href="/jumps/show?id={{ jump.id }}">{{ jump.id }}. {{ jump.date_of_jump }}</a></li>
-        {% else %}
-            <li>Nothing to display</li>
-        {% endfor %}
-    </ul>
-    <a href="/jumps/add">Ajouter</a>
-{% endblock %}
+	<h1>Jumps</h1>
+	{% set i = 0 %}
+	{% for jump in jumps %}
+		{% set i = i + 1 %}
+		<div>
+			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				{{ i }} {{ jump.date_of_jump }} {{ jump.e_name }}
+			</button>
+		</div>
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+			</div>
+		</div>
+	{% endfor %}
+</div>
+<a href="/jumps/add">Ajouter</a>{% endblock %}
