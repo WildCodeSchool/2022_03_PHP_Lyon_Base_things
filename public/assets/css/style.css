@@ -6,3 +6,39 @@
 footer{
     background-color: var(--main-color);
 }
+
+.card{
+    border-radius: 15px;
+}
+
+.card-body{
+    background-color: var(--main-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: inset 0px 0px 20px 10px #aed6e2;
+}
+
+.list{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.list-group-item{
+    background-color: #dbf0f8;
+}
+
+#dropdown-menu{
+    height: 300px;
+}
+
+.dropdown-menu{
+    border-radius: 10px;
+}
+
+.card-img-top{
+    height: 300px;
+}
+
+#exit-height{
+    height: 70px;
+}
