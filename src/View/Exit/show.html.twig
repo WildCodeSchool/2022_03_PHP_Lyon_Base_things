@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<h1>Exit</h1>
+
+    <hr>
+
+	{% set typeJumpName = "" %}
+    {% set exitName = "" %}
+    {% set exitDepartment = "" %}
+    {% set exitCountry = "" %}
+    {% set exitHeight = "" %}
+    {% set exitAccessDuration = "" %}
+    {% set exitGpsCoordinates = "" %}
+    {% set exitComment = "" %}
+    {% set typeJumpName = "" %}
+
+	{% for item in exit %}
+
+        {% set exitName = item.name %}
+        {% set exitDepartment = item.department %}
+        {% set exitCountry = item.country %}
+        {% set exitHeight = item.height %}
+        {% set exitAccessDuration = item.access_duration %}
+        {% set exitGpsCoordinates = item.gps_coordinates %}
+        {% set exitComment = item.comment %}
+        {% set typeJumpName = typeJumpName ~ ' ' ~ item.type_jump_name ~ ' ! ' %}
+
+	{% endfor %}
+
+	<p>{{ exitName }}</p>
+	<p>{{ exitDepartment }}</p>
+	<p>{{ exitCountry }}</p>
+	<p>{{ exitHeight }}</p>
+	<p>{{ exitAccessDuration }}</p>
+	<p>{{ exitGpsCoordinates }}</p>
+	<p>{{ exitComment }}</p>
+    <p>{{ typeJumpName }}</p>
+
+    <hr>
+
+	<pre>
+        {{ dump(exit) }}
+    </pre>
+	<p>{{ exit.id }}.
+		{{ exit.name }}</p>
+	<a href="/exits/edit?id={{ exit.id }}">Edit</a>
+	<form action="/exits/delete" method="POST">
+		<input type="hidden" name="id" value="{{ exit.id }}">
+		<button>Delete</button>
+	</form>
+	<a href="/exits">Back</a>
+{% endblock %}
