@@ -1,4 +1,5 @@
 <?php
+
 /* creation of the ExitController class to pass requests to the database */
 namespace App\Controller;
 
