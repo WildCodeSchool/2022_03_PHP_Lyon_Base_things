@@ -1,0 +1,8 @@
+*{
+    /* Background color for the header and footer */
+    --main-color: #4DB4D4;
+}
+
+footer{
+    background-color: var(--main-color);
+}
