@@ -5,11 +5,11 @@
 {% block content %}
     {# creation of a drop-down list to contain the filters #}
     <main class="container-fluid">
-        <div class="row gx-0 gx-sm-3 gx-md-3 gx-lg-3 gx-xl-3 justify-content-center {# gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5 #}">
+        <div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5">
             <h1 class="col-sm-12 col-xl-12 text-center m-5" >Liste des exits</h1>
             <form class="container" method="POST">
-                <div class="row gx-lg-0 mt-3 justify-content-center justify-content-lg-start justify-content-xl-start">
-                    <li class="list-group ms-lg-5 ps-lg-5 ps-xl-3 col-5 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+                <div class="row gx-lg-0 mt-3 justify-content-center">
+                    <li class="list-group col-5 col-sm-4 col-md-2 col-lg-2 col-xl-2">
                         <a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Filtrer par <br> départements
                         </a>
@@ -26,8 +26,8 @@
                         </ul>
                     </li>
                 </div>
-                <div class="row justify-content-center justify-content-lg-start justify-content-xl-start ms-md-3 ms-lg-5 ms-xl-5 ps-lg-5 ps-xl-5">
-                <button type="button" class="btn btn-outline-primary ms-lg-4 ms-xl-5 mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
+                <div class="row justify-content-center">
+                <button type="button" class="btn btn-outline-primary mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
                 </div>
             </form>
             {# display of the list of exits #}
