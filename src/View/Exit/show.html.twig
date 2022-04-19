@@ -1,9 +1,6 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	<h1>Exit</h1>
-
-    <hr>
 
 	{% set typeJumpName = "" %}
     {% set exitName = "" %}
@@ -13,6 +10,8 @@
     {% set exitAccessDuration = "" %}
     {% set exitGpsCoordinates = "" %}
     {% set exitComment = "" %}
+    {% set exitImage = "" %}
+    {% set exitVideo = "" %}
     {% set typeJumpName = "" %}
 
 	{% for item in exit %}
@@ -24,30 +23,37 @@
         {% set exitAccessDuration = item.access_duration %}
         {% set exitGpsCoordinates = item.gps_coordinates %}
         {% set exitComment = item.comment %}
+        {% set exitImage = item.image %}
+        {% set exitVideo = item.video %}
         {% set typeJumpName = typeJumpName ~ ' ' ~ item.type_jump_name ~ ' ! ' %}
 
 	{% endfor %}
 
-	<p>{{ exitName }}</p>
-	<p>{{ exitDepartment }}</p>
-	<p>{{ exitCountry }}</p>
-	<p>{{ exitHeight }}</p>
-	<p>{{ exitAccessDuration }}</p>
-	<p>{{ exitGpsCoordinates }}</p>
-	<p>{{ exitComment }}</p>
-    <p>{{ typeJumpName }}</p>
+	<h1 class="my-3 text-center">{{ exitName }}</h1>
 
-    <hr>
+    <div class="container">
+    <img class="img-fluid rounded" src="{{ exitImage }}" alt="Photo de l'exit {{ exitName }}">
+    </div>
 
-	<pre>
-        {{ dump(exit) }}
-    </pre>
-	<p>{{ exit.id }}.
-		{{ exit.name }}</p>
+    <div class="my-3 container">
+
+    <p><strong>Lieu :</strong> {{ exitDepartment }}, {{ exitCountry }}.</p>
+    <p><strong>Hauteur :</strong> {{ exitHeight }}</p>
+    <p><strong>Type :</strong> {{ typeJumpName }}</p>
+    <p><strong>Durée d'accès :</strong> {{ exitAccessDuration }}</p>
+    <p><strong>Point GPS :</strong> {{ exitGpsCoordinates }}</p>
+    <p><strong>Vidéo :</strong> <a href="{{ exitVideo }}" target="_blank">{{ exitVideo }}</a> </p>
+    <h2>Remarques</h2>
+    <p class"">{{ exitComment }}</p>
+
+    </div>
+
+    <div class="mb-5 pb-5 container">
 	<a href="/exits/edit?id={{ exit.id }}">Edit</a>
 	<form action="/exits/delete" method="POST">
 		<input type="hidden" name="id" value="{{ exit.id }}">
 		<button>Delete</button>
 	</form>
 	<a href="/exits">Back</a>
+    </div>
 {% endblock %}
