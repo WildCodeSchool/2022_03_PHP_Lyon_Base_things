@@ -7,6 +7,8 @@
 -- Version du serveur :  5.7.19-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -129,6 +131,7 @@ CREATE TABLE `user` (
   `pseudo` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(150) NOT NULL,
   `first_name` VARCHAR(150) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
   `date_of_birth` DATE,
   `email` VARCHAR(320) NOT NULL,
   `postal_adress` TEXT,
@@ -272,14 +275,14 @@ INSERT INTO type_jump (name) VALUES
 -- --------------------------------------------
 -- Ajout de données dans la table user
 -- --------------------------------------------
-INSERT INTO `user` (pseudo,last_name,first_name,date_of_birth,email,postal_adress,id_role) VALUES
-   ('Cécé de la voile','Russier','Célie','1986-04-15','celie.russier@gmail.com','17 Rue Delandine, 69002 Lyon',1),
-   ('Chris du grand saut','Cuzin','Christopher','1991-01-01','ed.ed1009@hotmail.fr','17 Rue Delandine, 69002 Lyon',1),
-   ('Gautier le Sans Glisseur','Fondevila','Gautier','1870-12-24','fondevila.gautier@gmail.com','17 Rue Delandine, 69002 Lyon',1),
-   ('Antho reste en bas','Gouton','Anthony','1988-07-20','anthony.gouton.wcs@gmail.com','17 Rue Delandine, 69002 Lyon',1),
-   ('Max la menace','Robert','Maxime','1985-04-22','maxlamenace@gmail.com','2-14 Rue du Sénat de Savoie, 73000 Chambéry',2),
-   ('Hortense la balance','Louïson','Hortense','1990-06-05','labalance@outlook.com','1 Pl. aux Herbes, 38000 Grenoble',2),
-   ('Le caskouyeu','Rodriguez','Benjamin','1986-01-16','benjadu74@live.fr','26 Rue Royale, 74000 Annecy',2);
+INSERT INTO `user` (pseudo,last_name,first_name,password,date_of_birth,email,postal_adress,id_role) VALUES
+   ('Cécé de la voile','Russier','Célie','cécé1504','1986-04-15','celie.russier@gmail.com','17 Rue Delandine, 69002 Lyon',1),
+   ('Chris du grand saut','Cuzin','Christopher','chris0101','1991-01-01','ed.ed1009@hotmail.fr','17 Rue Delandine, 69002 Lyon',1),
+   ('Gautier le Sans Glisseur','Fondevila','Gautier','gautier2412','1870-12-24','fondevila.gautier@gmail.com','17 Rue Delandine, 69002 Lyon',1),
+   ('Antho reste en bas','Gouton','Anthony','antho2007','1988-07-20','anthony.gouton.wcs@gmail.com','17 Rue Delandine, 69002 Lyon',1),
+   ('Max la menace','Robert','Maxime','max2204','1985-04-22','maxlamenace@gmail.com','2-14 Rue du Sénat de Savoie, 73000 Chambéry',2),
+   ('Hortense la balance','Louïson','Hortense','hortense0506','1990-06-05','labalance@outlook.com','1 Pl. aux Herbes, 38000 Grenoble',2),
+   ('Le caskouyeu','Rodriguez','Benjamin','lecaskouyeu1601','1986-01-16','benjadu74@live.fr','26 Rue Royale, 74000 Annecy',2);
 
 
 -- --------------------------------------------
@@ -317,3 +320,4 @@ INSERT INTO jump_log (id_user,date_of_jump,id_exit,id_type_jump,container,canopy
    (6,'2022-04-12',7,1,'non','non','oui','Nuageux','15 km/h','https://www.youtube.com/watch?v=dnjHm6WyaAc','https://photos.tf1.fr/1200/720/base-jump-les-coulisses-du-saut-vertigineux-de-fred-fugen-f3e741-0@1x.jpg','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through'),
    (6,'2022-04-13',1,3,'oui','oui','non','Mitigé','5 km/h','https://www.youtube.com/watch?v=F1fJRz4iWqs','https://assets.letemps.ch/sites/default/files/styles/article_detail_mobile/public/media/2021/09/28/file7hqia0tf3hk48ydagbw.jpg?h=041512b1&itok=P_FXLQG3','If you are going to use a passage of Lorem Ipsum, you need to be sure there isn''t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary'),
    (1,'2022-04-13',2,4,'oui','oui','oui','Ensoleillé','Pas de vents','https://www.youtube.com/watch?v=ta1S1XUofr8','https://leparisien.fr/resizer/kobCPgWZdbhDqbaNq1njS6wbG-w=/1200x675/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/NMIAISVEX7H6P6MDUPNS23O3JI.jpg','consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences');
+   
