@@ -18,5 +18,6 @@ return [
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
     'exits' => ['ExitController', 'index',],
-    'form' => ['AdminController', 'logVerification',],
+    'login' => ['AdminController', 'logVerification',],
+    'logout' => ['AdminController', 'logout',],
 ];
