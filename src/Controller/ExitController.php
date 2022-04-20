@@ -12,6 +12,6 @@ class ExitController extends AbstractController
         $exitManager = new ExitManager();
         $exits = $exitManager->selectall('name');
 
-        return $this->twig->render('exit/index.html.twig', ['exits' => $exits]);
+        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits]);
     }
 }
