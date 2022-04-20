@@ -11,6 +11,7 @@ footer{
     background-color: var(--main-color);
 }
 
+
 /* CSS index page */
 nav div{
     background-size: cover;
@@ -37,4 +38,51 @@ span{
     font-size: 1.5em;
     margin: 0.5em;
 }
+/*  */
 
+/* CSS exit list */
+.card-container{
+    height: 70vh;
+}
+
+.card{
+    border-radius: 15px;
+    height: 100%;
+}
+
+.card-body{
+    background-color: var(--main-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: inset 0px 0px 20px 10px #aed6e2;
+}
+
+.list-item{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.list-group{
+    height: 40%;
+}
+
+.list-group-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dbf0f8;
+    height: 100%;
+}
+
+#dropdown-menu{
+    height: 300px;
+}
+
+.dropdown-menu{
+    border-radius: 10px;
+}
+
+ .card-img-top{
+    height: 50%;
+}
+/*  */
