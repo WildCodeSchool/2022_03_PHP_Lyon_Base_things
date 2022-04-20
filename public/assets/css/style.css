@@ -1,0 +1,38 @@
+*{
+    --main-color: #4DB4D4;
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
+header{
+    background-color: var(--main-color);
+    color: white;
+    box-shadow: inset 0px 0px 10px 10px whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    height: 20vh;
+    align-items: center;
+}
+
+.squirrel, .adrenaline, .phenix, .atair{
+    max-height: 2rem;
+}
+
+.slogan{
+    font-style: italic;
+}
+
+
+
+#navbarDropdownMenuLink{
+    box-shadow: 1px 1px 12px white;
+    
+}
+
+.first-logo, .second-logo, .titleSlogan, .third-logo, .dropdown{
+    margin: 5em;
+}
+
+.text-responsive {
+    font-size: calc(100% + 0.5vw + 0.5vh);
+  }
+  
