@@ -2,58 +2,83 @@
 
 {% block content %}
 
+	{% set exitId = "" %}
+	{% set exitName = "" %}
+	{% set exitDepartment = "" %}
+	{% set exitCountry = "" %}
+	{% set exitHeight = "" %}
+	{% set exitAccessDuration = "" %}
+	{% set exitGpsCoordinates = "" %}
+	{% set exitAcces = "" %}
+	{% set exitRemark = "" %}
+	{% set exitImage = "" %}
+	{% set exitVideo = "" %}
 	{% set typeJumpName = "" %}
-    {% set exitName = "" %}
-    {% set exitDepartment = "" %}
-    {% set exitCountry = "" %}
-    {% set exitHeight = "" %}
-    {% set exitAccessDuration = "" %}
-    {% set exitGpsCoordinates = "" %}
-    {% set exitComment = "" %}
-    {% set exitImage = "" %}
-    {% set exitVideo = "" %}
-    {% set typeJumpName = "" %}
 
 	{% for item in exit %}
 
-        {% set exitName = item.name %}
-        {% set exitDepartment = item.department %}
-        {% set exitCountry = item.country %}
-        {% set exitHeight = item.height %}
-        {% set exitAccessDuration = item.access_duration %}
-        {% set exitGpsCoordinates = item.gps_coordinates %}
-        {% set exitComment = item.comment %}
-        {% set exitImage = item.image %}
-        {% set exitVideo = item.video %}
-        {% set typeJumpName = typeJumpName ~ ' ' ~ item.type_jump_name ~ ' ! ' %}
+		{% set exitId = item.id %}
+		{% set exitName = item.name %}
+		{% set exitDepartment = item.department %}
+		{% set exitCountry = item.country %}
+		{% set exitHeight = item.height %}
+		{% set exitAccessDuration = item.access_duration %}
+		{% set exitGpsCoordinates = item.gps_coordinates %}
+		{% set exitAcces = item.acces %}
+		{% set exitRemark = item.remark %}
+		{% set exitImage = item.image %}
+		{% set exitVideo = item.video %}
+		{% set typeJumpName = typeJumpName ~ ' ' ~ item.type_jump_name ~ ' ! ' %}
 
 	{% endfor %}
 
 	<h1 class="my-3 text-center">{{ exitName }}</h1>
 
-    <div class="container">
-    <img class="img-fluid rounded" src="{{ exitImage }}" alt="Photo de l'exit {{ exitName }}">
-    </div>
+	<div class="container">
+		<img class="img-fluid rounded" src="{{ exitImage }}" alt="Photo de l'exit {{ exitName }}">
+	</div>
 
-    <div class="my-3 container">
+	<div class="my-3 container">
 
-    <p><strong>Lieu :</strong> {{ exitDepartment }}, {{ exitCountry }}.</p>
-    <p><strong>Hauteur :</strong> {{ exitHeight }}</p>
-    <p><strong>Type :</strong> {{ typeJumpName }}</p>
-    <p><strong>Durée d'accès :</strong> {{ exitAccessDuration }}</p>
-    <p><strong>Point GPS :</strong> {{ exitGpsCoordinates }}</p>
-    <p><strong>Vidéo :</strong> <a href="{{ exitVideo }}" target="_blank">{{ exitVideo }}</a> </p>
-    <h2>Remarques</h2>
-    <p class"">{{ exitComment }}</p>
+		<p>
+			<strong>Lieu :</strong>
+			{{ exitDepartment }},
+			{{ exitCountry }}.</p>
+		<p>
+			<strong>Hauteur :</strong>
+			{{ exitHeight }}</p>
+		<p>
+			<strong>Type :</strong>
+			{{ typeJumpName }}</p>
+		<p>
+			<strong>Durée d'accès :</strong>
+			{{ exitAccessDuration }}</p>
+		<p>
+			<strong>Point GPS :</strong>
+			<a href="https://www.google.com/maps/place/{{ exitGpsCoordinates }}" target="_blank">{{ exitGpsCoordinates }}</a>
+		</p>
+		<p>
+			<strong>Vidéo :</strong>
+			<a href="{{ exitVideo }}" target="_blank">{{ exitVideo }}</a>
+		</p>
+		<h2>Accès</h2>
+		<p class="text-justify">{{ exitAcces }}</p>
+		<h2>Remarques</h2>
+		<p class="">{{ exitRemark }}</p>
 
-    </div>
+	</div>
 
-    <div class="mb-5 pb-5 container">
-	<a href="/exits/edit?id={{ exit.id }}">Edit</a>
-	<form action="/exits/delete" method="POST">
-		<input type="hidden" name="id" value="{{ exit.id }}">
-		<button>Delete</button>
-	</form>
-	<a href="/exits">Back</a>
-    </div>
+	<div class="mb-5 pb-5 container d-flex gap-2">
+
+		<a href="/exits" class="btn btn btn-info" tabindex="-1" role="button" aria-disabled="true">Back</a>
+
+		<a href="/exits/edit?id={{ exitId }}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Edit</a>
+
+		<form action="/exits/delete" method="POST">
+			<input type="hidden" name="id" value="{{ exitId }}">
+			<button class="btn btn-danger" type="submit">Delete</button>
+		</form>
+
+	</div>
+
 {% endblock %}
