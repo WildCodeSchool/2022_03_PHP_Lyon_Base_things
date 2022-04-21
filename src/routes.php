@@ -20,4 +20,5 @@ return [
     'exits' => ['ExitController', 'index',],
     'login' => ['AdminController', 'logVerification',],
     'logout' => ['AdminController', 'logout',],
+    'exits/show' => ['ExitController', 'show', ['id']],
 ];
