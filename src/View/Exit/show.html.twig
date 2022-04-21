@@ -2,82 +2,47 @@
 
 {% block content %}
 
-	{% set exitId = "" %}
-	{% set exitName = "" %}
-	{% set exitDepartment = "" %}
-	{% set exitCountry = "" %}
-	{% set exitHeight = "" %}
-	{% set exitAccessDuration = "" %}
-	{% set exitGpsCoordinates = "" %}
-	{% set exitAcces = "" %}
-	{% set exitRemark = "" %}
-	{% set exitImage = "" %}
-	{% set exitVideo = "" %}
 	{% set typeJumpName = "" %}
 
-	{% for item in exit %}
+	{% for typeJump in typeJumpByExit %}
 
-		{% set exitId = item.id %}
-		{% set exitName = item.name %}
-		{% set exitDepartment = item.department %}
-		{% set exitCountry = item.country %}
-		{% set exitHeight = item.height %}
-		{% set exitAccessDuration = item.access_duration %}
-		{% set exitGpsCoordinates = item.gps_coordinates %}
-		{% set exitAcces = item.acces %}
-		{% set exitRemark = item.remark %}
-		{% set exitImage = item.image %}
-		{% set exitVideo = item.video %}
-		{% set typeJumpName = typeJumpName ~ ' ' ~ item.type_jump_name ~ ' ! ' %}
+		{% set typeJumpName = typeJumpName ~ ' ' ~ typeJump.name ~ ' ! ' %}
 
 	{% endfor %}
 
-	<h1 class="my-3 text-center">{{ exitName }}</h1>
+	<h1 class="my-3 text-center">{{ exit.name }}</h1>
 
 	<div class="container">
-		<img class="img-fluid rounded" src="{{ exitImage }}" alt="Photo de l'exit {{ exitName }}">
+		<img class="img-fluid rounded" src="{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
 	</div>
 
 	<div class="my-3 container">
 
 		<p>
 			<strong>Lieu :</strong>
-			{{ exitDepartment }},
-			{{ exitCountry }}.</p>
+			{{ exit.department }},
+			{{ exit.country }}.</p>
 		<p>
 			<strong>Hauteur :</strong>
-			{{ exitHeight }}</p>
+			{{ exit.height }}</p>
 		<p>
 			<strong>Type :</strong>
 			{{ typeJumpName }}</p>
 		<p>
 			<strong>Durée d'accès :</strong>
-			{{ exitAccessDuration }}</p>
+			{{ exit.access_duration }}</p>
 		<p>
 			<strong>Point GPS :</strong>
-			<a href="https://www.google.com/maps/place/{{ exitGpsCoordinates }}" target="_blank">{{ exitGpsCoordinates }}</a>
+			<a href="https://www.google.com/maps/place/{{ exit.gps_coordinates }}" target="_blank">{{ exit.gps_coordinates }}</a>
 		</p>
 		<p>
 			<strong>Vidéo :</strong>
-			<a href="{{ exitVideo }}" target="_blank">{{ exitVideo }}</a>
+			<a href="{{ exit.video }}" target="_blank">{{ exit.video }}</a>
 		</p>
 		<h2>Accès</h2>
-		<p class="text-justify">{{ exitAcces }}</p>
+		<p class="text-justify">{{ exit.acces }}</p>
 		<h2>Remarques</h2>
-		<p class="">{{ exitRemark }}</p>
-
-	</div>
-
-	<div class="mb-5 pb-5 container d-flex gap-2">
-
-		<a href="/exits" class="btn btn btn-info" tabindex="-1" role="button" aria-disabled="true">Back</a>
-
-		<a href="/exits/edit?id={{ exitId }}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Edit</a>
-
-		<form action="/exits/delete" method="POST">
-			<input type="hidden" name="id" value="{{ exitId }}">
-			<button class="btn btn-danger" type="submit">Delete</button>
-		</form>
+		<p class="">{{ exit.remark }}</p>
 
 	</div>
 
