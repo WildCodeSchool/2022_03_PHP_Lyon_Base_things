@@ -8,12 +8,14 @@ class AdminController extends AbstractController
     public function logVerification(): ?string
     {
         $errorMessage = '';
-        $this->isLogIn();
+        if ($this->isLogIn() === true) {
+            header('location: /');
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
             if (!empty($data['password']) && !empty($data['loginname'])) {
                 if ($data['password'] !== PASSWORD || $data['loginname'] !== LOGIN) {
-                    $errorMessage = ' ou Mot de passe incorrect !';
+                    $errorMessage = 'Login ou Mot de passe incorrect !';
                 } else {
                     $_SESSION['password'] = PASSWORD;
                     $_SESSION['loginname'] = LOGIN;
@@ -38,20 +40,11 @@ class AdminController extends AbstractController
     }
 
 
-    public function isLogIn(): void
+    public function isLogIn(): bool
     {
         if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
-            header('location: /');
+            return true;
         }
-    }
-
-    public function helloAdmin(): string
-    {
-        $name = '';
-        if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
-            $name = $_SESSION['loginname'];
-            return $this->twig->render('Home/index.html.twig', ['name' => $name]);
-        }
-        return $this->twig->render('Home/index.html.twig');
+        return false;
     }
 }
