@@ -9,7 +9,7 @@ class AdminController extends AbstractController
     {
         $errorMessage = '';
         if ($this->isLogIn() === true) {
-            header('location: /');
+            header("location:" .  $_SERVER['HTTP_REFERER']);
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
@@ -27,18 +27,16 @@ class AdminController extends AbstractController
                 $errorMessage = 'Veuillez renseigner votre login et votre mot de passe !';
             }
         }
-
         return $this->twig->render('Login/logIn.html.twig', ['errormessage' => $errorMessage]);
     }
 
     public function logout(): void
     {
-        if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
+        if ($this->isLogIn() === true) {
             session_destroy();
         }
-        header('location: /');
+        header("location:" .  $_SERVER['HTTP_REFERER']);
     }
-
 
     public function isLogIn(): bool
     {
