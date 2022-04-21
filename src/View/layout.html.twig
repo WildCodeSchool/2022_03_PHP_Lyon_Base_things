@@ -20,7 +20,7 @@
     <header class="text-center container-fluid p-2">
     
         <div class="first-logo d-none d-lg-block">
-        <img src="assets/images/logo_squirrel.png" class="squirrel ">
+        <img src="/assets/images/logo_squirrel.png" class="squirrel ">
         </div>
 
         {#<div class="second-logo d-none d-xl-block"><img src="assets/images/logo_adrenaline.png" class="adrenaline "></div>#}
@@ -29,7 +29,7 @@
         <h2 class="slogan d-none d-sm-block">Tout ce dont tu as besoin pour sauter</h2>
         </div>
 
-        <div class="third-logo d-none d-xl-block"><img src="assets/images/logo_phenix.png" class="phenix "></div>
+        <div class="third-logo d-none d-xl-block"><img src="/assets/images/logo_phenix.png" class="phenix "></div>
 
 
         <div class="nav-item dropdown">
@@ -45,8 +45,8 @@
                 <br></br>
                 <li class="border-bottom"></li>
                 <li><a class="dropdown-item" href="#">Créer son compte</a></li>
-                <li><a class="dropdown-item" href="#">Se connecter</a></li>
-                <li><a class="dropdown-item" href="#">Se déconnecter</a></li>
+                <li><a class="dropdown-item" href="login">Se connecter</a></li>
+                <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
 
 
 
@@ -64,9 +64,6 @@
 <main>
     {% block content %}{% endblock %}
 </main>
-
-
-    <footer>{% block footerer %}{% endblock %}</footer>
 
     {# Create the footer and with bootstrap : fix it at the bottom of the screen, and center it #}
     <div class="margin_footer"></div>

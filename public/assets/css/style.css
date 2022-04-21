@@ -121,3 +121,21 @@ nav span{
     height: 50%;
 }
 /*  */
+#login_form_container {
+    height: 100vh;
+}
+
+.panel{
+    border-radius: 15px;
+}
+
+.panel-heading {
+    background-color: var(--main-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: inset 0px 0px 20px 10px #aed6e2;
+    height: 8vh;
+}
+.error_message {
+    --bs-text-opacity: .8;
+}

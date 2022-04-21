@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
+use App\Controller\AdminController;
 
 class ExitController extends AbstractController
 {
@@ -12,6 +13,15 @@ class ExitController extends AbstractController
         $exitManager = new ExitManager();
         $exits = $exitManager->selectall('name');
 
-        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits]);
+        $isLoggedIn = $this->isLogIn();
+
+        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits, 'isLoggedIn' => $isLoggedIn]);
+    }
+    public function isLogIn(): bool
+    {
+        if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
+            return true;
+        }
+        return false;
     }
 }

@@ -3,6 +3,17 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+
+{% if isLoggedIn == true %}
+<div class="container d-flex gap-2">
+
+		<a href="/exits/add" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Ajouter nouvel exit</a>
+
+</div>
+{% else %}
+<div>Zut</div>
+{% endif %}
+
     {# creation of a drop-down list to contain the filters #}
     <main class="container-fluid">
         <div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5">
@@ -38,7 +49,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{ exit.name}}</h5>
                         </div>           
-                        <img src="{{exit.video}}" class="card-img-top" alt="photo montrant le point de saut">
+                        <img src="{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
                         <ul class="list-group">
                             <li class="list-group-item">Lieu : {{exit.department}}</li>
                             <li class="list-group-item" id="exit-height">{{exit.height}}</li>
