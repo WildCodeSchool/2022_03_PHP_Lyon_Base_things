@@ -133,7 +133,6 @@ CREATE TABLE `user` (
   `password` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(150) NOT NULL,
   `first_name` VARCHAR(150) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
   `date_of_birth` DATE,
   `email` VARCHAR(320) NOT NULL,
   `postal_adress` TEXT,
