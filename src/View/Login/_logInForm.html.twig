@@ -1,0 +1,45 @@
+{# creation du formulaire de connection #}
+<div class="container">
+    <div class="row justify-content-center align-items-center" id="login_form_container">
+        <div class="panel col-sm-11 col-md-10 col-lg-8 col-xl-7 col-md-offset-4 border">
+            <div class="panel-default">
+                <div class="row align-items-center panel-heading text-center">
+                    <h4 class="m-0"><strong>connectez-vous pour continuer</strong></h4>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="" method="POST">
+                        <fieldset>
+                            <div class="row justify-content-center">                        
+                                <img src="assets/images/login_img.jpg" alt="" class="img-fluid p-0">
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 col-md-11 col-md-offset-1">
+                                    <div class="form-group">
+                                        <div class="error_message bg-light bg-gradient text-center text-danger mt-3">
+                                            {% if errormessage is not empty %}
+                                               <h5> <strong> {{errormessage}} </strong></h5>
+                                            {% endif %}
+                                        </div>
+                                        <div class="input-group mt-3">
+                                            <input class="form-control" placeholder="Login" name="loginname"
+                                                   type="text" autofocus>
+                                        </div>
+                                        <div class="input-group mt-3">
+                                            <input class="form-control" placeholder="password" name="password"
+                                                    type="password" autofocus>
+                                        </div>
+                                        <div class="row form-group justify-content-center mt-3 mb-3">
+                                            
+                                                <input type="submit" class="btn btn-lg btn-primary btn-block col-6" value="Se connecter">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
