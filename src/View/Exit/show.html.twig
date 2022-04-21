@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% set typeJumpName = "" %}
+
+	{% for typeJump in typeJumpByExit %}
+
+		{% set typeJumpName = typeJumpName ~ ' ' ~ typeJump.name ~ ' ! ' %}
+
+	{% endfor %}
+
+	<h1 class="my-3 text-center">{{ exit.name }}</h1>
+
+	<div class="container">
+		<img class="img-fluid rounded" src="{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
+	</div>
+
+	<div class="my-3 container">
+
+		<p>
+			<strong>Lieu :</strong>
+			{{ exit.department }},
+			{{ exit.country }}.</p>
+		<p>
+			<strong>Hauteur :</strong>
+			{{ exit.height }}</p>
+		<p>
+			<strong>Type :</strong>
+			{{ typeJumpName }}</p>
+		<p>
+			<strong>Durée d'accès :</strong>
+			{{ exit.access_duration }}</p>
+		<p>
+			<strong>Point GPS :</strong>
+			<a href="https://www.google.com/maps/place/{{ exit.gps_coordinates }}" target="_blank">{{ exit.gps_coordinates }}</a>
+		</p>
+		<p>
+			<strong>Vidéo :</strong>
+			<a href="{{ exit.video }}" target="_blank">{{ exit.video }}</a>
+		</p>
+		<h2>Accès</h2>
+		<p class="text-justify">{{ exit.acces }}</p>
+		<h2>Remarques</h2>
+		<p class="">{{ exit.remark }}</p>
+
+	</div>
+
+{% endblock %}

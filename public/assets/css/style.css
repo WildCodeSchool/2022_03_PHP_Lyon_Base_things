@@ -46,6 +46,9 @@ footer{
     background-color: var(--main-color);
 }
 
+.text-justify {
+    text-align : justify;
+}
 
 /* CSS index page */
 nav div{
