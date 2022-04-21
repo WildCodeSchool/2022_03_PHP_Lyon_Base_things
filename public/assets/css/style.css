@@ -1,9 +1,44 @@
 *{
-    /* Background color for the header and footer */
     --main-color: #4DB4D4;
-
-
+    font-family: Verdana, Tahoma, sans-serif;
 }
+
+ /*CSS header */
+
+header{
+    background-color: var(--main-color);
+    color: white;
+    box-shadow: inset 0px 0px 10px 10px whitesmoke;
+    display: flex;
+    justify-content: space-around;
+    height: 15vh;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.squirrel, .adrenaline, .phenix, .atair{
+    height: 10vh;
+}
+
+.slogan{
+    font-style: italic;
+}
+
+
+
+#navbarDropdownMenuLink{
+    box-shadow: 1px 1px 12px white;
+    
+}
+
+.first-logo{
+  margin-left: 5vh;
+}
+
+.dropdown{
+    margin-right: 5vh;
+}
+
 .margin_footer{
     margin-bottom: 80px;
 }
