@@ -7,6 +7,8 @@
 -- Version du serveur :  5.7.19-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -319,3 +321,4 @@ INSERT INTO jump_log (id_user,date_of_jump,id_exit,id_type_jump,container,canopy
    (6,'2022-04-12',7,1,'non','non','oui','Nuageux','15 km/h','https://www.youtube.com/watch?v=dnjHm6WyaAc','https://photos.tf1.fr/1200/720/base-jump-les-coulisses-du-saut-vertigineux-de-fred-fugen-f3e741-0@1x.jpg','Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through'),
    (6,'2022-04-13',1,3,'oui','oui','non','Mitigé','5 km/h','https://www.youtube.com/watch?v=F1fJRz4iWqs','https://assets.letemps.ch/sites/default/files/styles/article_detail_mobile/public/media/2021/09/28/file7hqia0tf3hk48ydagbw.jpg?h=041512b1&itok=P_FXLQG3','If you are going to use a passage of Lorem Ipsum, you need to be sure there isn''t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary'),
    (1,'2022-04-13',2,4,'oui','oui','oui','Ensoleillé','Pas de vents','https://www.youtube.com/watch?v=ta1S1XUofr8','https://leparisien.fr/resizer/kobCPgWZdbhDqbaNq1njS6wbG-w=/1200x675/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/NMIAISVEX7H6P6MDUPNS23O3JI.jpg','consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences');
+   
