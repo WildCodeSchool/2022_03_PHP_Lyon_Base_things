@@ -48,42 +48,14 @@ class ExitController extends AbstractController
             move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
             // Ajout du nom de l'image dans le tableau "exit"
             $exit ['image'] = $uploadFile;
-
-
-            
-            
             $exitManager = new ExitManager();
             $id = $exitManager->insert($exit);
-
-
-/*          
-            
-            $exit['jumpTypes'] = [1,2,5];
+/*          $exit['jumpTypes'] = [1,2,5];
             echo $exit['jumpTypes'][0]; */
             // Redirige vers le détail de l'éxit que l'on vient de créer
-
             header('Location:/Exit/index?id=' . $id);
             return null;
         }
         return $this->twig->render('Exit/add.html.twig');
-    }
-    
-        public function addTypeJump(): int
-        {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-            
-            $exit = array_map('trim', $_POST);
-            
-            $exitManager = new ExitManager();
-            $exit['jumpTypes'] = [1,2,5];
-            $id = $exitManager->addJumpType($exit);
-
-            
-            echo $exit['jumpTypes'][0];
-
-
-            return $id;
-        }
     }
 }

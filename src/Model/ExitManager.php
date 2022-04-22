@@ -33,20 +33,4 @@ class ExitManager extends AbstractManager
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
-
-    public function addJumpType($exitId, array $jumpType): int
-    {
-        $checkbox = $_POST['jumpTypes'];
-        foreach($ĵumpTypeIds as $jumpTypeId)
-        $statement = $this->pdo->prepare("INSERT INTO $exitId(jumpTypes) VALUES ('$checkbox[jumpTypes]'");
-        
-
-        return (int)$this->pdo->lastInsertId();
-    }
 }
-
-
-        /* Requette a envoyer :$statement1 = $this->pdo->prepare("INSERT INTO exit_has_type_jump (id_exit, id_type_jump) 
-        VALUES ((SELECT id FROM `exit` ORDER BY id DESC LIMIT 1),$varIdTypeJump)"); */
-
-
