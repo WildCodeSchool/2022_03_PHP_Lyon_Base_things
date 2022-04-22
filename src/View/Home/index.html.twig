@@ -1,45 +1,52 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Acceuil{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block content %}
-	<nav class="container-fluid container-xl vh-100">
-		<ul class="p-0 row h-75">
-			<div class="index_tuto col-md-4 ">
-				<a href="#" class="d-block link-dark text-decoration-none text-center  h-100 d-flex justify-content-center p-0">
-					<div class="w-100 h-100 d-flex justify-content-center">
-						<span class="align-self-end w-100">Tutoriaux</span>
-					</div>
-				</a>
+	<nav class="container-fluid container-md vh-100 p-0">
+		<ul class="p-0 row h-75 justify-content-center">
+			<div class="p-0 col-md-4 mb-4">
+				<div class="nav-img-container me-md-4 ms-md-4 h-100" id="index_tuto">
+					<a href="#" class="link-dark text-decoration-none text-center  h-100 d-flex justify-content-center p-0">
+						<div class="w-100 h-100 d-flex justify-content-center">
+							<span class="align-self-end w-100">Tutoriaux</span>
+						</div>
+					</a>
+				</div>
 			</div>
-
-			<div class="index_topo col-md-4">
-				<a href="/exits" class="d-block link-dark text-decoration-none text-center h-100 d-flex justify-content-center p-0">
-					<div class="w-100 h-100 d-flex justify-content-center">
-						<span class="align-self-end w-100">Topographie</span>
-					</div>
-				</a>
+			<div class="p-0 gx-5 col-md-4 mb-4">
+				<div class="nav-img-container me-md-4 ms-md-4 h-100" id="index_topo">
+					<a href="/exits" class="link-dark text-decoration-none text-center h-100 d-flex justify-content-center p-0">
+						<div class="w-100 h-100 d-flex justify-content-center">
+							<span class="align-self-end w-100">Topographie</span>
+						</div>
+					</a>
+				</div>
 			</div>
-
-			<div class="index_carnet col-md-4">
-				<a href="#" class="d-block link-dark text-decoration-none text-center h-100 d-flex justify-content-center p-0">
-					<div class="w-100 h-100 d-flex justify-content-center">
-						<span class="align-self-end w-100">Carnet de sauts</span>
-					</div>
-				</a>
+			<div class="p-0 col-md-4 mb-4">
+				<div class="nav-img-container me-md-4 ms-md-4 h-100" id="index_carnet">
+					<a href="#" class="link-dark text-decoration-none text-center h-100 d-flex justify-content-center p-0">
+						<div class="w-100 h-100 d-flex justify-content-center">
+							<span class="align-self-end w-100">Carnet de sauts</span>
+						</div>
+					</a>
+				</div>
 			</div>
 		</ul>
-
-		<div class="bg-light border m-2">
-			<p class="text-center">
-				Bienvenue sur "BASE Things"
-			</p>
-			<p class="text-justify">
-				Ce site a pour but de proposer une palette d'outils pour les BASE Jumpers afin de leur simplifier la vie, ou bien encore afin d'assurer un minilum de sécurité.
-			</p>
+		<div id="container-presentation-text">
+		<div class="container presentation-text border mb-5">
+				<div class="row justify-content-center mb-5">
+					<h3 class="text-center mt-5">
+						Bienvenue sur "BASE Things"
+					</h3>
+					<p class="col-10 text-justify text-md-center mt-3">
+						Ce site propose des outils pour vous faciliter la vie!! Vous trouverez une série de tutoriels sur la façon de commencer le base jump si vous voulez vous embarquer dans l'aventure, 
+						des tutoriels plus techniques concernant le matériel des base jumper.<br>
+						Vous pouvez aussi trouver une liste d'exit avec tous les détails de ces derniers,
+						Ainsi qu'un accès à un carnet de saut personnalisé où vous pourrez renseigner toutes les données de chacun de vos sauts.
+					</p>
+				</div>
+			</div>
 		</div>
-		
 	</nav>
-
-
 {% endblock %}
