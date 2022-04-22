@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
+use App\Controller\AdminController;
 
 class ExitController extends AbstractController
 {
@@ -12,10 +13,11 @@ class ExitController extends AbstractController
      */
     public function index(): string
     {
+        $adminController = new AdminController();
         $exitManager = new ExitManager();
+        $isLogIn = $adminController->isLogIn();
         $exits = $exitManager->selectAll('name');
-
-        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits]);
+        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
     }
 
     /**
@@ -23,11 +25,15 @@ class ExitController extends AbstractController
      */
     public function show(int $id): string
     {
+        $adminController = new AdminController();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $isLogIn = $adminController->isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
 
-        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,'typeJumpByExit' => $typeJumpByExit]);
+        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
+                                                            'typeJumpByExit' => $typeJumpByExit,
+                                                            'islogin' => $isLogIn]);
     }
 
     /**

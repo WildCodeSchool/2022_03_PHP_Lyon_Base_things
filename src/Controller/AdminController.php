@@ -8,9 +8,6 @@ class AdminController extends AbstractController
     public function logVerification(): ?string
     {
         $errorMessage = '';
-        if ($this->isLogIn() === true) {
-            header('location: /');
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
             if (!empty($data['password']) && !empty($data['loginname'])) {
@@ -27,18 +24,16 @@ class AdminController extends AbstractController
                 $errorMessage = 'Veuillez renseigner votre login et votre mot de passe !';
             }
         }
-
         return $this->twig->render('Login/logIn.html.twig', ['errormessage' => $errorMessage]);
     }
 
     public function logout(): void
     {
-        if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
+        if ($this->isLogIn() === true) {
             session_destroy();
         }
-        header('location: /');
+        header("location:/");
     }
-
 
     public function isLogIn(): bool
     {

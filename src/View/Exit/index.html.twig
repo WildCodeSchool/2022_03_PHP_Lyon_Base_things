@@ -2,6 +2,8 @@
 
 {% extends 'layout.html.twig' %}
 
+{% block title %}Liste des exits{% endblock %}
+
 {% block content %}
     {# creation of a drop-down list to contain the filters #}
     <main class="container-fluid">
@@ -14,7 +16,7 @@
                             Filtrer par <br> départements
                         </a>
                         <ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
-                                <li class="ms-1">{% include "_departmentList.html.twig" %}</li>
+                                <li class="">{% include "_departmentList.html.twig" %}</li>
                         </ul>
                     </li>
                     <li class="list-group ps-lg-4 ps-xl-4 col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
@@ -30,6 +32,9 @@
                 <button type="button" class="btn btn-outline-primary mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
                 </div>
             </form>
+            {% if islogin == true %}
+            <a href="/exits/add" class="col-10 mb-3"><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
+            {% endif %}
             {# display of the list of exits #}
             {% for exit in exits %}
             <div class="card-container pb-5 mb-5 col-11 col-sm-5 col-md-5 col-lg-4 col-xl-3">
