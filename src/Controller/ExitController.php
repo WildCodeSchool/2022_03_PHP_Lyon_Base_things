@@ -25,11 +25,15 @@ class ExitController extends AbstractController
      */
     public function show(int $id): string
     {
+        $adminController = new AdminController();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $isLogIn = $adminController->isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
 
-        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,'typeJumpByExit' => $typeJumpByExit]);
+        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
+                                                            'typeJumpByExit' => $typeJumpByExit,
+                                                            'islogin' => $isLogIn]);
     }
 
     /**

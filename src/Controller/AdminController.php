@@ -8,9 +8,6 @@ class AdminController extends AbstractController
     public function logVerification(): ?string
     {
         $errorMessage = '';
-        if ($this->isLogIn() === true) {
-            header("location:" .  $_SERVER['HTTP_REFERER']);
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
             if (!empty($data['password']) && !empty($data['loginname'])) {
@@ -35,7 +32,7 @@ class AdminController extends AbstractController
         if ($this->isLogIn() === true) {
             session_destroy();
         }
-        header("location:" .  $_SERVER['HTTP_REFERER']);
+        header("location:/");
     }
 
     public function isLogIn(): bool

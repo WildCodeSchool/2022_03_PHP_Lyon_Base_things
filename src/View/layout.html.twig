@@ -16,6 +16,8 @@
 </head>
 <body>
     <header class="text-center container-fluid p-2">
+    
+    
         <div class="first-logo d-none d-lg-block">
         <img src="/assets/images/logo_squirrel.png" class="squirrel ">
         </div>
@@ -36,13 +38,25 @@
                 <li><a class="dropdown-item" href="#">Tutoriaux</a></li>
                 <li><a class="dropdown-item" href="#">Carnet de sauts</a></li>
                 <li><a class="dropdown-item" href="/exits">Topo des exits</a></li>
-                <br></br>
+                <br>
                 <li class="border-bottom"></li>
+                {% if islogin is defined %}
+                {% if islogin == false %}
                 <li><a class="dropdown-item" href="#">Créer son compte</a></li>
                 <li><a class="dropdown-item" href="/login">Se connecter</a></li>
+                {% endif %}
+                {% if islogin == true %}
                 <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
+                </br>
+                <li class="border-bottom"></li>
+                <a href="/exits/add" class="dropdown-item">Ajouter un exit</a>
+                {% endif %}
+                {% endif %}
+                
+
             </ul>
         </div>
+        
     </header>
     <main>
         {% block content %}{% endblock %}
