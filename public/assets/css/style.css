@@ -1,6 +1,7 @@
 *{
     --main-color: #4DB4D4;
     --text-bg-color:#dbf0f8;
+    --box-shadow-color:#aed6e2;
     font-family: 'Poppins', Verdana, Tahoma, sans-serif;
 }
 body {
@@ -15,7 +16,7 @@ body {
 header{
     background-color: var(--main-color);
     color: white;
-    box-shadow: inset 0px 0px 10px 10px whitesmoke;
+    box-shadow: inset 0px 0px 10px 10px #aed6e2;
     display: flex;
     justify-content: space-around;
     height: 15vh;
@@ -61,6 +62,7 @@ footer{
     background-position: center;
     border: 1px solid #aed6e2;
     border-radius: 20px;
+    height: 25vh;
 }
 
 #index_tuto{
@@ -87,6 +89,7 @@ nav span{
     width: 95%;
     border-radius: 20px;
     background-color: var(--text-bg-color);
+    
 }
 /*  */
 
@@ -154,3 +157,9 @@ nav span{
 .error_message {
     --bs-text-opacity: .8;
 }
+@media screen and (min-width: 768px) {
+    .nav-img-container {
+        height: 75vh;
+    }
+}
+
