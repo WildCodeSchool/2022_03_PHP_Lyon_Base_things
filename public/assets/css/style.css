@@ -142,3 +142,8 @@ nav span{
 .error_message {
     --bs-text-opacity: .8;
 }
+
+.background-p {
+    background-color: #dbf0f8;
+    border-radius: 15px;
+}
