@@ -1,0 +1,75 @@
+{# TODO : manage errors display #}
+<p>
+	<form method="post" enctype="multipart/form-data">
+
+		<div class="text-center">
+			<p>
+				<label for="name">Nom :
+				</label>
+				<input type="text" value="{{ exit.name }}" name="name" id="name">
+			</p>
+			<p>
+				<label for="department">Choisir un département :
+				</label>
+				<select name="department" id="department">
+					{% include "_departmentList.html.twig" %}
+				</select>
+			</p>
+			<p>
+				<label for="country-select">Choisir un pays :
+				</label>
+				<select name="country" id="country">
+					{% include "_countryList.html.twig" %}
+				</select>
+			</p>
+			<p>
+				<label for="height">Hauteur :
+				</label>
+				<input type="number" value="{{ exit.height }}" name="height" id="height">
+				mètres.
+			</p>
+			<p>
+				<label for="access_duration">Temps d'accès :
+				</label>
+				<input type="number" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration">
+				heures.
+			</p>
+			<p>
+				<label for="id_type_jump">Type de saut :
+				</label>
+				{% include "_typeJumpList.html.twig" %}
+			</p>
+			<p>
+				<label for="gps_coordinates">Coordonnées GPS :
+				</label>
+				<input type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates">
+			</p>
+			<p>
+
+				<label for="acces">Accès : </label>
+
+				<P><textarea id="acces" name="acces" rows="5" cols="150"></textarea></p>
+
+			</p>
+			<p>
+				<label for="remark">Remarques :
+				</label>
+				<p><textarea id="remark" name="remark" rows="5" cols="150"></textarea></p>
+			</p>
+			<p>
+				<label for="video">Vidéo :
+				</label>
+				<input type="text" value="{{ exit.video }}" name="video" id="video">
+			</p>
+			<p>
+				<label for="image">Image :
+				</label>
+    			<input type="file" name="image" id="image" />
+				</p>
+			<p>
+				<button>Créer</button>
+			</p>
+		</div>
+
+	</form>
+</p>
