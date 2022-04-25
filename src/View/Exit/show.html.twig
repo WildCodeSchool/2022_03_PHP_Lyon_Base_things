@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Détail |{{ exit.name }}{% endblock %}
+{% block title %}Détail |{{ exit.name }}
+{% endblock %}
 
 {% block content %}
 
@@ -37,10 +38,11 @@
 			<strong>Point GPS :</strong>
 			<a href="https://www.google.com/maps/place/{{ exit.gps_coordinates }}" target="_blank">{{ exit.gps_coordinates }}</a>
 		</p>
-		<p>
-			<strong>Vidéo :</strong>
-			<a href="{{ exit.video }}" target="_blank">{{ exit.video }}</a>
-		</p>
+
+
+		<a href="{{ exit.video }}" class="btn btn-dark mb-4" tabindex="-1" role="button" aria-disabled="true" target="_blank">Vidéo</a>
+
+
 		<h2>Accès</h2>
 		<p class="text-justify">{{ exit.acces }}</p>
 		<h2>Remarques</h2>
@@ -51,7 +53,7 @@
 
 	<div class="mb-5 pb-5 container d-flex gap-2">
 
-		<a href="/exits" class="btn btn btn-info" tabindex="-1" role="button" aria-disabled="true">Back</a>
+		<a href="/exits" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">Back</a>
 
 	</div>
 
