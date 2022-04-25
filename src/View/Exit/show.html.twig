@@ -48,20 +48,20 @@
 
 	</div>
 
-
 	<div class="container d-flex">
-{# 		Bouton Anthony : <a href="/exits" class="btn btn btn-info" tabindex="-1" role="button" aria-disabled="true">Back</a> #}
-		<form action="/exits/">
-		<div >
-			<input type="hidden" name="id" value="{{ exit.id }}">
-			<button class ="btn btn btn-info ml-2">Retour</button>
 
-			{% if islogin == true %}
-				<form action="/exits/delete" method="POST">
+		<form action="/exits/">
+			<input type="hidden" name="id" value="{{ exit.id }}">
+			<button class ="btn btn btn-info mt-2">Retour</button>
+		</form>
+
+		{% if islogin == true %}
+			<form action="/exits/delete" method="POST">
 				<input type="hidden" name="id" value="{{ exit.id }}">
-				<button class ="btn btn btn-info m-2">Supprimer</button>
-			{% endif %}
-		</div>
+				<button class ="btn btn btn-info m-2 ">Supprimer</button>
+			</form>
+		{% endif %}
+		
 	</div>
 	
 
