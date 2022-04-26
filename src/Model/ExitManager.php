@@ -6,7 +6,7 @@ namespace App\Model;
 class ExitManager extends AbstractManager
 {
     public const TABLE = '`exit`';
-
+    public const TABLE_HAS_TYPE_JUMP = '`exit_has_type_jump`';
     /**
      * Get all row exit with type_jump from database.
      */
@@ -47,6 +47,16 @@ class ExitManager extends AbstractManager
         return (int)$this->pdo->lastInsertId();
     }
 
+    public function insertJumpType(int $id, array $jumpTypes): void
+    {
+        foreach ($jumpTypes as $jumpType) {
+            $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE_HAS_TYPE_JUMP . "(`id_exit`, `id_type_jump`) 
+            values (:id_exit, :id_type_jump)");
+            $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+            $statement->bindValue('id_type_jump', $jumpType, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+    }
     /**
      * Update exit in database
      */
