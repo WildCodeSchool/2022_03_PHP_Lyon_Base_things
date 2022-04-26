@@ -48,12 +48,22 @@
 
 	</div>
 
+	<div class="container d-flex">
 
-	<div class="mb-5 pb-5 container d-flex gap-2">
+		<form action="/exits/">
+			<input type="hidden" name="id" value="{{ exit.id }}">
+			<button class ="btn btn-info mt-2">Retour</button>
+		</form>
 
-		<a href="/exits" class="btn btn btn-info" tabindex="-1" role="button" aria-disabled="true">Retour</a>
-
+		{% if islogin == true %}
+			<form action="/exits/delete" method="POST">
+				<input type="hidden" name="id" value="{{ exit.id }}">
+				<button class ="btn btn-info m-2 bg-danger">Supprimer</button>
+			</form>
+		{% endif %}
+		
 	</div>
+	
 
 
 {% endblock %}
