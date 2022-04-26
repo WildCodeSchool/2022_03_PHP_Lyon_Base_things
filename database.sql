@@ -78,7 +78,7 @@ CREATE TABLE `exit` (
   `name` VARCHAR(150) NOT NULL,
   `department` VARCHAR(50) NOT NULL,
   `country` VARCHAR(50) NOT NULL,
-  `height` VARCHAR(150),
+  `height` INT,
   `access_duration` TIME,
   `gps_coordinates` VARCHAR(50),
   `acces` TEXT,

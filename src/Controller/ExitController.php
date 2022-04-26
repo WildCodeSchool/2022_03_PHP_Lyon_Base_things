@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
-use App\Controller\AdminController;
 use Doctrine\Common\Collections\Expr\Value;
 
 class ExitController extends AbstractController
@@ -14,9 +13,8 @@ class ExitController extends AbstractController
      */
     public function index(): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         $exits = $exitManager->selectAll('name');
         return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
     }
@@ -26,10 +24,9 @@ class ExitController extends AbstractController
      */
     public function show(int $id): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
 
         return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
@@ -44,6 +41,7 @@ class ExitController extends AbstractController
     {
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $isLogIn = AdminController::isLogIn();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // clean $_POST data
@@ -62,7 +60,7 @@ class ExitController extends AbstractController
 
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
-        ]);
+            'islogin' => $isLogIn]);
     }
     /**
      * Delete a specific exit
@@ -83,7 +81,9 @@ class ExitController extends AbstractController
      */
     public function add(): ?string
     {
+        $isLogIn = AdminController::isLogIn();
         $errorMessage = "";
+        $errorMessageImg = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST)) { // verifié si le formulaire est vide
                 $exit = $this->trimPostData(); // nettoyage des données
@@ -100,7 +100,8 @@ class ExitController extends AbstractController
                     $uploadFile = $uploadDir . basename($_FILES['image']['name']);
                 }
                 if ((!in_array($extension, $authorizedExtensions))) {
-                    $errorMessage = "Format d'image non supporté ! Seuls les formats Jpg, Jpeg ou Png sont supportés.";
+                    $errorMessageImg = "Format d'image non supporté !
+                    Seuls les formats Jpg, Jpeg ou Png sont supportés.";
                 }
                 if (
                     file_exists($_FILES['image']['tmp_name']) &&
@@ -120,7 +121,9 @@ class ExitController extends AbstractController
                 return null;
             }
         }
-        return $this->twig->render('Exit/add.html.twig', ['errormessage' => $errorMessage]);
+        return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
+                                                            'error_message_img' => $errorMessageImg,
+                                                            'islogin' => $isLogIn]);
     }
 
     public function trimPostData(): array

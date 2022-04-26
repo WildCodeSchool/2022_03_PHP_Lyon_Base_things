@@ -24,7 +24,7 @@ class AdminController extends AbstractController
                 $errorMessage = 'Veuillez renseigner votre login et votre mot de passe !';
             }
         }
-        return $this->twig->render('Login/logIn.html.twig', ['errormessage' => $errorMessage]);
+        return $this->twig->render('Login/logIn.html.twig', ['error_message' => $errorMessage]);
     }
 
     public function logout(): void
@@ -35,7 +35,7 @@ class AdminController extends AbstractController
         header("location:/");
     }
 
-    public function isLogIn(): bool
+    public static function isLogIn(): bool
     {
         if (isset($_SESSION['password']) && isset($_SESSION['loginname'])) {
             return true;
