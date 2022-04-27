@@ -8,10 +8,11 @@
     {# creation of a drop-down list to contain the filters #}
     <main>
         <h1>Liste de sauts</h1>
+        {% set i = 0 %}
 
         {% for jumpLog in jumpLogs %}
-
-            <li>{{ jumpLog.id }} {{ jumpLog.date_of_jump }} {{ jumpLog.date_of_jump }} test {{ jumpLog.id_type_jump }}</li>
+            {% set i = i + 1 %}
+            <li>{{ i }} {{ jumpLog.id }} {{ jumpLog.date_of_jump }} {{ jumpLog.date_of_jump }} test {{ jumpLog.id_type_jump }}</li>
             
         {% endfor %}
         <pre>
