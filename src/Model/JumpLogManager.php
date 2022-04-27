@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model;
 
 class JumpLogManager extends AbstractManager
@@ -22,5 +21,4 @@ class JumpLogManager extends AbstractManager
 
         return $statement->fetchAll();
     }
-
 }
