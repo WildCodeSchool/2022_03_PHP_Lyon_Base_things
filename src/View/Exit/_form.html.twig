@@ -1,5 +1,6 @@
 {# TODO : manage errors display #}
-<p>
+<div>
+	<h3 class = "error_message bg-light text-danger text-center"> {{error_message}}</h3>
 	<form method="post" enctype="multipart/form-data">
 
 		<div class="text-center">
@@ -25,13 +26,13 @@
 			<p>
 				<label for="height">Hauteur :
 				</label>
-				<input type="number" value="{{ exit.height }}" name="height" id="height">
+				<input type="text" value="{{ exit.height }}" name="height" id="height">
 				mètres.
 			</p>
 			<p>
 				<label for="access_duration">Temps d'accès :
 				</label>
-				<input type="number" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration">
+				<input type="time" value="{# {{ exit.acces_duration }} #}" name="access_duration" id="access_duration">
 				heures.
 			</p>
 			<p>
@@ -72,4 +73,4 @@
 		</div>
 
 	</form>
-</p>
+</div>

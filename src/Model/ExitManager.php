@@ -36,8 +36,8 @@ class ExitManager extends AbstractManager
         $statement->bindValue('name', $exits['name'], \PDO::PARAM_STR);
         $statement->bindValue('department', $exits['department'], \PDO::PARAM_STR);
         $statement->bindValue('country', $exits['country'], \PDO::PARAM_STR);
-        $statement->bindValue('height', $exits['height'], \PDO::PARAM_INT);
-        $statement->bindValue('access_duration', $exits['access_duration'], \PDO::PARAM_INT);
+        $statement->bindValue('height', $exits['height'], \PDO::PARAM_STR);
+        $statement->bindValue('access_duration', $exits['access_duration'] . ':00', \PDO::PARAM_STR);
         $statement->bindValue('gps_coordinates', $exits['gps_coordinates'], \PDO::PARAM_STR);
         $statement->bindValue('acces', $exits['acces'], \PDO::PARAM_STR);
         $statement->bindValue('remark', $exits['remark'], \PDO::PARAM_STR);
