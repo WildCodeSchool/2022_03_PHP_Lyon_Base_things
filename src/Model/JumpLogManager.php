@@ -7,18 +7,18 @@ class JumpLogManager extends AbstractManager
     public const TABLE = 'jump_log';
 
     /**
-     * Get all row exit with type_jump from database.
+     * Get all jump with exit from database.
      */
-    public function selectTypeJumpByExitId(int $id): array|false
+    public function selectJumpExit(string $orderBy = '', string $direction = 'ASC'): array
     {
-        // prepared request
-        $statement = $this->pdo->prepare("SELECT tj.name FROM " . self::TABLE . " e 
-        INNER JOIN exit_has_type_jump ehtj ON ehtj.id_exit = e.id
-        INNER JOIN type_jump tj ON tj.id = ehtj.id_type_jump
-        WHERE e.id=:id");
-        $statement->bindValue('id', $id, \PDO::PARAM_INT);
-        $statement->execute();
+        $query = 'SELECT jump_log.*, u.pseudo AS \'u_pseudo\', e.name AS \'e_name\', tj.name AS \'tj_name\' 
+                    FROM ' . self::TABLE . ' INNER JOIN `user` u ON u.id = jump_log.id_user 
+                    INNER JOIN `exit` e ON e.id = jump_log.id_exit 
+                    INNER JOIN type_jump tj ON tj.id = jump_log.id_type_jump ';
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
 
-        return $statement->fetchAll();
+        return $this->pdo->query($query)->fetchAll();
     }
 }

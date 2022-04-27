@@ -11,9 +11,11 @@
 
         {% for jumpLog in jumpLogs %}
 
-            <li>{{ jumpLog.id }} {{ jumpLog.date_of_jump }} {{ jumpLog.date_of_jump }}</li>
+            <li>{{ jumpLog.id }} {{ jumpLog.date_of_jump }} {{ jumpLog.date_of_jump }} test {{ jumpLog.id_type_jump }}</li>
             
         {% endfor %}
-
+        <pre>
+            {{ dump(jumpLogs) }}
+        </pre>
     </main>
 {% endblock %}
