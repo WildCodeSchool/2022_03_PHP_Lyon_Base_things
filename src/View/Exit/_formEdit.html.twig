@@ -71,18 +71,22 @@
 				</label>
 				<input type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates">
 			</p>
-			<p>
-				<label for="acces">Accès :</label>
-			</p>
-			<p>
-				<textarea id="acces" name="acces" rows="5" cols="50">{{ exit.acces }}</textarea>
-			</p>
-			<p>
-				<label for="remark">Remarques :</label>
-			</p>
-			<p>
-				<textarea id="remark" name="remark" rows="5" cols="50">{{ exit.remark }}</textarea>
-			</p>
+			<div class="form-floating">
+				<p>
+					<label for="acces">Accès :</label>
+				</p>
+				<p>
+					<textarea class="form-control" id="acces" name="acces" rows="5">{{ exit.acces }}</textarea>
+				</p>
+			</div>
+			<div class="form-floating">
+				<p>
+					<label for="remark">Remarques :</label>
+				</p>
+				<p>
+					<textarea class="form-control" id="remark" name="remark" rows="5">{{ exit.remark }}</textarea>
+				</p>
+			</div>
 			<p>
 				<label for="video">Lien de la vidéo :
 				</label>
@@ -93,6 +97,9 @@
 				</label>
 				<input type="file" name="image" id="image"/>
 			</p>
+			<div>
+				<p>Image active : {{exit.image}}</p>
+			</div>
 			<p>
 				<button>Valider les modifications</button>
 			</p>
