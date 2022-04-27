@@ -83,33 +83,43 @@ class ExitController extends AbstractController
     {
         $isLogIn = AdminController::isLogIn();
         $errorMessage = '';
+        /* $exit = $this->trimPostData(); */
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['name'])) { // verifié si le formulaire est vide
                 $exit = $this->trimPostData(); // nettoyage des données
-                if ($this->checkData()) {
-                    $errorMessage = $this->checkData();
-                } else {
-                    $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
-                    if (!empty($exit['image'])) { // verifié si on upload une image
-                        $explodeName = explode('.', basename($_FILES['image']['name']));
-                        $extension = $explodeName[1];
-                        $name = $explodeName[0];
-                        $uniqName = $name . uniqid('', true) . "." . $extension;
-                        $uploadFile = $uploadDir . $uniqName;
-                    } else { // on garde le nom de base si on upload pas d'image
-                        $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-                    }
-                    move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                    $exit ['image'] = $uploadFile;
-                    $exitManager = new ExitManager();
-                    $id = $exitManager->insert($exit);
-                    if (!empty($exit['jumpTypes'])) {
-                        $exit['value'] = $exit['jumpTypes'];
-                        $exitManager->insertJumpType($id, $exit['value']);
-                    }
-                    header('Location:/exits/show?id=' . $id);
-                    return null;
+                var_dump($exit);
+                $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+                $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
+                $maxFileSize = 2000000; // definir le poid max de l'image
+                if (!empty($exit['image'])) { // verifié si on upload une image
+                    $explodeName = explode('.', basename($_FILES['image']['name']));
+                    $extension = $explodeName[1];
+                    $name = $explodeName[0];
+                    $uniqName = $name . uniqid('', true) . "." . $extension;
+                    $uploadFile = $uploadDir . $uniqName;
+                } else { // on garde le nom de base si on upload pas d'image
+                    $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+                } if ((!in_array($extension, $authorizedExtensions))) {
+                    $errorMessage = "Format d'image non supporté !
+                    Seuls les formats Jpg , Jpeg ou Png sont supportés.";
                 }
+                if (
+                    file_exists($_FILES['image']['tmp_name']) &&
+                    filesize($_FILES['image']['tmp_name']) > $maxFileSize
+                ) {
+                    $errorMessage = 'Votre image doit faire moins de 2M !';
+                }
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $exit ['image'] = $uploadFile;
+                $exitManager = new ExitManager();
+                $id = $exitManager->insert($exit);
+                if (!empty($exit['jumpTypes'])) {
+                    $exit['value'] = $exit['jumpTypes'];
+                    $exitManager->insertJumpType($id, $exit['value']);
+                }
+                header('Location:/exits/show?id=' . $id);
+                return null;
             } else {
                 $errorMessage = 'Veuillez remplir le formulaire';
             }
@@ -123,31 +133,11 @@ class ExitController extends AbstractController
         $datas = [];
         foreach ($_POST as $key => $data) {
             if (is_array($data)) {
-                $datas += array($key => array($data));
+                $datas += array($key => $data);
                 continue;
             }
             $datas += array( $key => (trim($data)));
         }
         return $datas;
-    }
-
-    public function checkData(): ?string
-    {
-        $errorMessage = '';
-        $maxFileSize = 2000000; // definir le poid max de l'image
-        /* $exit = $this->trimPostData(); */
-        $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-        $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
-        if ((!in_array($extension, $authorizedExtensions))) {
-            $errorMessage = "Format d'image non supporté !
-            Seuls les formats Jpg , Jpeg ou Png sont supportés.";
-        }
-        if (
-            file_exists($_FILES['image']['tmp_name']) &&
-            filesize($_FILES['image']['tmp_name']) > $maxFileSize
-        ) {
-            $errorMessage = 'Votre image doit faire moins de 2M !';
-        }
-        return $errorMessage;
     }
 }
