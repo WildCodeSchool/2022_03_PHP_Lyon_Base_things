@@ -83,23 +83,28 @@ class ExitController extends AbstractController
     {
         $isLogIn = AdminController::isLogIn();
         $errorMessage = '';
-        /* $exit = $this->trimPostData(); */
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($_POST['name'])) { // verifié si le formulaire est vide
-                $exit = $this->trimPostData(); // nettoyage des données
-                var_dump($exit);
+            $exit = $this->trimPostData(); // nettoyage des données
+            // verifié si certain champ sont vide
+            if (ExitController::isEmpty($exit, $errorMessage)) {
+                $errorMessage = ExitController::isEmpty($exit, $errorMessage);
+            }
+            if (ExitController::checkDataLength($exit, $errorMessage)) {
+                $errorMessage = ExitController::checkDataLength($exit, $errorMessage);
+            } else {
                 $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
                 $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
                 $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
                 $maxFileSize = 2000000; // definir le poid max de l'image
-                if (!empty($exit['image'])) { // verifié si on upload une image
+                if (empty($_FILES['image']['name'])) { // verifié si on upload une image
+                    // on renvoi une chaine vide pour mettre en BDD
+                    $uploadFile = "";
+                } else { // on ajoute un uniqid au nom de l'image
                     $explodeName = explode('.', basename($_FILES['image']['name']));
-                    $extension = $explodeName[1];
                     $name = $explodeName[0];
+                    $extension = $explodeName[1];
                     $uniqName = $name . uniqid('', true) . "." . $extension;
                     $uploadFile = $uploadDir . $uniqName;
-                } else { // on garde le nom de base si on upload pas d'image
-                    $uploadFile = $uploadDir . basename($_FILES['image']['name']);
                 } if ((!in_array($extension, $authorizedExtensions))) {
                     $errorMessage = "Format d'image non supporté !
                     Seuls les formats Jpg , Jpeg ou Png sont supportés.";
@@ -120,8 +125,6 @@ class ExitController extends AbstractController
                 }
                 header('Location:/exits/show?id=' . $id);
                 return null;
-            } else {
-                $errorMessage = 'Veuillez remplir le formulaire';
             }
         }
         return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
@@ -139,5 +142,41 @@ class ExitController extends AbstractController
             $datas += array( $key => (trim($data)));
         }
         return $datas;
+    }
+
+    public static function checkDataLength(array $exit, string $errorMessage): string
+    {
+        if (strlen($exit['name']) > 150) {
+            $errorMessage = 'Le champs Nom doit être inferieur a 150 caractères';
+        }
+        if (strlen($exit['height']) > 150) {
+            $errorMessage = 'Les champ Hauteur doit être inferieur a 150 caractères';
+        }
+        if (strlen($exit['department']) > 50) {
+            $errorMessage = 'Le champ Département doit être inferieur a 50 caractères';
+        }
+        if (strlen($exit['country']) > 50) {
+            $errorMessage = 'Le champ Pays doit être inferieur a 50 caractères';
+        }
+        if (strlen($exit['gps_coordinates']) > 50) {
+            $errorMessage = 'Le champ Coordonnées GPS doit être inferieur a 50 caractères';
+        }
+        return $errorMessage;
+    }
+
+    public static function isEmpty(array $exit, string $errorMessage): string
+    {
+        if (
+            empty($exit['name']) ||
+            empty($exit['department']) ||
+            empty($exit['country']) ||
+            empty($exit['height']) ||
+            empty($exit['acces']) ||
+            empty($exit['jumpTypes'])
+        ) {
+            $errorMessage = 'Les champs Nom, Pays, Département, Hauteur, Accès,
+            et Type de saut sont obligatoire';
+        }
+        return $errorMessage;
     }
 }
