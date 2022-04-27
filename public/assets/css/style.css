@@ -163,6 +163,23 @@ nav span{
     border-radius: 15px;
 }
 
+/* css add form*/
+.access_denied{
+    --bs-text-opacity: .8;
+}
+
+.error_message {
+    --bs-text-opacity: .8;
+}
+.add_form input {
+    background-color: var(--text-bg-color);
+}
+.add_form textarea {
+    background-color: var(--text-bg-color);
+}
+
+
+
 @media screen and (min-width: 768px) {
     .nav-img-container {
         height: 75vh;

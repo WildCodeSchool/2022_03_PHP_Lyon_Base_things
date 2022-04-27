@@ -42,4 +42,13 @@ class AdminController extends AbstractController
         }
         return false;
     }
+
+    public static function accessDenied(): string
+    {
+        $accessMessage = "";
+        if (AdminController::isLogIn() === false) {
+            $accessMessage = 'vous devez etre Administrateur pour acceder a cette page';
+        }
+        return $accessMessage;
+    }
 }

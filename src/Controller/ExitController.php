@@ -83,6 +83,7 @@ class ExitController extends AbstractController
     {
         $isLogIn = AdminController::isLogIn();
         $errorMessage = '';
+        $accesmessage = AdminController::accessDenied();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exit = $this->trimPostData(); // nettoyage des données
             // verifié si certain champ sont vide
@@ -128,7 +129,8 @@ class ExitController extends AbstractController
             }
         }
         return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
-                                                            'islogin' => $isLogIn]);
+                                                            'islogin' => $isLogIn,
+                                                            'acessdenied' => $accesmessage]);
     }
 
     public function trimPostData(): array
