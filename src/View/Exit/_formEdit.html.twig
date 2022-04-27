@@ -1,0 +1,82 @@
+{# TODO : manage errors display #}
+<div>
+	<h3 class="error_message bg-light text-danger text-center">
+		{{error_message}}</h3>
+	<form method="post" enctype="multipart/form-data">
+
+		<div class="text-center">
+			<p>
+				<label for="name">Nom :
+				</label>
+				<input type="text" value="{{ exit.name }}" name="name" id="name">
+			</p>
+			<p>
+				<label for="department">Choisir un département :
+				</label>
+				<select name="department" id="department">
+					{% include "_departmentList.html.twig" %}
+				</select>
+			</p>
+			<p>
+				<label for="country-select">Choisir un pays :
+				</label>
+				<select name="country" id="country">
+					{% include "_countryList.html.twig" %}
+				</select>
+			</p>
+			<p>
+				<label for="height">Hauteur :
+				</label>
+				<input type="text" value="{{ exit.height }}" name="height" id="height">
+				mètres.
+			</p>
+			<p>
+				<label for="access_duration">Temps d'accès :
+				</label>
+				<input type="time" value="{{ exit.access_duration }}" name="access_duration" id="access_duration">
+				heures.
+			</p>
+			<p>
+				<label for="id_type_jump">Type de saut :
+				</label>
+
+				{% for typeJump in typeJumps %}
+					<div>
+						<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}" checked>
+						<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
+					</div>
+				{% endfor %}
+			</p>
+			<p>
+				<label for="gps_coordinates">Coordonnées GPS :
+				</label>
+				<input type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates">
+			</p>
+			<p>
+				<label for="acces">Accès :</label>
+			</p>
+			<p>
+				<textarea id="acces" name="acces" rows="5" cols="50">{{ exit.acces }}</textarea>
+			</p>
+			<p>
+				<label for="remark">Remarques :</label>
+			</p>
+			<p>
+				<textarea id="remark" name="remark" rows="5" cols="50">{{ exit.remark }}</textarea>
+			</p>
+			<p>
+				<label for="video">Lien de la vidéo :
+				</label>
+				<input type="text" value="{{ exit.video }}" name="video" id="video">
+			</p>
+			<p>
+				<label for="image">Modifier l'image :
+				</label>
+				<input type="file" name="image" id="image"/>
+			</p>
+			<p>
+				<button>Modifier</button>
+			</p>
+		</div>
+	</form>
+</div>

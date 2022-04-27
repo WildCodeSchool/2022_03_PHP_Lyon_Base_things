@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
+use App\Model\TypeJumpManager;
 use Doctrine\Common\Collections\Expr\Value;
 
 class ExitController extends AbstractController
@@ -41,6 +42,8 @@ class ExitController extends AbstractController
     {
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $typeJumpManager = new TypeJumpManager();
+        $typeJump = $typeJumpManager->selectAll();
         $isLogIn = AdminController::isLogIn();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -60,6 +63,7 @@ class ExitController extends AbstractController
 
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
+            'typeJumps' => $typeJump,
             'islogin' => $isLogIn]);
     }
     /**
