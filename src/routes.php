@@ -23,4 +23,5 @@ return [
     'exits/show' => ['ExitController', 'show', ['id']],
     'exits/delete' => ['ExitController', 'delete',],
     'exits/edit' => ['ExitController', 'edit', ['id']],
+    'exits/add' => ['ExitController', 'add',],
 ];
