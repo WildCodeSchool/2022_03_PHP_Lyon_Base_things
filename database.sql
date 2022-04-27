@@ -106,10 +106,14 @@ CREATE TABLE `exit_has_type_jump` (
   PRIMARY KEY (`id_exit`,`id_type_jump`),
   CONSTRAINT fk_exit_has_type_jump_exit
   FOREIGN KEY (id_exit)             
-  REFERENCES `exit`(id),
+  REFERENCES `exit`(id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE,
   CONSTRAINT fk_exit_has_type_jump_type_jump
   FOREIGN KEY (id_type_jump)             
-  REFERENCES type_jump(id));
+  REFERENCES type_jump(id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE);
 
 
 -- --------------------------------------------
@@ -166,10 +170,14 @@ CREATE TABLE `jump_log` (
   REFERENCES `user`(id),
   CONSTRAINT fk_jump_log_exit
   FOREIGN KEY (id_exit)             
-  REFERENCES `exit`(id),
+  REFERENCES `exit`(id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
   CONSTRAINT fk_jump_log_type_jump
   FOREIGN KEY (id_type_jump)             
-  REFERENCES `type_jump`(id));
+  REFERENCES `type_jump`(id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE);
 
 -- --------------------------------------------
 -- FIN DE CREATION DES TABLES
