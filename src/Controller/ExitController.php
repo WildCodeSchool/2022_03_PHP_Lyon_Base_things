@@ -1,6 +1,7 @@
 <?php
 
 /* creation of the ExitController class to pass requests to the database */
+
 namespace App\Controller;
 
 use App\Model\ExitManager;
@@ -17,7 +18,7 @@ class ExitController extends AbstractController
         $exitManager = new ExitManager();
         $isLogIn = AdminController::isLogIn();
         $exits = $exitManager->selectAll('name');
-        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
+        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits, 'islogin' => $isLogIn]);
     }
 
     /**
@@ -30,9 +31,11 @@ class ExitController extends AbstractController
         $isLogIn = AdminController::isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
 
-        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
-                                                            'typeJumpByExit' => $typeJumpByExit,
-                                                            'islogin' => $isLogIn]);
+        return $this->twig->render('Exit/show.html.twig', [
+            'exit' => $exit,
+            'typeJumpByExit' => $typeJumpByExit,
+            'islogin' => $isLogIn
+        ]);
     }
 
     /**
@@ -42,6 +45,7 @@ class ExitController extends AbstractController
     {
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
         $typeJumpManager = new TypeJumpManager();
         $typeJump = $typeJumpManager->selectAll();
         $isLogIn = AdminController::isLogIn();
@@ -63,8 +67,10 @@ class ExitController extends AbstractController
 
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
-            'typeJumps' => $typeJump,
-            'islogin' => $isLogIn]);
+            'typesJumpsByExit' => $typeJumpByExitId,
+            'typesJumps' => $typeJump,
+            'islogin' => $isLogIn
+        ]);
     }
     /**
      * Delete a specific exit
@@ -94,7 +100,7 @@ class ExitController extends AbstractController
                 var_dump($exit);
                 $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
                 $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-                $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
+                $authorizedExtensions = ['jpg', 'jpeg', 'png']; // definir les extension autorisé
                 $maxFileSize = 2000000; // definir le poid max de l'image
                 if (!empty($exit['image'])) { // verifié si on upload une image
                     $explodeName = explode('.', basename($_FILES['image']['name']));
@@ -104,7 +110,8 @@ class ExitController extends AbstractController
                     $uploadFile = $uploadDir . $uniqName;
                 } else { // on garde le nom de base si on upload pas d'image
                     $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-                } if ((!in_array($extension, $authorizedExtensions))) {
+                }
+                if ((!in_array($extension, $authorizedExtensions))) {
                     $errorMessage = "Format d'image non supporté !
                     Seuls les formats Jpg , Jpeg ou Png sont supportés.";
                 }
@@ -115,7 +122,7 @@ class ExitController extends AbstractController
                     $errorMessage = 'Votre image doit faire moins de 2M !';
                 }
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit ['image'] = $uploadFile;
+                $exit['image'] = $uploadFile;
                 $exitManager = new ExitManager();
                 $id = $exitManager->insert($exit);
                 if (!empty($exit['jumpTypes'])) {
@@ -128,8 +135,10 @@ class ExitController extends AbstractController
                 $errorMessage = 'Veuillez remplir le formulaire';
             }
         }
-        return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
-                                                            'islogin' => $isLogIn]);
+        return $this->twig->render('Exit/add.html.twig', [
+            'error_message' => $errorMessage,
+            'islogin' => $isLogIn
+        ]);
     }
 
     public function trimPostData(): array
@@ -140,7 +149,7 @@ class ExitController extends AbstractController
                 $datas += array($key => $data);
                 continue;
             }
-            $datas += array( $key => (trim($data)));
+            $datas += array($key => (trim($data)));
         }
         return $datas;
     }

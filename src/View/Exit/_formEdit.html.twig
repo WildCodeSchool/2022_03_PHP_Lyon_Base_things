@@ -40,12 +40,31 @@
 				<label for="id_type_jump">Type de saut :
 				</label>
 
-				{% for typeJump in typeJumps %}
-					<div>
-						<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}" checked>
-						<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
-					</div>
+				{% set arrayTypeJumpByExit = [] %}
+				{% for typeJumpByExit in typesJumpsByExit %}
+					{% set arrayTypeJumpByExit = arrayTypeJumpByExit|merge([ typeJumpByExit.name ]) %}
 				{% endfor %}
+
+				{% for typeJump in typesJumps %}
+
+					{% if typeJump.name in arrayTypeJumpByExit %}
+
+						<div>
+							<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}" checked>
+							<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
+						</div>
+
+					{% else %}
+
+						<div>
+							<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}">
+							<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
+						</div>
+
+					{% endif %}
+
+				{% endfor %}
+
 			</p>
 			<p>
 				<label for="gps_coordinates">Coordonnées GPS :
@@ -75,7 +94,7 @@
 				<input type="file" name="image" id="image"/>
 			</p>
 			<p>
-				<button>Modifier</button>
+				<button>Valider les modifications</button>
 			</p>
 		</div>
 	</form>
