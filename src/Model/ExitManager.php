@@ -8,8 +8,8 @@ class ExitManager extends AbstractManager
     public const TABLE = '`exit`';
 
     /**
-     * Get all row exit with type_jump from database.
-     */
+    * Get all row exit with type_jump from database.
+    */
     public function selectTypeJumpByExitId(int $id): array|false
     {
         // prepared request
@@ -24,8 +24,8 @@ class ExitManager extends AbstractManager
     }
 
     /**
-     * Insert new exit in database
-     */
+    * Insert new exit in database
+    */
     public function insert(array $exit): int
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`title`) VALUES (:title)");
@@ -36,8 +36,8 @@ class ExitManager extends AbstractManager
     }
 
     /**
-     * Update exit in database
-     */
+    * Update exit in database
+    */
     public function update(array $exit): bool
     {
         $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `title` = :title WHERE id=:id");
@@ -45,5 +45,16 @@ class ExitManager extends AbstractManager
         $statement->bindValue('title', $exit['title'], \PDO::PARAM_STR);
 
         return $statement->execute();
+    }
+
+    public function exitsFilteredByJumpType($filter)
+    {
+           $result = implode(', ', $filter);
+           $query = "SELECT * 
+           from `exit`
+           join `exit_Has_Type_Jump` on `id_exit`=exit.id
+           join `type_Jump` on `id_type_jump`=type_jump.id
+           WHERE type_jump.id IN (" .  $result . ");";
+        return $this->pdo->query($query)->fetchAll();
     }
 }
