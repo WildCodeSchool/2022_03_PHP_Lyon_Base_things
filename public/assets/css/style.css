@@ -1,14 +1,22 @@
 *{
     --main-color: #4DB4D4;
-    font-family: Verdana, Tahoma, sans-serif;
+    --text-bg-color:#dbf0f8;
+    --box-shadow-color:#aed6e2;
+    font-family: 'Poppins', Verdana, Tahoma, sans-serif;
 }
+body {
+    box-sizing: border-box;
+}
+ h1,h2,h3,h4,h5,h6 {
+    font-family: 'Libre Bodoni', serif, Verdana, Tahoma, sans-serif;
+ }
 
  /*CSS header */
 
 header{
     background-color: var(--main-color);
     color: white;
-    box-shadow: inset 0px 0px 10px 10px whitesmoke;
+    box-shadow: inset 0px 0px 10px 10px #aed6e2;
     display: flex;
     justify-content: space-around;
     height: 15vh;
@@ -39,9 +47,6 @@ header{
     margin-right: 5vh;
 }
 
-.margin_footer{
-    margin-bottom: 80px;
-}
 footer{
     background-color: var(--main-color);
 }
@@ -51,22 +56,25 @@ footer{
 }
 
 /* CSS index page */
-nav div{
+.nav-img-container {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border: 1px solid #aed6e2;
+    border-radius: 20px;
+    height: 25vh;
 }
 
-.index_tuto{
+#index_tuto{
     background-image: url(/assets/images/accueil_tutoriaux.jpg);
     
 }
 
-.index_topo {
+#index_topo {
     background-image: url(/assets/images/accueil_topo_des_exits.jpg);
 }
 
-.index_carnet {
+#index_carnet {
     background-image: url(/assets/images/accueil_carnet_de_saut1.jpg);
 }
 
@@ -75,6 +83,13 @@ nav span{
     box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.7);
     font-size: 1.5em;
     margin: 0.5em;
+}
+
+.presentation-text {
+    width: 95%;
+    border-radius: 20px;
+    background-color: var(--text-bg-color);
+    
 }
 /*  */
 
@@ -108,7 +123,7 @@ nav span{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #dbf0f8;
+    background-color: var(--text-bg-color);
     height: 100%;
 }
 
@@ -141,4 +156,15 @@ nav span{
 }
 .error_message {
     --bs-text-opacity: .8;
+}
+
+.background-p {
+    background-color: #dbf0f8;
+    border-radius: 15px;
+}
+
+@media screen and (min-width: 768px) {
+    .nav-img-container {
+        height: 75vh;
+    }
 }
