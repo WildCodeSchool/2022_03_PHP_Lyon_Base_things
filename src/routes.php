@@ -22,4 +22,5 @@ return [
     'logout' => ['AdminController', 'logout',],
     'exits/show' => ['ExitController', 'show', ['id']],
     'exits/delete' => ['ExitController', 'delete',],
+    'jumplog' => ['JumpLogController', 'index',],
 ];

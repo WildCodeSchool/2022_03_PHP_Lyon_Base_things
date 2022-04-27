@@ -1,0 +1,19 @@
+{# creation of the exit display list page and using boostrap to style the page #}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %} Carnet de sauts {% endblock %}
+
+{% block content %}
+    {# creation of a drop-down list to contain the filters #}
+    <main>
+        <h1>Liste de sauts</h1>
+
+        {% for jumpLog in jumpLogs %}
+
+            <li>{{ jumpLog.id }} {{ jumpLog.date_of_jump }} {{ jumpLog.date_of_jump }}</li>
+            
+        {% endfor %}
+
+    </main>
+{% endblock %}
