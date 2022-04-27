@@ -1,0 +1,7 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Edit exit {{ exit.title }}</h1>
+    {% include 'Exit/_form.html.twig' %}
+    <a href="/exits/show?id={{ exit.id }}">Back</a>
+{% endblock %}
