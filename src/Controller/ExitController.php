@@ -45,12 +45,6 @@ class ExitController extends AbstractController
     {
 
         $isLogIn = AdminController::isLogIn();
-
-        if (!$isLogIn) {
-            header('Location: /login');
-            return null;
-        }
-
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
         $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
@@ -96,6 +90,10 @@ class ExitController extends AbstractController
 
                 // if validation is ok, update and redirection
                 $exitManager->update($exit);
+                if (!empty($exit['jumpTypes'])) {
+                    $exit['value'] = $exit['jumpTypes'];
+                    $exitManager->updateExitHasTypeJump($id, $exit['value']);
+                }
 
                 header('Location: /exits/show?id=' . $id);
 

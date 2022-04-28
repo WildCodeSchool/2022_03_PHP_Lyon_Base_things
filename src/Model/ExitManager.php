@@ -48,6 +48,9 @@ class ExitManager extends AbstractManager
         return (int)$this->pdo->lastInsertId();
     }
 
+    /**
+     * Insert exit has jump type in database
+     */
     public function insertJumpType(int $id, array $jumpTypes): void
     {
         foreach ($jumpTypes as $jumpType) {
@@ -58,6 +61,25 @@ class ExitManager extends AbstractManager
             $statement->execute();
         }
     }
+
+    /**
+     * Insert exit has jump type in database
+     */
+    public function updateExitHasTypeJump(int $id, array $jumpTypes): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE_HAS_TYPE_JUMP . " WHERE id_exit=:id_exit");
+        $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        foreach ($jumpTypes as $jumpType) {
+            $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE_HAS_TYPE_JUMP . "(`id_exit`, `id_type_jump`) 
+            values (:id_exit, :id_type_jump)");
+            $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+            $statement->bindValue('id_type_jump', $jumpType, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+    }
+
     /**
      * Update exit in database
      */
