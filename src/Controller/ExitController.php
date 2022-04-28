@@ -19,6 +19,7 @@ class ExitController extends AbstractController
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
             $exits = $exitManager->exitsFiltered($filter);
+            header('Location:/exits');
         } else {
             $exits = $exitManager->selectAll('name');
         }
