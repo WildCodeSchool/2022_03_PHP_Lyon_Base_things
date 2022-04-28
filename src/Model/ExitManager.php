@@ -65,7 +65,6 @@ class ExitManager extends AbstractManager
                     $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
                 };
             };
-            echo $filterByDepartment;
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
             from `exit`
             left join `exit_Has_Type_Jump` on `id_exit`=exit.id
