@@ -1,6 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1 class = "text-center">Ajouter un nouvel éxit</h1>
-    {% include 'Exit/_form.html.twig' %}
+    {% if acessdenied %}
+        <h1 class="access_denied text-center text-danger bg-light">{{acessdenied}}</h1>
+    {% else %}
+        <h1 class = "text-center">Ajouter un nouvel éxit</h1>
+        {% include 'Exit/_form.html.twig' %}
+    {% endif %}
 {% endblock %}
