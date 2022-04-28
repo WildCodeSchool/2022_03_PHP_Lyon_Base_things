@@ -41,8 +41,6 @@ class ExitController extends AbstractController
                 $filterByDepartment = [];
             };
             $filter = [$filterByDepartment, $filterByJumpTypes];
-            var_dump($filter[0]);
-            var_dump($filter[1]);
             return $filter;
         }
     }
