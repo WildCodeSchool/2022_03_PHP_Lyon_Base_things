@@ -1,78 +1,85 @@
 {# TODO : manage errors display #}
-<div class="container">
-	<div class="row justify-content-center bg-secondary">
+<div class="add_form_container container">
+	<h1 class = "text-center">Ajouter un nouvel éxit</h1>
+	<div class="row">
 		<h3 class = "error_message bg-light text-danger text-center"> {{error_message}}</h3>
-		<form class="add_form" method="post" enctype="multipart/form-data">
+		<form  class="add_form" method="post" enctype="multipart/form-data">
 
 			<div class="text-center">
-				<p>
-					<label for="name">Nom :
+				<div class="me-lg-5 mb-5">
+					<label class="col-6 col-lg-1 text-lg-end"  for="name">Nom
 					</label>
-					<input type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" required>
-				</p>
-				<p>
-					<label for="department">Département :
+					<input class="col-11 col-lg-7" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Juste un saut" required>
+					</div>
+				<div class="mb-5">
+					<label class="col-6 col-lg-1 text-lg-end" for="department">Département
 					</label>
-					<select name="department" id="department" maxlength="50" required>
+					<select class="col-11 col-lg-3 mb-5 mb-lg-0" name="department" id="department" maxlength="50" required>
 						{% include "_departmentList.html.twig" %}
 					</select>
-				</p>
-				<p>
-					<label for="country-select">Choisir un pays :
+				
+					<label class="col-6 col-lg-2 text-lg-end"  for="country-select">Choisir un pays
 					</label>
-					<select name="country" id="country" maxlength="50" required>
+					<select class="col-11 col-lg-2"  name="country" id="country" maxlength="50" required>
 						{% include "_countryList.html.twig" %}
 					</select>
-				</p>
-				<p>
-					<label for="height">Hauteur :
+				</div>
+				<div class="mb-5 ms-md-1">
+					<label class="col-6 col-lg-1 text-lg-end"  for="height">Hauteur
 					</label>
-					<input type="text" value="{{ exit.height }}" name="height" id="height" maxlength="150" required>
-					mètres.
-				</p>
-				<p>
-					<label for="access_duration">Temps d'accès :
+					<input class="col-11 col-lg-3 ms-lg-1 mb-5 mb-lg-0"  type="text" value="{{ exit.height }}" name="height" id="height" maxlength="150" placeholder="390 metre " required>
+				
+					<label class="col-6 col-lg-2 text-lg-end" for="access_duration">Temps d'accès
 					</label>
-					<input type="time" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration">
-					heures.
-				</p>
-				<p>
-					<label for="id_type_jump">Type de saut :
+					<input class="col-11 col-lg-2 text-center m-2" type="time" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration" placeholder="jean">
+					
+				</div>
+
+					<div class="d-flex justify-content-center mb-5 ms-lg-5">
+						<li class="list-group col-11 col-lg-2 border border-rounded bg-white" id="add-form-checkbox">
+							<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Type de saut
+							</a>
+							<ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
+								<li class="ms-1">{% include "_typeJumpList.html.twig" %}</li>
+							</ul>
+						</li>
+					</div>
+						
+				<div class="mb-5 me-lg-2">
+					<label class="col-6 col-lg-2 text-lg-end" for="gps_coordinates">Coordonnées GPS
 					</label>
-					{% include "_typeJumpList.html.twig" %}
-				</p>
-				<p>
-					<label for="gps_coordinates">Coordonnées GPS :
+					<input class="col-11 col-lg-3 mb-5 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="41 24.2028, 2 10.4418">
+
+					<label class="col-6 col-lg-2 text-lg-end" for="image">Image
 					</label>
-					<input type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50">
+					<input class="col-11 col-lg-3" type="file" name="image" id="image"/>
+				</div>
+				<p class="mb-5">
+					<label class="col-6" for="video">Vidéo
+					</label>
+					<input class="col-11" type="text" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
 				</p>
 				<p>
 
-					<label for="acces">Accès : </label>
+					<label class="col-6" for="acces">Accès</label>
 
-					<P><textarea id="acces" name="acces" rows="3" cols="30"></textarea></p>
+					<P class="mb-5"><textarea class="col-11" id="acces" name="acces" rows="3" cols="30" placeholder="Detaillé l'accés ici"></textarea></p>
 
 				</p>
 				<p>
-					<label for="remark">Remarques :
+					<label class="col-6" for="remark">Remarques
 					</label>
-					<p><textarea id="remark" name="remark" rows="3" cols="30"></textarea></p>
+					<p class="mb-5"><textarea class="col-11" id="remark" name="remark" rows="3" cols="30" placeholder="vos remarque concernant l'exit"></textarea></p>
 				</p>
-				<p>
-					<label for="video">Vidéo :
-					</label>
-					<input type="text" value="{{ exit.video }}" name="video" id="video">
-				</p>
-				<p>
-					<label for="image">Image :
-					</label>
-					<input type="file" name="image" id="image" />
-					</p>
-				<p>
-					<button>Créer</button>
-				</p>
+				
+				
+					
+				<div class="row form-group justify-content-center mt-3 mb-5">
+					<input type="submit" class="btn btn-lg btn-primary btn-block col-6 col-md-3" value="Créer">
+				</div>				
+
 			</div>
-
 		</form>
 	</div>
 </div>
