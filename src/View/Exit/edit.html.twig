@@ -1,19 +1,26 @@
 {% extends 'layout.html.twig' %}
 
+
 {% block content %}
-	<div class="container">
-		<h1 class="text-center">Modifier un exit
-			{{ exit.title }}</h1>
-		{% include 'Exit/_formEdit.html.twig' %}
-	</div>
-	<div class="container d-flex justify-content-between p-5">
-		<form action="/exits/show" method="GET">
-			<input type="hidden" name="id" value="{{ exit.id }}">
-			<button class="btn btn-info m-2">Retour</button>
-		</form>
-		<form action="/exits/delete" method="POST">
-			<input type="hidden" name="id" value="{{ exit.id }}">
-			<button class="btn btn-info m-2 bg-danger">Supprimer</button>
-		</form>
-	</div>
+
+	{% if islogin == true %}
+
+		<div class="container">
+			<h1 class="text-center">Modifier un exit
+				{{ exit.title }}</h1>
+			{% include 'Exit/_formEdit.html.twig' %}
+		</div>
+		<div class="container d-flex justify-content-between p-5">
+			<form action="/exits/show" method="GET">
+				<input type="hidden" name="id" value="{{ exit.id }}">
+				<button class="btn btn-info m-2">Retour</button>
+			</form>
+			<form action="/exits/delete" method="POST">
+				<input type="hidden" name="id" value="{{ exit.id }}">
+				<button class="btn btn-info m-2 bg-danger">Supprimer</button>
+			</form>
+		</div>
+		
+	{% endif %}
+
 {% endblock %}
