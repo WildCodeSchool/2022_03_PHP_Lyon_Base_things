@@ -6,6 +6,7 @@
 
 		<div class="text-center">
 			<p>
+				<input type="hidden" name="id" value="{{ exit.id }}">
 				<label for="name">Nom :
 				</label>
 				<input type="text" value="{{ exit.name }}" name="name" id="name">
@@ -104,7 +105,7 @@
 					{{exit.image}}</p>
 			</div>
 			<p>
-				<button type="button" class="btn btn-success">Valider les modifications</button>
+				<button type="submit" class="btn btn-success">Valider les modifications</button>
 			</p>
 		</div>
 	</form>

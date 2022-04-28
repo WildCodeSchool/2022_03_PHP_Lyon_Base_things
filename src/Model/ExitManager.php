@@ -1,6 +1,7 @@
 <?php
 
 /* creation of the ExitManager class to manage the connection to the database */
+
 namespace App\Model;
 
 class ExitManager extends AbstractManager
@@ -62,9 +63,30 @@ class ExitManager extends AbstractManager
      */
     public function update(array $exit): bool
     {
-        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `title` = :title WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET
+        `name` = :name,
+        `department` = :department,
+        `country` = :country,
+        `height` = :height,
+        `access_duration` = :access_duration,
+        `gps_coordinates` = :gps_coordinates,
+        `acces` = :acces,
+        `remark` = :remark,
+        `video` = :video,
+        `image` = :image
+        WHERE id=:id");
+
         $statement->bindValue('id', $exit['id'], \PDO::PARAM_INT);
-        $statement->bindValue('title', $exit['title'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
+        $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
+        $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
+        $statement->bindValue('height', $exit['height'], \PDO::PARAM_STR);
+        $statement->bindValue('access_duration', $exit['access_duration'], \PDO::PARAM_STR);
+        $statement->bindValue('gps_coordinates', $exit['gps_coordinates'], \PDO::PARAM_STR);
+        $statement->bindValue('acces', $exit['acces'], \PDO::PARAM_STR);
+        $statement->bindValue('remark', $exit['remark'], \PDO::PARAM_STR);
+        $statement->bindValue('video', $exit['video'], \PDO::PARAM_STR);
+        $statement->bindValue('image', $exit['image'], \PDO::PARAM_STR);
 
         return $statement->execute();
     }

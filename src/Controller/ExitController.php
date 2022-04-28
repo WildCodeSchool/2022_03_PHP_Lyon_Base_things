@@ -56,21 +56,52 @@ class ExitController extends AbstractController
         $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
         $typeJumpManager = new TypeJumpManager();
         $typeJump = $typeJumpManager->selectAll();
-
+        $errorMessage = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
-            $exit = array_map('trim', $_POST);
+            $exit = $this->trimPostData(); // nettoyage des données
+            // verifié si certain champ sont vide
+            if (ExitController::isEmpty($exit, $errorMessage)) {
+                $errorMessage = ExitController::isEmpty($exit, $errorMessage);
+            }
+            if (ExitController::checkDataLength($exit, $errorMessage)) {
+                $errorMessage = ExitController::checkDataLength($exit, $errorMessage);
+            } else {
+                $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+                $authorizedExtensions = ['jpg', 'jpeg', 'png']; // definir les extension autorisé
+                $maxFileSize = 2000000; // definir le poid max de l'image
+                if (empty($_FILES['image']['name'])) { // verifié si on upload une image
+                    // on renvoi une chaine vide pour mettre en BDD
+                    $uploadFile = "";
+                } else { // on ajoute un uniqid au nom de l'image
+                    $explodeName = explode('.', basename($_FILES['image']['name']));
+                    $name = $explodeName[0];
+                    $extension = $explodeName[1];
+                    $uniqName = $name . uniqid('', true) . "." . $extension;
+                    $uploadFile = $uploadDir . $uniqName;
+                }
+                if ((!in_array($extension, $authorizedExtensions))) {
+                    $errorMessage = "Format d'image non supporté !
+                    Seuls les formats Jpg , Jpeg ou Png sont supportés.";
+                }
+                if (
+                    file_exists($_FILES['image']['tmp_name']) &&
+                    filesize($_FILES['image']['tmp_name']) > $maxFileSize
+                ) {
+                    $errorMessage = 'Votre image doit faire moins de 2M !';
+                }
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $exit['image'] = $uploadFile;
 
-            // TODO validations (length, format...)
+                // if validation is ok, update and redirection
+                $exitManager->update($exit);
 
-            // if validation is ok, update and redirection
-            $exitManager->update($exit);
+                header('Location: /exits/show?id=' . $id);
 
-            header('Location: /exits/show?id=' . $id);
-
-            // we are redirecting so we don't want any content rendered
-            return null;
+                // we are redirecting so we don't want any content rendered
+                return null;
+            }
         }
 
         return $this->twig->render('Exit/edit.html.twig', [
@@ -80,6 +111,7 @@ class ExitController extends AbstractController
             'islogin' => $isLogIn
         ]);
     }
+
     /**
      * Delete a specific exit
      */
@@ -127,7 +159,8 @@ class ExitController extends AbstractController
                     $extension = $explodeName[1];
                     $uniqName = $name . uniqid('', true) . "." . $extension;
                     $uploadFile = $uploadDir . $uniqName;
-                } if ((!in_array($extension, $authorizedExtensions))) {
+                }
+                if ((!in_array($extension, $authorizedExtensions))) {
                     $errorMessage = "Format d'image non supporté !
                     Seuls les formats Jpg , Jpeg ou Png sont supportés.";
                 }
@@ -149,9 +182,11 @@ class ExitController extends AbstractController
                 return null;
             }
         }
-        return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
-                                                            'islogin' => $isLogIn,
-                                                            'acessdenied' => $accesmessage]);
+        return $this->twig->render('Exit/add.html.twig', [
+            'error_message' => $errorMessage,
+            'islogin' => $isLogIn,
+            'acessdenied' => $accesmessage
+        ]);
     }
 
     public function trimPostData(): array
