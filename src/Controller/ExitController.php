@@ -43,12 +43,20 @@ class ExitController extends AbstractController
      */
     public function edit(int $id): ?string
     {
+
+        $isLogIn = AdminController::isLogIn();
+
+        if (!$isLogIn) {
+            header('Location: /login');
+            return null;
+        }
+
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
         $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
         $typeJumpManager = new TypeJumpManager();
         $typeJump = $typeJumpManager->selectAll();
-        $isLogIn = AdminController::isLogIn();
+
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // clean $_POST data
@@ -77,11 +85,14 @@ class ExitController extends AbstractController
      */
     public function delete(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $isLogIn = AdminController::isLogIn();
+
+        if (!$isLogIn) {
+            header('Location: /login');
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
             $exitManager->delete((int)$id);
-
             header('Location:/exits');
         }
     }
