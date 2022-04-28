@@ -18,8 +18,7 @@ class ExitController extends AbstractController
         $isLogIn = $adminController->isLogIn();
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
-            $exits = $exitManager->exitsFilteredByJumpType($filter);
-        /*var_dump($exits);*/
+            $exits = $exitManager->exitsFiltered($filter);
         } else {
             $exits = $exitManager->selectAll('name');
         }
@@ -31,7 +30,19 @@ class ExitController extends AbstractController
     {
        // retrieve data from user
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $filter = $_POST['jumpTypes'];
+            if (!empty($_POST['jumpTypes'])) {
+                $filterByJumpTypes = $_POST['jumpTypes'];
+            } else {
+                $filterByJumpTypes = [];
+            }
+            if (!empty($_POST['department'])) {
+                $filterByDepartment = $_POST['department'];
+            } else {
+                $filterByDepartment = [];
+            };
+            $filter = [$filterByDepartment, $filterByJumpTypes];
+            var_dump($filter[0]);
+            var_dump($filter[1]);
             return $filter;
         }
     }

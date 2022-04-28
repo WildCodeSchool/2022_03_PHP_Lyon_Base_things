@@ -47,14 +47,46 @@ class ExitManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function exitsFilteredByJumpType($filter)
+    public function exitsFiltered($filter)
     {
-           $result = implode(', ', $filter);
-           $query = "SELECT * 
+        if ($filter[0] == []) {
+            $filterByJumpTypes = implode(', ', $filter[1]);
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
            from `exit`
-           join `exit_Has_Type_Jump` on `id_exit`=exit.id
-           join `type_Jump` on `id_type_jump`=type_jump.id
-           WHERE type_jump.id IN (" .  $result . ");";
-        return $this->pdo->query($query)->fetchAll();
+           left join `exit_Has_Type_Jump` on `id_exit`=exit.id
+           left join `type_Jump` on `id_type_jump`=type_jump.id
+           WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
+            return $this->pdo->query($query)->fetchAll();
+        } elseif ($filter[1] == []) {
+            $filterByDepartment = "'" . $filter[0][0] . "'";
+            $filterLength = count($filter[1]);
+            if (count($filter[0]) > 1) {
+                for ($i = 1; $i < $filterLength; $i++) {
+                    $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
+                };
+            };
+            echo $filterByDepartment;
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
+            from `exit`
+            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
+            left join `type_Jump` on `id_type_jump`=type_jump.id
+            WHERE exit.department IN (" .  $filterByDepartment . ");";
+            return $this->pdo->query($query)->fetchAll();
+        } else {
+            $filterByJumpTypes = implode(', ', $filter[1]);
+            $filterByDepartment = "'" . $filter[0][0] . "'";
+            $filterLength = count($filter[1]);
+            if (count($filter[0]) > 1) {
+                for ($i = 1; $i < $filterLength; $i++) {
+                    $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
+                };
+            };
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
+            from `exit`
+            join `exit_Has_Type_Jump` on `id_exit`=exit.id
+            join `type_Jump` on `id_type_jump`=type_jump.id
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN ('Vaucluse');";
+            return $this->pdo->query($query)->fetchAll();
+        };
     }
 }
