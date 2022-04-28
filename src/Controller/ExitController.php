@@ -86,7 +86,7 @@ class ExitController extends AbstractController
                     $errorMessage = 'Votre image doit faire moins de 2M !';
                 }
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit['image'] = $uploadFile;
+                $exit['image'] = '/' . $uploadFile;
 
                 // if validation is ok, update and redirection
                 $exitManager->update($exit);
@@ -169,7 +169,7 @@ class ExitController extends AbstractController
                     $errorMessage = 'Votre image doit faire moins de 2M !';
                 }
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit['image'] = $uploadFile;
+                $exit['image'] = '/' . $uploadFile;
                 $exitManager = new ExitManager();
                 $id = $exitManager->insert($exit);
                 if (!empty($exit['jumpTypes'])) {
