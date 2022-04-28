@@ -229,11 +229,12 @@ class ExitController extends AbstractController
             empty($exit['department']) ||
             empty($exit['country']) ||
             empty($exit['height']) ||
-            empty($exit['acces']) ||
-            empty($exit['jumpTypes'])
+            empty($exit['acces'])
         ) {
-            $errorMessage = 'Les champs Nom, Pays, Département, Hauteur, Accès,
-            et Type de saut sont obligatoire';
+            $errorMessage = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoire';
+        }
+        if (empty($exit['jumpTypes'])) {
+            $errorMessage = 'Vous devez choisir au moins un Type de saut';
         }
         return $errorMessage;
     }
