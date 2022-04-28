@@ -82,40 +82,35 @@ class ExitController extends AbstractController
     public function add(): ?string
     {
         $isLogIn = AdminController::isLogIn();
-        $errorMessage = '';
+        $errorMessages = [];
         $accesmessage = AdminController::accessDenied();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+            $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
+            $maxFileSize = 2000000; // definir le poid max de l'image
             $exit = $this->trimPostData(); // nettoyage des données
-            // verifié si certain champ sont vide
-            if (ExitController::isEmpty($exit, $errorMessage)) {
-                $errorMessage = ExitController::isEmpty($exit, $errorMessage);
-            }
-            if (ExitController::checkDataLength($exit, $errorMessage)) {
-                $errorMessage = ExitController::checkDataLength($exit, $errorMessage);
+            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+            if (empty($_FILES['image']['name'])) {
+                $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+            } elseif ((!in_array($extension, $authorizedExtensions))) {
+                $errorMessages[] = "Format d'image non supporté !
+                Seuls les formats Jpg , Jpeg ou Png sont supportés.";
+                $explodeName = explode('.', basename($_FILES['image']['name']));
+                $name = $explodeName[0];
+                $extension = $explodeName[1];
+                $uniqName = $name . uniqid('', true) . "." . $extension;
+                $uploadFile = $uploadDir . $uniqName;
+            } if (
+                file_exists($_FILES['image']['tmp_name']) &&
+                filesize($_FILES['image']['tmp_name']) > $maxFileSize
+            ) {
+                $errorMessages[] = 'Votre image doit faire moins de 2M !';
+            } if (ExitController::isEmpty($exit, $errorMessages)) {
+                    $errorMessages = ExitController::isEmpty($exit, $errorMessages);
+            } if (ExitController::checkDataLength($exit, $errorMessages)) {
+                $errorMessages = ExitController::checkDataLength($exit, $errorMessages);
             } else {
-                $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
-                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-                $authorizedExtensions = ['jpg','jpeg','png']; // definir les extension autorisé
-                $maxFileSize = 2000000; // definir le poid max de l'image
-                if (empty($_FILES['image']['name'])) { // verifié si on upload une image
-                    // on renvoi une chaine vide pour mettre en BDD
-                    $uploadFile = "";
-                } else { // on ajoute un uniqid au nom de l'image
-                    $explodeName = explode('.', basename($_FILES['image']['name']));
-                    $name = $explodeName[0];
-                    $extension = $explodeName[1];
-                    $uniqName = $name . uniqid('', true) . "." . $extension;
-                    $uploadFile = $uploadDir . $uniqName;
-                } if ((!in_array($extension, $authorizedExtensions))) {
-                    $errorMessage = "Format d'image non supporté !
-                    Seuls les formats Jpg , Jpeg ou Png sont supportés.";
-                }
-                if (
-                    file_exists($_FILES['image']['tmp_name']) &&
-                    filesize($_FILES['image']['tmp_name']) > $maxFileSize
-                ) {
-                    $errorMessage = 'Votre image doit faire moins de 2M !';
-                }
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
                 $exit ['image'] = $uploadFile;
                 $exitManager = new ExitManager();
@@ -128,7 +123,7 @@ class ExitController extends AbstractController
                 return null;
             }
         }
-        return $this->twig->render('Exit/add.html.twig', ['error_message' => $errorMessage,
+        return $this->twig->render('Exit/add.html.twig', ['error_messages' => $errorMessages,
                                                             'islogin' => $isLogIn,
                                                             'acessdenied' => $accesmessage]);
     }
@@ -146,27 +141,27 @@ class ExitController extends AbstractController
         return $datas;
     }
 
-    public static function checkDataLength(array $exit, string $errorMessage): string
+    public static function checkDataLength(array $exit, array $errorMessages): array
     {
         if (strlen($exit['name']) > 150) {
-            $errorMessage = 'Le champs Nom doit être inferieur a 150 caractères';
+            $errorMessages[] = 'Le champs Nom doit être inferieur a 150 caractères';
         }
         if (strlen($exit['height']) > 150) {
-            $errorMessage = 'Les champ Hauteur doit être inferieur a 150 caractères';
+            $errorMessages[] = 'Les champ Hauteur doit être inferieur a 150 caractères';
         }
         if (strlen($exit['department']) > 50) {
-            $errorMessage = 'Le champ Département doit être inferieur a 50 caractères';
+            $errorMessages[] = 'Le champ Département doit être inferieur a 50 caractères';
         }
         if (strlen($exit['country']) > 50) {
-            $errorMessage = 'Le champ Pays doit être inferieur a 50 caractères';
+            $errorMessages[] = 'Le champ Pays doit être inferieur a 50 caractères';
         }
         if (strlen($exit['gps_coordinates']) > 50) {
-            $errorMessage = 'Le champ Coordonnées GPS doit être inferieur a 50 caractères';
+            $errorMessages[] = 'Le champ Coordonnées GPS doit être inferieur a 50 caractères';
         }
-        return $errorMessage;
+        return $errorMessages;
     }
 
-    public static function isEmpty(array $exit, string $errorMessage): string
+    public static function isEmpty(array $exit, array $errorMessages): array
     {
         if (
             empty($exit['name']) ||
@@ -175,11 +170,11 @@ class ExitController extends AbstractController
             empty($exit['height']) ||
             empty($exit['acces'])
         ) {
-            $errorMessage = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoire';
+            $errorMessages[] = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoire';
         }
         if (empty($exit['jumpTypes'])) {
-            $errorMessage = 'Vous devez choisir au moins un Type de saut';
+            $errorMessages[] = 'Vous devez choisir au moins un Type de saut';
         }
-        return $errorMessage;
+        return $errorMessages;
     }
 }

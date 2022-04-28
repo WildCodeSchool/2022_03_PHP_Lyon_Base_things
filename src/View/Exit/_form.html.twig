@@ -2,7 +2,9 @@
 <div class="add_form_container container">
 	<h1 class = "text-center">Ajouter un nouvel exit</h1>
 	<div class="row">
+	{% for error_message in error_messages %}
 		<h3 class = "error_message bg-light text-danger text-center"> {{error_message}}</h3>
+		{% endfor %}
 		<form  class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
 				<div class="mb-4">
