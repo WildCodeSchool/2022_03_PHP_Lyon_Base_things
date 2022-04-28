@@ -84,7 +84,7 @@ class ExitManager extends AbstractManager
             from `exit`
             join `exit_Has_Type_Jump` on `id_exit`=exit.id
             join `type_Jump` on `id_type_jump`=type_jump.id
-            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN ('Vaucluse');";
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
             return $this->pdo->query($query)->fetchAll();
         };
     }
