@@ -174,7 +174,9 @@ nav span{
 .add_form_container {
     background-color: var(--text-bg-color);
 }
-
+.form_label_type_saut{
+    display: none;
+}
 @media screen and (min-width: 768px) {
     .nav-img-container {
         height: 75vh;
