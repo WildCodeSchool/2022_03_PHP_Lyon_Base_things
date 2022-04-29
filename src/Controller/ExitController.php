@@ -90,8 +90,8 @@ class ExitController extends AbstractController
                 $authorizedExtensions = ['jpg', 'jpeg', 'png']; // definir les extension autorisé
                 $maxFileSize = 2000000; // definir le poid max de l'image
                 if (empty($_FILES['image']['name'])) { // verifié si on upload une image
-                    // on renvoi une chaine vide pour mettre en BDD
-                    $uploadFile = "";
+                    // on renvoi l'ancien chemin pour mettre en BDD
+                    $uploadFile = $exit['image'];
                 } else { // on ajoute un uniqid au nom de l'image
                     $explodeName = explode('.', basename($_FILES['image']['name']));
                     $name = $explodeName[0];
@@ -110,8 +110,7 @@ class ExitController extends AbstractController
                     $errorMessage = 'Votre image doit faire moins de 2M !';
                 }
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit['image'] = '/' . $uploadFile;
-
+                $exit['image'] = $uploadFile;
                 // if validation is ok, update and redirection
                 $exitManager->update($exit);
                 if (!empty($exit['jumpTypes'])) {
@@ -187,7 +186,7 @@ class ExitController extends AbstractController
                 $errorMessages = ExitController::checkDataLength($exit, $errorMessages);
             } else {
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit ['image'] = '/' . $uploadFile;
+                $exit ['image'] = $uploadFile;
                 $exitManager = new ExitManager();
                 $id = $exitManager->insert($exit);
                 if (!empty($exit['jumpTypes'])) {

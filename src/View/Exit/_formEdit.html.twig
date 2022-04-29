@@ -9,6 +9,7 @@
 			<div class="text-center">
 				<div class="me-lg-5 mb-5">
 					<input type="hidden" name="id" value="{{ exit.id }}">
+					<input type="hidden" name="image" value="{{ exit.image }}">
 					<label class="col-6 col-lg-1 text-lg-end" for="name">Nom
 					</label>
 					<input class="col-11 col-lg-7" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Nom de l'exit" required>
@@ -83,7 +84,8 @@
 
 					<label class="col-6 col-lg-2 text-lg-end" for="image">Modifier l'image
 					</label>
-					<input class="col-11 col-lg-3" type="file" name="image" id="image"/>
+					<input class="col-11 col-lg-3" type="file" name="image" id="image" value="{{ exit.image }}"/>
+					<h1>{{ exit.image }}</h1>
 				</div>
 				<p class="mb-5">
 					<label class="col-6" for="video">Lien vidéo
