@@ -75,8 +75,8 @@ class ExitManager extends AbstractManager
             $filterByJumpTypes = implode(', ', $filter[1]);
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
            from `exit`
-           left join `exit_Has_Type_Jump` on `id_exit`=exit.id
-           left join `type_Jump` on `id_type_jump`=type_jump.id
+           left join `exit_has_type_jump` on `id_exit`=exit.id
+           left join `type_jump` on `id_type_jump`=type_jump.id
            WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[1] == []) {
@@ -89,8 +89,8 @@ class ExitManager extends AbstractManager
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
             from `exit`
-            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
-            left join `type_Jump` on `id_type_jump`=type_jump.id
+            left join `exit_has_type_jump` on `id_exit`=exit.id
+            left join `type_jump` on `id_type_jump`=type_jump.id
             WHERE exit.department IN (" .  $filterByDepartment . ");";
             return $this->pdo->query($query)->fetchAll();
         } else {
@@ -104,8 +104,8 @@ class ExitManager extends AbstractManager
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
             from `exit`
-            join `exit_Has_Type_Jump` on `id_exit`=exit.id
-            join `type_Jump` on `id_type_jump`=type_jump.id
+            join `exit_has_type_jump` on `id_exit`=exit.id
+            join `type_jump` on `id_type_jump`=type_jump.id
             WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
             return $this->pdo->query($query)->fetchAll();
         };

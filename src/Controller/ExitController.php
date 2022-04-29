@@ -18,7 +18,6 @@ class ExitController extends AbstractController
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
             $exits = $exitManager->exitsFiltered($filter);
-            header('Location:/exits');
         } else {
             $exits = $exitManager->selectAll('name');
         }
@@ -108,7 +107,7 @@ class ExitController extends AbstractController
     {
         $isLogIn = AdminController::isLogIn();
         $errorMessages = [];
-        $accesmessage = AdminController::accessDenied();
+        $accessmessage = AdminController::accessDenied();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
             $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
@@ -150,7 +149,7 @@ class ExitController extends AbstractController
         }
         return $this->twig->render('Exit/add.html.twig', ['error_messages' => $errorMessages,
                                                             'islogin' => $isLogIn,
-                                                            'acessdenied' => $accesmessage]);
+                                                            'accessdenied' => $accessmessage]);
     }
 
     public function trimPostData(): array

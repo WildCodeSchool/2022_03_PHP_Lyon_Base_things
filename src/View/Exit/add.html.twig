@@ -1,8 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    {% if acessdenied %}
-        <h1 class="access_denied text-center text-danger bg-light">{{acessdenied}}</h1>
+    {% if accessdenied %}
+        <h1 class="access_denied text-center text-danger bg-light">{{accessdenied}}</h1>
     {% else %}
         {% include 'Exit/_form.html.twig' %}
     {% endif %}
