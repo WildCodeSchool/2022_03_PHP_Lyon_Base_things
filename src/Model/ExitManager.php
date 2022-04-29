@@ -8,8 +8,8 @@ class ExitManager extends AbstractManager
     public const TABLE = '`exit`';
     public const TABLE_HAS_TYPE_JUMP = '`exit_has_type_jump`';
     /**
-     * Get all row exit with type_jump from database.
-     */
+    * Get all row exit with type_jump from database.
+    */
     public function selectTypeJumpByExitId(int $id): array|false
     {
         // prepared request
@@ -24,25 +24,25 @@ class ExitManager extends AbstractManager
     }
 
     /**
-     * Insert new exit in database
-     */
-    public function insert(array $exits): int
+    * Insert new exit in database
+    */
+    public function insert(array $exit): int
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " 
         (`name`, `department`, `country`, `height`, `access_duration`, `gps_coordinates`, `acces`,
         `remark`, `video`, `image`) 
         VALUES 
         (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces, :remark, :video, :image)");
-        $statement->bindValue('name', $exits['name'], \PDO::PARAM_STR);
-        $statement->bindValue('department', $exits['department'], \PDO::PARAM_STR);
-        $statement->bindValue('country', $exits['country'], \PDO::PARAM_STR);
-        $statement->bindValue('height', $exits['height'], \PDO::PARAM_STR);
-        $statement->bindValue('access_duration', $exits['access_duration'] . ':00', \PDO::PARAM_STR);
-        $statement->bindValue('gps_coordinates', $exits['gps_coordinates'], \PDO::PARAM_STR);
-        $statement->bindValue('acces', $exits['acces'], \PDO::PARAM_STR);
-        $statement->bindValue('remark', $exits['remark'], \PDO::PARAM_STR);
-        $statement->bindValue('video', $exits['video'], \PDO::PARAM_STR);
-        $statement->bindValue('image', $exits['image'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
+        $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
+        $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
+        $statement->bindValue('height', $exit['height'], \PDO::PARAM_STR);
+        $statement->bindValue('access_duration', $exit['access_duration'] . ':00', \PDO::PARAM_STR);
+        $statement->bindValue('gps_coordinates', $exit['gps_coordinates'], \PDO::PARAM_STR);
+        $statement->bindValue('acces', $exit['acces'], \PDO::PARAM_STR);
+        $statement->bindValue('remark', $exit['remark'], \PDO::PARAM_STR);
+        $statement->bindValue('video', $exit['video'], \PDO::PARAM_STR);
+        $statement->bindValue('image', $exit['image'], \PDO::PARAM_STR);
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
@@ -58,8 +58,8 @@ class ExitManager extends AbstractManager
         }
     }
     /**
-     * Update exit in database
-     */
+    * Update exit in database
+    */
     public function update(array $exit): bool
     {
         $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `title` = :title WHERE id=:id");
@@ -67,5 +67,47 @@ class ExitManager extends AbstractManager
         $statement->bindValue('title', $exit['title'], \PDO::PARAM_STR);
 
         return $statement->execute();
+    }
+
+    public function exitsFiltered($filter)
+    {
+        if ($filter[0] == []) {
+            $filterByJumpTypes = implode(', ', $filter[1]);
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
+           from `exit`
+           left join `exit_Has_Type_Jump` on `id_exit`=exit.id
+           left join `type_Jump` on `id_type_jump`=type_jump.id
+           WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
+            return $this->pdo->query($query)->fetchAll();
+        } elseif ($filter[1] == []) {
+            $filterByDepartment = "'" . $filter[0][0] . "'";
+            $filterLength = count($filter[1]);
+            if (count($filter[0]) > 1) {
+                for ($i = 1; $i < $filterLength; $i++) {
+                    $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
+                };
+            };
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
+            from `exit`
+            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
+            left join `type_Jump` on `id_type_jump`=type_jump.id
+            WHERE exit.department IN (" .  $filterByDepartment . ");";
+            return $this->pdo->query($query)->fetchAll();
+        } else {
+            $filterByJumpTypes = implode(', ', $filter[1]);
+            $filterByDepartment = "'" . $filter[0][0] . "'";
+            $filterLength = count($filter[1]);
+            if (count($filter[0]) > 1) {
+                for ($i = 1; $i < $filterLength; $i++) {
+                    $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
+                };
+            };
+            $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
+            from `exit`
+            join `exit_Has_Type_Jump` on `id_exit`=exit.id
+            join `type_Jump` on `id_type_jump`=type_jump.id
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
+            return $this->pdo->query($query)->fetchAll();
+        };
     }
 }
