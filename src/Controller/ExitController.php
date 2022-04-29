@@ -9,17 +9,42 @@ use App\Controller\AdminController;
 class ExitController extends AbstractController
 {
     /**
-     * List exits
-     */
+    * List exits
+    */
     public function index(): string
     {
         $adminController = new AdminController();
         $exitManager = new ExitManager();
         $isLogIn = $adminController->isLogIn();
-        $exits = $exitManager->selectAll('name');
+        if (!empty($this->retrieveFilters())) {
+            $filter = $this->retrieveFilters();
+            $exits = $exitManager->exitsFiltered($filter);
+            header('Location:/exits');
+        } else {
+            $exits = $exitManager->selectAll('name');
+        }
+
         return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
     }
 
+    public function retrieveFilters()
+    {
+       // retrieve data from user
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST['jumpTypes'])) {
+                $filterByJumpTypes = $_POST['jumpTypes'];
+            } else {
+                $filterByJumpTypes = [];
+            }
+            if (!empty($_POST['department'])) {
+                $filterByDepartment = $_POST['department'];
+            } else {
+                $filterByDepartment = [];
+            };
+            $filter = [$filterByDepartment, $filterByJumpTypes];
+            return $filter;
+        }
+    }
     /**
      * Show informations for a specific exit
      */
@@ -99,4 +124,8 @@ class ExitController extends AbstractController
             header('Location:/exits');
         }
     }
+
+    /**
+    * List filtered exits
+    */
 }
