@@ -19,7 +19,6 @@ class ExitController extends AbstractController
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
             $exits = $exitManager->exitsFiltered($filter);
-            header('Location:/exits');
         } else {
             $exits = $exitManager->selectAll('name');
         }
@@ -55,7 +54,6 @@ class ExitController extends AbstractController
         $exit = $exitManager->selectOneById($id);
         $isLogIn = $adminController->isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
-
         return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
                                                             'typeJumpByExit' => $typeJumpByExit,
                                                             'islogin' => $isLogIn]);
