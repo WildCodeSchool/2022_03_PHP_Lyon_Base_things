@@ -21,28 +21,36 @@ class ExitController extends AbstractController
             $exits = $exitManager->exitsFiltered($filter);
         } else {
             $exits = $exitManager->selectAll('name');
+            $filter = null;
         }
 
-        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
+        return $this->twig->render(
+            'Exit/index.html.twig',
+            ['exits' => $exits,'islogin' => $isLogIn, 'filter' => $filter]
+        );
     }
 
     public function retrieveFilters()
     {
        // retrieve data from user
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($_POST['jumpTypes'])) {
-                $filterByJumpTypes = $_POST['jumpTypes'];
-            } else {
-                $filterByJumpTypes = [];
-            }
-            if (!empty($_POST['department'])) {
-                $filterByDepartment = $_POST['department'];
-            } else {
-                $filterByDepartment = [];
+            if (!empty($_POST)) {
+                if (!empty($_POST['jumpTypes'])) {
+                    $filterByJumpTypes = $_POST['jumpTypes'];
+                    $_SESSION['filterByJumpTypes'] = $filterByJumpTypes;
+                } else {
+                    $filterByJumpTypes = [];
+                };
+                if (!empty($_POST['department'])) {
+                    $filterByDepartment = $_POST['department'];
+                    $_SESSION['filterByDepartment'] = $filterByDepartment;
+                } else {
+                    $filterByDepartment = [];
+                };
+                $filter = [$filterByDepartment, $filterByJumpTypes];
+                return $filter;
             };
-            $filter = [$filterByDepartment, $filterByJumpTypes];
-            return $filter;
-        }
+        };
     }
     /**
      * Show informations for a specific exit
