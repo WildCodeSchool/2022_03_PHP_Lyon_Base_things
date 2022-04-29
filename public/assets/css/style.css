@@ -135,7 +135,7 @@ nav span{
     border-radius: 10px;
 }
 
- .card-img-top{
+.card-img-top{
     height: 50%;
 }
 /* css login form */
@@ -163,3 +163,19 @@ nav span{
     }
 }
 
+/* CSS Jumplog */
+.jumploglist {
+    border-radius: 2vw;
+    background-color: var(--text-bg-color);
+
+}
+
+.jumplogspan {
+    border-right-style: groove;
+}
+
+.jumpLogImg {
+    background-repeat: no-repeat;
+    background-position: center;
+
+}

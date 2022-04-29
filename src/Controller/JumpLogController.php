@@ -14,7 +14,7 @@ class JumpLogController extends AbstractController
     public function index(): string
     {
         $jumpLogManager = new JumpLogManager();
-        $jumpLogs = $jumpLogManager->selectAll('date_of_jump');
+        $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump');
 
         return $this->twig->render('JumpLog/index.html.twig', ['jumpLogs' => $jumpLogs]);
     }
