@@ -136,7 +136,7 @@ class ExitController extends AbstractController
                 $errorMessages = ExitController::checkDataLength($exit, $errorMessages);
             } else {
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit ['image'] = $uploadFile;
+                $exit ['image'] = '/' . $uploadFile;
                 $exitManager = new ExitManager();
                 $id = $exitManager->insert($exit);
                 if (!empty($exit['jumpTypes'])) {
