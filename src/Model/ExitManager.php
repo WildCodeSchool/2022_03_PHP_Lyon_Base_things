@@ -6,7 +6,7 @@ namespace App\Model;
 class ExitManager extends AbstractManager
 {
     public const TABLE = '`exit`';
-
+    public const TABLE_HAS_TYPE_JUMP = '`exit_has_type_jump`';
     /**
     * Get all row exit with type_jump from database.
     */
@@ -28,13 +28,35 @@ class ExitManager extends AbstractManager
     */
     public function insert(array $exit): int
     {
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`title`) VALUES (:title)");
-        $statement->bindValue('title', $exit['title'], \PDO::PARAM_STR);
-
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " 
+        (`name`, `department`, `country`, `height`, `access_duration`, `gps_coordinates`, `acces`,
+        `remark`, `video`, `image`) 
+        VALUES 
+        (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces, :remark, :video, :image)");
+        $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
+        $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
+        $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
+        $statement->bindValue('height', $exit['height'], \PDO::PARAM_STR);
+        $statement->bindValue('access_duration', $exit['access_duration'] . ':00', \PDO::PARAM_STR);
+        $statement->bindValue('gps_coordinates', $exit['gps_coordinates'], \PDO::PARAM_STR);
+        $statement->bindValue('acces', $exit['acces'], \PDO::PARAM_STR);
+        $statement->bindValue('remark', $exit['remark'], \PDO::PARAM_STR);
+        $statement->bindValue('video', $exit['video'], \PDO::PARAM_STR);
+        $statement->bindValue('image', $exit['image'], \PDO::PARAM_STR);
         $statement->execute();
         return (int)$this->pdo->lastInsertId();
     }
 
+    public function insertJumpType(int $id, array $jumpTypes): void
+    {
+        foreach ($jumpTypes as $jumpType) {
+            $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE_HAS_TYPE_JUMP . "(`id_exit`, `id_type_jump`) 
+            values (:id_exit, :id_type_jump)");
+            $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+            $statement->bindValue('id_type_jump', $jumpType, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+    }
     /**
     * Update exit in database
     */
@@ -53,8 +75,8 @@ class ExitManager extends AbstractManager
             $filterByJumpTypes = implode(', ', $filter[1]);
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
            from `exit`
-           left join `exit_Has_Type_Jump` on `id_exit`=exit.id
-           left join `type_Jump` on `id_type_jump`=type_jump.id
+           left join `exit_has_type_jump` on `id_exit`=exit.id
+           left join `type_jump` on `id_type_jump`=type_jump.id
            WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[1] == []) {
@@ -67,8 +89,8 @@ class ExitManager extends AbstractManager
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
             from `exit`
-            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
-            left join `type_Jump` on `id_type_jump`=type_jump.id
+            left join `exit_has_type_jump` on `id_exit`=exit.id
+            left join `type_jump` on `id_type_jump`=type_jump.id
             WHERE exit.department IN (" .  $filterByDepartment . ");";
             return $this->pdo->query($query)->fetchAll();
         } else {
@@ -82,8 +104,8 @@ class ExitManager extends AbstractManager
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
             from `exit`
-            join `exit_Has_Type_Jump` on `id_exit`=exit.id
-            join `type_Jump` on `id_type_jump`=type_jump.id
+            join `exit_has_type_jump` on `id_exit`=exit.id
+            join `type_jump` on `id_type_jump`=type_jump.id
             WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
             return $this->pdo->query($query)->fetchAll();
         };
