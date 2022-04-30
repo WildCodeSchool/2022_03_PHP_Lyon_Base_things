@@ -192,12 +192,12 @@ CREATE TABLE `jump_log` (
 -- Ajout de données dans la table exit
 -- --------------------------------------------
 INSERT INTO `exit` (name,department,country,height,access_duration,gps_coordinates,acces,remark,video,image) VALUES
-   ('Barre de la Clue','Alpes Maritimes','France','150m +','00:20:00','43.974205,6.998488','Se rendre au village de Rigaud dans les gorges du Cians et se garer au cimetière.
+	 ('Barre de la Clue','Alpes Maritimes','France','150m +','00:20:00','43.974205,6.998488','Se rendre au village de Rigaud dans les gorges du Cians et se garer au cimetière.
 
 Monter par la route qui part le plus à gauche de celui-ci. Arrivé sur le plateau, passer la maisons qui élève des chiens, après la fontaine d''eau potable un chemin privé part sur la gauche.
 
-Le suivre en restant discret. Environ en 43.974205 , 6.998488 quitter le sentier vers l''Est et traverser la végétation dense vers l''exit, environ en 43.975625 , 7.003191 (progression pas facile).','Remarque 1','https://www.youtube.com/watch?v=mVzEf03SRZM','https://www.base-jump.org/topo/images/thumb/c/cf/Clue.png/400px-Clue.png'),
-   ('Bambi','Alpes Maritimes','France','65m','00:30:00','44.126244,6.872327','De Guillaumes, prendre à droite à la sortie Nord du village après la gendarmerie afin de monter au hameau de Bouchanières via la D75 et ce garer au centre de ce dernier.
+Le suivre en restant discret. Environ en 43.974205 , 6.998488 quitter le sentier vers l''Est et traverser la végétation dense vers l''exit, environ en 43.975625 , 7.003191 (progression pas facile).','Remarque 1','https://www.youtube.com/watch?v=mVzEf03SRZM','assets/images/400px-Chamane_Et_Enfant-ligne626d7856db4f08.34405753.jpg'),
+	 ('Bambi','Alpes Maritimes','France','65m','00:30:00','44.126244,6.872327','De Guillaumes, prendre à droite à la sortie Nord du village après la gendarmerie afin de monter au hameau de Bouchanières via la D75 et ce garer au centre de ce dernier.
 
 Marcher vers l''Est sur 150m et prendre la sente à droite dans le virage avant les maisons (44.121121 , 6.868792).
 
@@ -209,20 +209,20 @@ Traverser le découvert plein Ouest et rentrer dans la forêt.
 
 Il suffit maintenant de marcher dans la forêt vers le Sud jusqu''au vide.
 
-Le saut se trouve juste à droite du "V" qui coupe la face, sur une vire.','Remarque 2','https://www.youtube.com/watch?v=hvRrBtc5h3I','https://www.base-jump.org/topo/images/thumb/f/f5/Bambi.jpg/400px-Bambi.jpg'),
-   ('Cascade de Clars','Alpes Maritimes','France','60m','00:10:00','43.743690,6.753011','De Séranon, rouler sur la D6085 vers Escragnolles pendant 6.5km et s''arrêter sur la droite de la route en 43.74369 , 6.753011.
+Le saut se trouve juste à droite du "V" qui coupe la face, sur une vire.','Remarque 2','https://www.youtube.com/watch?v=hvRrBtc5h3I','assets/images/400px-Archeplan626d783c660718.23336872.jpg'),
+	 ('Cascade de Clars','Alpes Maritimes','France','60m','00:10:00','43.743690,6.753011','De Séranon, rouler sur la D6085 vers Escragnolles pendant 6.5km et s''arrêter sur la droite de la route en 43.74369 , 6.753011.
 
 De la, prendre le petit sentier qui descend vers le Sud sur 100m et prendre à droite sur une petite sente quand le sentier passe Est et dans un petit bois (voir photo).
 
 Ensuite, marcher plein Sud jusqu''à la cascade. L''exit est facile à trouver, juste à gauche de la cascade sur une petite pointe.
 
-Retour en contournant la cascade par la droite (sentier).','Remarque 3','https://www.dailymotion.com/video/x2fu4ds','https://www.base-jump.org/topo/images/thumb/3/34/Clars.jpg/400px-Clars.jpg'),
-   ('Castel Tournou','Alpes Maritimes','France','70m','01:00:00','44.115727,7.617391','De Tende, prendre la route allant aux Granges de la Pia par le Vallon du Réfrei et se garer environ en 44.115727 , 7.617391 avant le hameau.
+Retour en contournant la cascade par la droite (sentier).','Remarque 3 1234567899','https://www.dailymotion.com/video/x2fu4ds','assets/images/400px-Coca626d7880591ce8.31744037.jpg'),
+	 ('Castel Tournou','Alpes Maritimes','France','70m','01:00:00','44.115727,7.617391','De Tende, prendre la route allant aux Granges de la Pia par le Vallon du Réfrei et se garer environ en 44.115727 , 7.617391 avant le hameau.
 
 Marcher en suivant la piste principale allant aux Granges de la Pia puis trouver le sentier de rando montant au Castel Tournou.
 
-Arriver sous le saut, on monte par la droite et on rejoint facilement le bord où plusieurs exit sont possibles.','Remarque 4','https://www.youtube.com/watch?v=-eC-61OLkEQ','https://www.base-jump.org/topo/images/thumb/d/d6/Castel_Tournou.jpg/400px-Castel_Tournou.jpg'),
-   ('Chanabasse','Alpes Maritimes','France','de 70m à 90m','01:00:00','44.146421,6.833376','Dans le grand virage à gauche avant d''arriver à Chateauneuf d''Entraunes, tourner à droite et prendre la route partant vers le Nord, qui se transforme ensuite en piste après la chapelle.
+Arriver sous le saut, on monte par la droite et on rejoint facilement le bord où plusieurs exit sont possibles.','Remarque 4','https://www.youtube.com/watch?v=-eC-61OLkEQ','assets/images/400px-Grandmanti626d78a6b6ff52.96256002.jpg'),
+	 ('Chanabasse','Alpes Maritimes','France','de 70m à 90m','01:00:00','44.146421,6.833376','Dans le grand virage à gauche avant d''arriver à Chateauneuf d''Entraunes, tourner à droite et prendre la route partant vers le Nord, qui se transforme ensuite en piste après la chapelle.
 
 Rouler sur la piste sur environ 1.5km et se garer dans le virage en 44.13944 , 6.836861.
 
@@ -234,22 +234,22 @@ Prendre à gauche ici et vers l''Ouest puis le Sud jusqu''au sommet du rocher (C
 
 Plusieurs exits possibles, l''original se trouve en descendant sur la gauche pour trouver une vire confortable. Ici le rockdrop est d''environ 75m et il y a 3 pas d''élan possibles.
 
-D''autres départs sont envisageables, mais attention la paroi n''est pas régulière, surtout vers les hauteur d''ouverture.','Remarque 5','https://www.youtube.com/watch?v=-eC-61OLkEQ','https://www.base-jump.org/topo/images/thumb/d/d2/Chanabasse.jpg/400px-Chanabasse.jpg'),
-   ('Chaudan','Alpes Maritimes','France','60m','00:30:00','44.033201,6.825770','De Daluis, rouler 1.5km en direction de Guillaumes (vers le nord) et se garer sur le bord de la route (44.033201 , 6.82577 par exemple).
+D''autres départs sont envisageables, mais attention la paroi n''est pas régulière, surtout vers les hauteur d''ouverture.','Remarque 5','https://www.youtube.com/watch?v=-eC-61OLkEQ','assets/images/400px-Granier626d78ba3bcc69.85485918.jpg'),
+	 ('Chaudan','Alpes Maritimes','France','60m','00:30:00','44.033201,6.825770','De Daluis, rouler 1.5km en direction de Guillaumes (vers le nord) et se garer sur le bord de la route (44.033201 , 6.82577 par exemple).
 
 On a ici un bon visuel du saut.
 
-Marcher maintenant sur la route vers le sud afin de rejoindre l''autre côté de la crête où se trouve le saut et proche d''un petit parking, monter dans le talus afin de rejoindre l''exit à vue.','Remarque 6','https://www.youtube.com/watch?v=S9ErwpqMKbg','https://www.base-jump.org/topo/images/thumb/5/55/Chaudan.jpg/400px-Chaudan.jpg'),
-   ('Amphibolite Brumeuse','Belledonne','France','Entre 220m et 2000m!!','04:00:00','45.142400,5.988160','4 heures de montée et 1h30 pour redescendre dans la vallée.
+Marcher maintenant sur la route vers le sud afin de rejoindre l''autre côté de la crête où se trouve le saut et proche d''un petit parking, monter dans le talus afin de rejoindre l''exit à vue.','Remarque 6','https://www.youtube.com/watch?v=S9ErwpqMKbg','assets/images/400px-Penat626d78d4eb9de2.87020175.jpg'),
+	 ('Amphibolite Brumeuse','Belledonne','France','Entre 220m et 2000m!!','04:00:00','45.142400,5.988160','4 heures de montée et 1h30 pour redescendre dans la vallée.
 
 Départ de Pré Conté (906m) au-dessus de St Mury, ou de Pré Marcel (1290m) au dessus de St Agnès. Possibilité de dormir au refuge Jean Collet (1970m). Rejoindre le lac Blanc, puis monter vers le glacier de Freydane puis par les rochers ou un névé, atteindre le col de la Balmette au Nord. Le col de la Balmette 2650m est le col situé au pied de l''arête N du Grand Pic. Emprunter la voie normale jusqu’au sommet (nombreux itinéraires possibles, se redescend également sans corde, un seul passage «délicat»). De la croix sommitale, parcourir l’arête 15m au Nord pour descendre de 20m en désescalade (facile mais rochers instables) pour atteindre une dalle où l’on s’équipe: exit. Spit sortie de voie+corde en place qui permet tout juste de voir la pierre taper à 7s dans le névé supérieur de la face N (pas de bruit!!) bien visible sur les photos.  Monter un brin de 15m en plus pour pouvoir voir la face.
 
-Départ Versant Allemont depuis le lieu dit Le Mollard conseillé pour le saut en WS. 4h en quasi autonavette.','Remarque 7','https://youtu.be/AG_3-KLHpM0','https://cdn.radiofrance.fr/s3/cruiser-production/2021/09/10db6eca-a34f-4efd-9a99-fd85e64c4ef7/870x489_wing_suit.jpg'),
-   ('Aiguillette Saint Michel','Chartreuse','France','Une static line (flèche verte) 80m maxi, Un saut d''aile (flèche rouge)','01:25:00',NULL,'Depuis le col de Marcieu, monter sur le plateau par le pas du ragris ou le pas de l''aulp du seuil. Monter à la station au sommet, le glisseur bas est évident.
+Départ Versant Allemont depuis le lieu dit Le Mollard conseillé pour le saut en WS. 4h en quasi autonavette.','Remarque 7','https://youtu.be/AG_3-KLHpM0','assets/images/400px-Ansage626d77c0ced749.50863894.jpg'),
+	 ('Aiguillette Saint Michel','Chartreuse','France','Une static line (flèche verte) 80m maxi, Un saut d''aile (flèche rouge)','01:25:00','','Depuis le col de Marcieu, monter sur le plateau par le pas du ragris ou le pas de l''aulp du seuil. Monter à la station au sommet, le glisseur bas est évident.
 
-Pour atteindre le saut de wingsuit descendre sur le gros pilier plein sud, 2 pas équipés de cordes à descendre un peu expos.','Remarque 8','https://www.youtube.com/watch?v=E6-Q2WXgwF0','https://www.base-jump.org/topo/images/thumb/e/ef/Aiguillette.png/400px-Aiguillette.png'),
-   ('Fou Allier !','Haute Loire','France','75 mètres de verticale, 100 jusqu’au posé','00:10:00',NULL,'Bien vérifier l’axe de départ, en cas de grosse orientation à gauche les réflexes doivent être au rendez vous! ','Remarque 9','https://www.youtube.com/watch?v=3YZGaGYx8HU','https://static.actu.fr/uploads/2021/09/base-jump.jpeg'),
-   ('Bon dieu de Bon Dieu','Vaucluse','France','50m','00:20:00','43.769291,5.347224','De Lourmarin centre, rouler en direction de Apt et, à la sortie du village, tourner à gauche sur Chemin du Pierrouret.
+Pour atteindre le saut de wingsuit descendre sur le gros pilier plein sud, 2 pas équipés de cordes à descendre un peu expos.','Remarque 8','https://www.youtube.com/watch?v=E6-Q2WXgwF0','assets/images/400px-Aiguillette626d77aac246b6.65031505.png'),
+	 ('Fou Allier !','Haute Loire','France','75 mètres de verticale, 100 jusqu’au posé','00:10:00','','Bien vérifier l’axe de départ, en cas de grosse orientation à gauche les réflexes doivent être au rendez vous!','Remarque 9','https://www.youtube.com/watch?v=3YZGaGYx8HU','assets/images/400px-Souspierre626d78ea4880c2.38420051.jpeg'),
+	 ('Bon dieu de Bon Dieu','Vaucluse','France','50m','00:20:00','43.769291,5.347224','De Lourmarin centre, rouler en direction de Apt et, à la sortie du village, tourner à gauche sur Chemin du Pierrouret.
 
 On passe devant la station d''épuration et des containers à ordures.
 
@@ -257,8 +257,7 @@ Environ 1km après ces derniers, se garer au bord de la route (en 43.769291 , 5.
 
 Suivre le GR 97 vers le nord et, arrivé dans le talweg derrière le saut (environ 43.769291 , 5.347224), monter le talus à travers la végétation jusqu''au vide.
 
-Il est ensuite facile de trouver un exit convenable. Cordelette présente pour indiquer l''exit original.','Remarque 10','https://www.youtube.com/watch?v=l0B-jPHyMY4','https://www.base-jump.org/topo/images/thumb/8/86/Bondieu.jpg/400px-Bondieu.jpg');
-
+Il est ensuite facile de trouver un exit convenable. Cordelette présente pour indiquer l''exit original.','Remarque 10','https://www.youtube.com/watch?v=l0B-jPHyMY4','assets/images/400px-Chanteloube626d786c261036.57235342.jpeg');
 
 -- --------------------------------------------
 -- Ajout de données dans la table role
