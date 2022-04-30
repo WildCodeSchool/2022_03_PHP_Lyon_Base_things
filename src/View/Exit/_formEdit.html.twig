@@ -5,7 +5,6 @@
 		<h3 class="error_message bg-light text-danger text-center">
 			{{error_message}}</h3>
 		<form class="add_form" method="post" enctype="multipart/form-data">
-
 			<div class="text-center">
 				<div class="me-lg-5 mb-5">
 					<input type="hidden" name="id" value="{{ exit.id }}">
@@ -21,7 +20,6 @@
 						<option value="{{exit.department}}">{{exit.department}}</option>
 						{% include "_departmentList.html.twig" %}
 					</select>
-
 					<label class="col-6 col-lg-2 text-lg-end" for="country-select">Choisir un pays
 					</label>
 					<select class="col-11 col-lg-2" name="country" id="country" maxlength="50" required>
@@ -37,8 +35,6 @@
 					</label>
 					<input class="col-11 col-lg-2 text-center m-2" type="time" value="{{ exit.access_duration }}" name="access_duration" id="access_duration">
 				</div>
-
-
 				<div class="d-flex justify-content-center mb-5 ms-lg-5">
 					<li class="list-group col-11 col-lg-2 border border-rounded bg-white" id="add-form-checkbox">
 						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,60 +42,50 @@
 						</a>
 						<ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
 							<li class="ms-1">
-
 								{% set arrayTypeJumpByExit = [] %}
 								{% for typeJumpByExit in typesJumpsByExit %}
 									{% set arrayTypeJumpByExit = arrayTypeJumpByExit|merge([ typeJumpByExit.name ]) %}
 								{% endfor %}
-
 								{% for typeJump in typesJumps %}
-
 									{% if typeJump.name in arrayTypeJumpByExit %}
-
 										<div>
 											<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}" checked>
 											<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
 										</div>
-
 									{% else %}
 
 										<div>
 											<input type="checkbox" name="jumpTypes[]" value="{{ typeJump.id }}" id="{{ typeJump.name }}">
 											<label for="{{ typeJump.name }}">{{ typeJump.name }}</label>
 										</div>
-
 									{% endif %}
-
 								{% endfor %}
-
 							</li>
 						</ul>
 					</li>
 				</div>
-
 				<div class="mb-5 me-lg-2">
 					<label class="col-6 col-lg-2 text-lg-end" for="gps_coordinates">Coordonnées GPS
 					</label>
-					<input class="col-11 col-lg-3 mb-5 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="43.743690,6.753011">
-
-					<label class="col-6 col-lg-2 text-lg-end" for="image">Modifier l'image
-					</label>
-					<input class="col-11 col-lg-3" type="file" name="image" id="image" value="{{ exit.image }}"/>
-					<h1>{{ exit.image }}</h1>
+					<input class="col-11 col-lg-3 mb-2 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="43.743690,6.753011">
 				</div>
-				<p class="mb-5">
+				<div>
+					<label class="col-6 col-lg-2 text-lg-end" for="image">Modifier l'image :
+					</label>
+					<img class="rounded edit-img-display" src="/{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
+					<input class="col-11 col-lg-3 mt-2" type="file" name="image" id="image" value="{{ exit.image }}"/>
+				</div>
+				<p class="m-5">
 					<label class="col-6" for="video">Lien vidéo
 					</label>
 					<input class="col-11" type="text" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
 				</p>
 				<p>
-
 					<label class="col-6" for="acces">Accès</label>
 				</p>
 				<p class="mb-5">
 					<textarea class="col-11" id="acces" name="acces" rows="3" cols="30" placeholder="Information sur l'accès de l'exit">{{ exit.acces }}</textarea>
 				</p>
-
 			</p>
 			<p>
 				<label class="col-6" for="remark">Remarques</label>
@@ -108,12 +94,9 @@
 				<textarea class="col-11" id="remark" name="remark" rows="3" cols="30" placeholder="Vos remarques concernant l'exit">{{ exit.remark }}</textarea>
 			</p>
 		</p>
-
-
 		<div class="row form-group justify-content-center mt-3 mb-5">
 			<input type="submit" class="btn btn-lg btn-primary btn-block col-6 col-md-3" value="Modifier">
 		</div>
-
 		<div class="container d-flex justify-content-between pb-5">
 			<form action="/exits/show" method="GET">
 				<input type="hidden" name="id" value="{{ exit.id }}">
