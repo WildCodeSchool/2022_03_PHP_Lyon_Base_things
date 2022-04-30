@@ -102,10 +102,38 @@
 				<input type="hidden" name="id" value="{{ exit.id }}">
 				<button class="btn btn-info m-2">Retour</button>
 			</form>
-			<form action="/exits/delete" method="POST">
-				<input type="hidden" name="id" value="{{ exit.id }}">
-				<button class="btn btn-info m-2 bg-danger">Supprimer</button>
-			</form>
+			<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalToggleLabel">Confirmez-vous la suppression ?</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-footer">
+							<form action="/exits/delete" method="POST">
+								<input type="hidden" name="id" value="{{ exit.id }}">
+								<button class="btn btn-success m-2" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Oui</button>
+							</form>
+							<button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal" aria-label="Close">Non</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalToggleLabel2">L'exit
+								{{ exit.name }}
+								a été supprimé.</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="btn btn-danger m-2" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Supprimer</a>
 		</div>
 	</div>
 </form>
