@@ -16,7 +16,7 @@
                             Filtrer par <br> départements
                         </a>
                         <ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
-                                <li class="">{% include "_departmentList.html.twig" %}</li>
+                                <li class="ms-1">{% include "_departmentListCheckbox.html.twig" %}</li>
                         </ul>
                     </li>
                     <li class="list-group ps-lg-4 ps-xl-4 col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{ exit.name}}</h5>
                         </div>           
-                        <img src="{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
+                        <img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
                         <ul class="list-group">
                             <li class="list-group-item">Lieu : {{exit.department}}</li>
                             <li class="list-group-item" id="exit-height">{{exit.height}}</li>
