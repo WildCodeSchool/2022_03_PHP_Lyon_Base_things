@@ -47,7 +47,7 @@ class ExitManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function exitsFiltered($filter)
+    public function exitsFiltered($filter): array|false
     {
         if ($filter[1] !== [] && empty($filter[0])) {
             $filterByJumpTypes = implode(', ', $filter[1]);
@@ -55,7 +55,8 @@ class ExitManager extends AbstractManager
            from `exit`
            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
            left join `type_Jump` on `id_type_jump`=type_jump.id
-           WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
+           WHERE type_jump.id IN (" . $filterByJumpTypes . ")
+           GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[0] !== [] && empty($filter[1])) {
             $filterByDepartment = "'" . $filter[0][0] . "'";
@@ -69,7 +70,8 @@ class ExitManager extends AbstractManager
             from `exit`
             left join `exit_Has_Type_Jump` on `id_exit`=exit.id
             left join `type_Jump` on `id_type_jump`=type_jump.id
-            WHERE exit.department IN (" .  $filterByDepartment . ");";
+            WHERE exit.department IN (" .  $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } else {
             $filterByJumpTypes = implode(', ', $filter[1]);
@@ -84,16 +86,9 @@ class ExitManager extends AbstractManager
             from `exit`
             join `exit_Has_Type_Jump` on `id_exit`=exit.id
             join `type_Jump` on `id_type_jump`=type_jump.id
-            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         };
-    }
-
-    public function isFilterActive(): bool
-    {
-        if ($_SESSION['filterByJumpTypes'] !== [] || $_SESSION['filterByDepartment'] !== []) {
-            return true;
-        }
-        return false;
     }
 }
