@@ -69,9 +69,9 @@ class ExitManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function exitsFiltered($filter)
+    public function exitsFiltered($filter): array|false
     {
-        if ($filter[0] == []) {
+        if ($filter[1] !== [] && empty($filter[0])) {
             $filterByJumpTypes = implode(', ', $filter[1]);
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
            from `exit`
@@ -79,9 +79,9 @@ class ExitManager extends AbstractManager
            left join `type_jump` on `id_type_jump`=type_jump.id
            WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
             return $this->pdo->query($query)->fetchAll();
-        } elseif ($filter[1] == []) {
+        } elseif ($filter[0] !== [] && empty($filter[1])) {
             $filterByDepartment = "'" . $filter[0][0] . "'";
-            $filterLength = count($filter[1]);
+            $filterLength = count($filter[0]);
             if (count($filter[0]) > 1) {
                 for ($i = 1; $i < $filterLength; $i++) {
                     $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
@@ -96,8 +96,8 @@ class ExitManager extends AbstractManager
         } else {
             $filterByJumpTypes = implode(', ', $filter[1]);
             $filterByDepartment = "'" . $filter[0][0] . "'";
-            $filterLength = count($filter[1]);
-            if (count($filter[0]) > 1) {
+            $filterLength = count($filter[0]);
+            if ($filterLength > 1) {
                 for ($i = 1; $i < $filterLength; $i++) {
                     $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
                 };
