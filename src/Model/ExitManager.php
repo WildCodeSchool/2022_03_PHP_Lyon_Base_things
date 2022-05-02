@@ -47,19 +47,20 @@ class ExitManager extends AbstractManager
         return $statement->execute();
     }
 
-    public function exitsFiltered($filter)
+    public function exitsFiltered($filter): array|false
     {
-        if ($filter[0] == []) {
+        if ($filter[1] !== [] && empty($filter[0])) {
             $filterByJumpTypes = implode(', ', $filter[1]);
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
            from `exit`
            left join `exit_Has_Type_Jump` on `id_exit`=exit.id
            left join `type_Jump` on `id_type_jump`=type_jump.id
-           WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
+           WHERE type_jump.id IN (" . $filterByJumpTypes . ")
+           GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
-        } elseif ($filter[1] == []) {
+        } elseif ($filter[0] !== [] && empty($filter[1])) {
             $filterByDepartment = "'" . $filter[0][0] . "'";
-            $filterLength = count($filter[1]);
+            $filterLength = count($filter[0]);
             if (count($filter[0]) > 1) {
                 for ($i = 1; $i < $filterLength; $i++) {
                     $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
@@ -69,13 +70,14 @@ class ExitManager extends AbstractManager
             from `exit`
             left join `exit_Has_Type_Jump` on `id_exit`=exit.id
             left join `type_Jump` on `id_type_jump`=type_jump.id
-            WHERE exit.department IN (" .  $filterByDepartment . ");";
+            WHERE exit.department IN (" .  $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } else {
             $filterByJumpTypes = implode(', ', $filter[1]);
             $filterByDepartment = "'" . $filter[0][0] . "'";
-            $filterLength = count($filter[1]);
-            if (count($filter[0]) > 1) {
+            $filterLength = count($filter[0]);
+            if ($filterLength > 1) {
                 for ($i = 1; $i < $filterLength; $i++) {
                     $filterByDepartment .=  ", '" . $filter[0][$i] . "'";
                 };
@@ -84,7 +86,8 @@ class ExitManager extends AbstractManager
             from `exit`
             join `exit_Has_Type_Jump` on `id_exit`=exit.id
             join `type_Jump` on `id_type_jump`=type_jump.id
-            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         };
     }
