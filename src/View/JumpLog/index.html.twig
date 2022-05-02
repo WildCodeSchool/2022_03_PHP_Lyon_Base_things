@@ -33,7 +33,7 @@
 								<img src="{{ jumpLog.image}}" class="col-12 mb-2">
 							</div>
 							<div class="col-12 col-lg-6 align-items-center">
-								<h2 class="text-center">{{ jumpLog.e_name}}</h2>
+								<a href="exits/show?id={{ jumpLog.id_exit}}"><h2 class="text-center">{{ jumpLog.e_name}}</h2></a>
 								<div class="row">
 									<div class="col-1"></div>
 									<p class="col-6">
@@ -79,6 +79,9 @@
 						</div>
 					</div>
 				{% endfor %}
+				<pre>
+					{{ dump(jumpLogs) }}
+				</pre>
 			</div>
 		</div>
 	</main>

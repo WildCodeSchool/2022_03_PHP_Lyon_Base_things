@@ -46,4 +46,14 @@ class ExitManager extends AbstractManager
 
         return $statement->execute();
     }
+
+        /**
+     * Delete row form an ID
+     */
+    public function hide(int $id): void
+    {
+        $statement = $this->pdo->prepare("UPDATE " . static::TABLE . " SET `active` = 0 WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }

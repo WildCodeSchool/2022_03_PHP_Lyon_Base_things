@@ -94,7 +94,7 @@ class ExitController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
-            $exitManager->delete((int)$id);
+            $exitManager->hide((int)$id);
 
             header('Location:/exits');
         }
