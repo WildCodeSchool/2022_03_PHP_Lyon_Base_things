@@ -75,6 +75,7 @@ class ExitController extends AbstractController
             } elseif (count($filterByJumpTypes) == 0) {
                 $listOfActiveFilters = implode(", ", $filterByDepartment);
             } else {
+                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
                 $listOfActiveFilters = implode(", ", $filterByDepartment) . ", " . implode(", ", $filterByJumpTypes);
             };
             return $listOfActiveFilters;
