@@ -20,9 +20,9 @@ class ExitController extends AbstractController
         $isLogIn = AdminController::isLogIn();
         $isFilterActive = $this->isFilterActive();
         $listOfActiveFilters = [];
-        $deleteMessage = '';
-        if (isset($_GET['deleteMessage'])) {
-            $deleteMessage = $_GET['deleteMessage'];
+        $deleteExitName = '';
+        if (isset($_GET['deleteExitName'])) {
+            $deleteExitName = $_GET['deleteExitName'];
         }
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
@@ -40,7 +40,7 @@ class ExitController extends AbstractController
                 'filter' => $filter,
                 'isFilterActive' => $isFilterActive,
                 'listOfActiveFilters' => $listOfActiveFilters,
-                'deleteMessage' => $deleteMessage
+                'deleteExitName' => $deleteExitName
             ]
         );
     }
@@ -209,9 +209,10 @@ class ExitController extends AbstractController
             header('Location: /login');
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
+            $name = trim($_POST['name']);
             $exitManager = new ExitManager();
             $exitManager->delete((int)$id);
-            header('Location: /exits/?deleteMessage=1');
+            header('Location: /exits/?deleteExitName=' . $name);
         }
     }
 

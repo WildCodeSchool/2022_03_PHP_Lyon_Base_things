@@ -7,7 +7,7 @@
 
 {% block content %}
 
-	{% if deleteMessage is not empty %}
+	{% if deleteExitName is not empty %}
 
 		<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 			<symbol id="check-circle-fill" fill="currentColor" viewbox="0 0 16 16">
@@ -24,7 +24,7 @@
 		<div id="deleteMessage" class="alert alert-success d-flex align-items-center" role="alert">
 			<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 			<div>
-				L'Exit a bien été supprimé
+				L'Exit {{ deleteExitName }} a bien été supprimé
 			</div>
 		</div>
 
@@ -96,7 +96,7 @@
 	</main>
 {% endblock %}
 {% block script %}
-	{% if deleteMessage is not empty %}
+	{% if deleteExitName is not empty %}
 		<script src="/assets/js/script.js"></script>
 	{% endif %}
 {% endblock %}
