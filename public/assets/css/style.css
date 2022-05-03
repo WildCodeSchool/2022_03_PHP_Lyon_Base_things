@@ -135,7 +135,7 @@ nav span{
     border-radius: 10px;
 }
 
- .card-img-top{
+.card-img-top{
     height: 50%;
 }
 /* css login form */
@@ -164,6 +164,12 @@ nav span{
 }
 
 /* css add form*/
+
+.edit-img-display {
+    max-width: 200px;
+}
+
+/* css add form*/
 .access_denied{
     --bs-text-opacity: .8;
 }
@@ -176,6 +182,18 @@ nav span{
 }
 .form_label_type_saut{
     display: none;
+}
+/* CSS Jumplog */
+.jumploglist {
+    border-radius: 2vw;
+    background-color: var(--text-bg-color);
+}
+.jumplogspan {
+    border-right-style: groove;
+}
+.jumpLogImg {
+    background-repeat: no-repeat;
+    background-position: center;
 }
 @media screen and (min-width: 768px) {
     .nav-img-container {
