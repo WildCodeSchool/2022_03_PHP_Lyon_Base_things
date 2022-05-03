@@ -4,20 +4,104 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
-use App\Controller\AdminController;
+use Doctrine\Common\Collections\Expr\Value;
+use App\Service\AddFormService;
 
 class ExitController extends AbstractController
 {
     /**
-     * List exits
-     */
+    * List exits
+    */
     public function index(): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
-        $isLogIn = $adminController->isLogIn();
-        $exits = $exitManager->selectAll('name');
-        return $this->twig->render('Exit/index.html.twig', ['exits' => $exits,'islogin' => $isLogIn]);
+        $isLogIn = AdminController::isLogIn();
+        $isFilterActive = $this->isFilterActive();
+        $listOfActiveFilters = [];
+        if (!empty($this->retrieveFilters())) {
+            $filter = $this->retrieveFilters();
+            $listOfActiveFilters = $this->listOfActiveFilters($filter);
+            $exits = $exitManager->exitsFiltered($filter);
+        } else {
+            $exits = $exitManager->selectAll('name');
+            $filter = null;
+        }
+        return $this->twig->render(
+            'Exit/index.html.twig',
+            ['exits' => $exits,'islogin' => $isLogIn, 'filter' => $filter,
+            'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters]
+        );
+    }
+
+    /**
+    * Retrieve filters from user
+    */
+    public function retrieveFilters()
+    {
+       // retrieve data from user
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_POST)) {
+                if (!empty($_POST['jumpTypes'])) {
+                    $filterByJumpTypes = $_POST['jumpTypes'];
+                    $_SESSION['filterByJumpTypes'] = $filterByJumpTypes;
+                } else {
+                    $filterByJumpTypes = [];
+                };
+                if (!empty($_POST['department'])) {
+                    $filterByDepartment = $_POST['department'];
+                    $_SESSION['filterByDepartment'] = $filterByDepartment;
+                } else {
+                    $filterByDepartment = [];
+                };
+                $filter = [$filterByDepartment, $filterByJumpTypes];
+                return $filter;
+            };
+        };
+    }
+
+    /**
+    * List the active filters as a string in order to be reminded to user
+    */
+    public function listOfActiveFilters($filter)
+    {
+        if ($this->isFilterActive() == true) {
+            $filterByDepartment = $filter[0];
+            $filterByJumpTypes = $filter[1];
+            if (count($filterByDepartment) == 0 && count($filterByJumpTypes) == 0) {
+                $listOfActiveFilters = [];
+            } elseif (count($filterByDepartment) == 0) {
+                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
+                $listOfActiveFilters = implode(", ", $filterByJumpTypes);
+            } elseif (count($filterByJumpTypes) == 0) {
+                $listOfActiveFilters = implode(", ", $filterByDepartment);
+            } else {
+                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
+                $listOfActiveFilters = implode(", ", $filterByDepartment) . ", " . implode(", ", $filterByJumpTypes);
+            };
+            return $listOfActiveFilters;
+        };
+    }
+
+    public function convertTypeJumpValueInId($filterByJumpTypes): array|string
+    {
+        $convertTable = ["Static-line", "Sans Glisseur", "Lisse", "Track Pantz", "Track Pantz Monopièce", "Wingsuit"];
+        $convertedFilter = [];
+        foreach ($filterByJumpTypes as $filterByJumpType) {
+            $convertedFilter [] = $convertTable[$filterByJumpType - 1];
+        }
+        return $convertedFilter;
+    }
+
+    /**
+    * Indicates if a filter have been done
+    */
+    public function isFilterActive(): bool
+    {
+        if (!empty($this->retrieveFilters())) {
+            return true;
+        } else {
+            return false;
+        };
     }
 
     /**
@@ -25,12 +109,10 @@ class ExitController extends AbstractController
      */
     public function show(int $id): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
-
         return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
                                                             'typeJumpByExit' => $typeJumpByExit,
                                                             'islogin' => $isLogIn]);
@@ -43,6 +125,7 @@ class ExitController extends AbstractController
     {
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $isLogIn = AdminController::isLogIn();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // clean $_POST data
@@ -61,31 +144,8 @@ class ExitController extends AbstractController
 
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
-        ]);
+            'islogin' => $isLogIn]);
     }
-
-    /**
-     * Add a new exit
-     */
-    public function add(): ?string
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
-            $exit = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation is ok, insert and redirection
-            $exitManager = new ExitManager();
-            $id = $exitManager->insert($exit);
-
-            header('Location:/exits/show?id=' . $id);
-            return null;
-        }
-
-        return $this->twig->render('Exit/add.html.twig');
-    }
-
     /**
      * Delete a specific exit
      */
@@ -94,9 +154,49 @@ class ExitController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
-            $exitManager->hide((int)$id);
+            $exitManager->delete((int)$id);
 
             header('Location:/exits');
         }
+    }
+
+    /**
+     * Créer nouvel exit
+     */
+    public function add(): ?string
+    {
+        $isLogIn = AdminController::isLogIn();
+        $errorMessages = [];
+        $accessmessage = AdminController::accessDenied();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+            $exit = AddFormService::trimPostData(); // suppression des espace
+            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+            $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
+            $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
+            if (!empty($_FILES['image']['name'])) {
+                $explodeName = explode('.', basename($_FILES['image']['name']));
+                $name = $explodeName[0];
+                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+                $uniqName = $name . uniqid('', true) . "." . $extension;
+                $uploadFile = $uploadDir . $uniqName;
+                $errorMessages = AddFormService::validateExtension($errorMessages);
+                $errorMessages = AddFormService::validateMaxFileSize($errorMessages);
+            } if (empty($errorMessages)) {
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $exit ['image'] = '/' . $uploadFile;
+                $exitManager = new ExitManager();
+                $id = $exitManager->insert($exit);
+                if (!empty($exit['jumpTypes'])) {
+                    $exit['value'] = $exit['jumpTypes'];
+                    $exitManager->insertJumpType($id, $exit['value']);
+                }
+                header('Location:/exits/show?id=' . $id);
+                return null;
+            }
+        }
+        return $this->twig->render('Exit/add.html.twig', ['error_messages' => $errorMessages,
+                                                            'islogin' => $isLogIn,
+                                                            'accessdenied' => $accessmessage]);
     }
 }
