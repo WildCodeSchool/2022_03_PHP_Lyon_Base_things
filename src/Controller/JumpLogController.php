@@ -15,8 +15,7 @@ class JumpLogController extends AbstractController
     {
         $jumpLogManager = new JumpLogManager();
         $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump');
-        $isLogIn = AdminController::isLogIn();
 
-        return $this->twig->render('JumpLog/index.html.twig', ['jumpLogs' => $jumpLogs,'islogin' => $isLogIn]);
+        return $this->twig->render('JumpLog/index.html.twig', ['jumpLogs' => $jumpLogs]);
     }
 }
