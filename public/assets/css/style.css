@@ -199,6 +199,7 @@ nav span{
 
 .filter_active {
     background-color: var(--text-bg-color);
+    border-radius: 15px;
 }
 @media screen and (min-width: 768px) {
     .nav-img-container {

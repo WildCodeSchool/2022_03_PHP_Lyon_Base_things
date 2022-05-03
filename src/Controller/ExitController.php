@@ -48,6 +48,7 @@ class ExitController extends AbstractController
             'jumpFiltersList' => $jumpFiltersList
             ]);
     }
+
     /**
      * Show informations for a specific exit
      */
