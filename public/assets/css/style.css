@@ -177,25 +177,20 @@ nav span{
 .form_label_type_saut{
     display: none;
 }
-@media screen and (min-width: 768px) {
-    .nav-img-container {
-        height: 75vh;
-    }
-}
-
 /* CSS Jumplog */
 .jumploglist {
     border-radius: 2vw;
     background-color: var(--text-bg-color);
-
 }
-
 .jumplogspan {
     border-right-style: groove;
 }
-
 .jumpLogImg {
     background-repeat: no-repeat;
     background-position: center;
-
+}
+@media screen and (min-width: 768px) {
+    .nav-img-container {
+        height: 75vh;
+    }
 }
