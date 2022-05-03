@@ -1,6 +1,6 @@
 {# TODO : manage errors display #}
 <div class="add_form_container container">
-	<h1 class = "text-center">Ajouter un nouvel exit</h1>
+	<h1 class = "text-center">Ajouter un saut au carnet de saut</h1>
 	<div class="row">
 	{% for error_message in error_messages %}
 		<h3 class = "error_message bg-light text-danger text-center"> {{error_message}}</h3>
@@ -8,9 +8,15 @@
 		<form  class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="name"><strong>Nom</strong>
+					<label class="col-6 col-lg-6"  for="name"><strong>Nom ou pseudo</strong>
 					</label>
-					<input class="col-11 col-lg-8" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Juste un saut" required>
+					<input class="col-11 col-lg-8" type="text" value="{{ jump_log.id_user }}" name="name" id="name" maxlength="150" placeholder="jean_jacques_du_6_9" required>
+					</div>
+				<div class="mb-4">
+                <div class="mb-4">
+					<label class="col-6 col-lg-6"  for="name"><strong>Nom de l'exit</strong>
+					</label>
+					<input class="col-11 col-lg-8" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Saut d'eau" required>
 					</div>
 				<div class="mb-4">
 					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="department"><strong>Département</strong>
@@ -25,25 +31,20 @@
 					</select>
 				</div>
 				<div class="mb-4 ms-md-1">
-					<label class="col-6 col-lg-1 text-lg-end"  for="height"><strong>Hauteur</strong>
+					<label class="col-6 col-lg-1 text-lg-end"  for="container"><strong>Harnais</strong>
 					</label>
-					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0"  type="text" value="{{ exit.height }}" name="height" id="height" maxlength="150" placeholder="390 metre " required>
-					<label class="col-6 col-lg-2 text-lg-end" for="access_duration"><strong>Temps d'accès</strong>
+					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0"  type="text" value="{{ jump_log.container }}" name="container" id="container" maxlength="150" placeholder="Zak 3" required>
+					<label class="col-6 col-lg-2 text-lg-end" for="canopy"><strong>Voile</strong>
 					</label>
-					<input class="col-11 col-lg-2 text-center m-2" type="time" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration" placeholder="jean">
+					<input class="col-11 col-lg-2 text-center m-2" type="text" value="{{ jump_log.canopy }}" name="canopy" id="canopy" maxlength="150" placeholder="troll">
+					<label class="col-6 col-lg-2 text-lg-end" for="suit"><strong>Suit</strong>
+					</label>
+					<input class="col-11 col-lg-2 text-center m-2" type="text" value="{{ jump_log.suit }}" name="suit" id="suit" maxlength="150" placeholder="freak">
 				</div>
-				<label class="col-6 col-lg-5 d-lg-none"  for="navbarDropdown"><strong>Type de saut</strong></label>
-				<div class="d-flex justify-content-center mb-5 col-lg-6">
-					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut</strong></label>
-					<li class="list-group col-11 col-lg-5 border border-rounded bg-white me-lg-3" id="add-form-checkbox">
-						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Choisir un type de saut
-						</a>
-						<ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
-							<li class="ms-1">{% include "_typeJumpListCheckbox.html.twig" %}</li>
-						</ul>
-					</li>
-				</div>		
+				<label class="col-6 col-lg-1 text-lg-end"  for="navbarDropdown"><strong>Type de saut</strong></label>
+				<select class="col-11 col-lg-3 mb-4 mb-lg-0" name="department" id="department" maxlength="50" required>
+						{% include "_typeJumpList.html.twig" %}
+					</select>
 				<div class="mb-4 me-lg-2">
 					<label class="col-6 col-lg-2 text-lg-end" for="gps_coordinates"><strong>Coordonnées GPS</strong></label>
 					<input class="col-11 col-lg-3 mb-4 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="41 24.2028, 2 10.4418">
