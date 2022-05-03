@@ -32,6 +32,9 @@
                 <button type="submit" class="btn btn-outline-primary mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
                 </div>
             </form>
+            {% if isFilterActive == true %}    
+                 <p>Filtres actifs : {{ listOfActiveFilters }}</p>   
+            {% endif %}
             {% if islogin == true %}
             <a href="/exits/add" class="col-10 mb-3"><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
             {% endif %}
@@ -43,7 +46,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{ exit.name}}</h5>
                         </div>           
-                        <img src="{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
+                        <img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
                         <ul class="list-group">
                             <li class="list-group-item">Lieu : {{exit.department}}</li>
                             <li class="list-group-item" id="exit-height">{{exit.height}}</li>
