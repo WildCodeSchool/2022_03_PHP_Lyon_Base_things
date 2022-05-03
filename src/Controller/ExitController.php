@@ -20,6 +20,10 @@ class ExitController extends AbstractController
         $isLogIn = AdminController::isLogIn();
         $isFilterActive = $this->isFilterActive();
         $listOfActiveFilters = [];
+        $deleteMessage = '';
+        if (isset($_GET['deleteMessage'])) {
+            $deleteMessage = $_GET['deleteMessage'];
+        }
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
             $listOfActiveFilters = $this->listOfActiveFilters($filter);
@@ -31,8 +35,12 @@ class ExitController extends AbstractController
         return $this->twig->render(
             'Exit/index.html.twig',
             [
-                'exits' => $exits, 'islogin' => $isLogIn, 'filter' => $filter,
-                'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters
+                'exits' => $exits,
+                'islogin' => $isLogIn,
+                'filter' => $filter,
+                'isFilterActive' => $isFilterActive,
+                'listOfActiveFilters' => $listOfActiveFilters,
+                'deleteMessage' => $deleteMessage
             ]
         );
     }
@@ -203,7 +211,7 @@ class ExitController extends AbstractController
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
             $exitManager->delete((int)$id);
-            header('Location:/exits');
+            header('Location: /exits/?deleteMessage=1');
         }
     }
 
