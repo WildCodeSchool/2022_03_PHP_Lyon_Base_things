@@ -22,13 +22,18 @@ class ExitController extends AbstractController
             $filter = $this->retrieveFilters();
             $listOfActiveFilters = $this->listOfActiveFilters($filter);
             $exits = $exitManager->exitsFiltered($filter);
+            header('location: /exits');
+        } elseif (!empty($this->sessionRetrieveFilters())) {
+            $filter = $this->sessionRetrieveFilters();
+            $listOfActiveFilters = $this->listOfActiveFilters($filter);
+            $exits = $exitManager->exitsFiltered($filter);
         } else {
             $exits = $exitManager->selectAll('name');
             $filter = null;
         }
         return $this->twig->render(
             'Exit/index.html.twig',
-            ['exits' => $exits,'islogin' => $isLogIn, 'filter' => $filter,
+            ['exits' => $exits,'islogin' => $isLogIn, 'filters' => $filter,
             'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters]
         );
     }
@@ -58,6 +63,24 @@ class ExitController extends AbstractController
             };
         };
     }
+    public function sessionRetrieveFilters()
+    {
+       // retrieve data from user
+        if (!empty($_SESSION['filterByJumpTypes']) || !empty($_SESSION['filterByDepartment'])) {
+            if (!empty($_SESSION['filterByJumpTypes'])) {
+                $filterByJumpTypes = $_SESSION['filterByJumpTypes'];
+            } else {
+                $filterByJumpTypes = [];
+            };
+            if (!empty($_SESSION['filterByDepartment'])) {
+                $filterByDepartment = $_SESSION['filterByDepartment'];
+            } else {
+                $filterByDepartment = [];
+            };
+            $filter = [$filterByDepartment, $filterByJumpTypes];
+            return $filter;
+        };
+    }
 
     /**
     * List the active filters as a string in order to be reminded to user
@@ -71,12 +94,12 @@ class ExitController extends AbstractController
                 $listOfActiveFilters = [];
             } elseif (count($filterByDepartment) == 0) {
                 $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
-                $listOfActiveFilters = implode(", ", $filterByJumpTypes);
+                $listOfActiveFilters = implode("/ ", $filterByJumpTypes);
             } elseif (count($filterByJumpTypes) == 0) {
-                $listOfActiveFilters = implode(", ", $filterByDepartment);
+                $listOfActiveFilters = implode("/ ", $filterByDepartment);
             } else {
                 $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
-                $listOfActiveFilters = implode(", ", $filterByDepartment) . ", " . implode(", ", $filterByJumpTypes);
+                $listOfActiveFilters = implode("/ ", $filterByDepartment) . "/" . implode("/ ", $filterByJumpTypes);
             };
             return $listOfActiveFilters;
         };
@@ -97,7 +120,7 @@ class ExitController extends AbstractController
     */
     public function isFilterActive(): bool
     {
-        if (!empty($this->retrieveFilters())) {
+        if (!empty($this->retrieveFilters()) || $this->sessionRetrieveFilters()) {
             return true;
         } else {
             return false;
