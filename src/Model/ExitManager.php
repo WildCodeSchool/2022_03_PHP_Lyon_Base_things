@@ -15,7 +15,7 @@ class ExitManager extends AbstractManager
     {
         // prepared request
         $statement = $this->pdo->prepare("SELECT tj.name FROM " . self::TABLE . " e 
-        INNER JOIN exit_has_type_jump ehtj ON ehtj.id_exit = e.id
+        INNER JOIN" . self::TABLE_HAS_TYPE_JUMP . "ehtj ON ehtj.id_exit = e.id
         INNER JOIN type_jump tj ON tj.id = ehtj.id_type_jump
         WHERE e.id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
@@ -118,11 +118,11 @@ class ExitManager extends AbstractManager
         if ($filter[1] !== [] && empty($filter[0])) {
             $filterByJumpTypes = implode(', ', $filter[1]);
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
-           from `exit`
-           left join `exit_has_type_jump` on `id_exit`=exit.id
-           left join `type_jump` on `id_type_jump`=type_jump.id
-           WHERE type_jump.id IN (" . $filterByJumpTypes . ")
-           GROUP BY exit.id;";
+            from" . self::TABLE .
+            "left join" . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
+            left join `type_jump` on `id_type_jump`=type_jump.id
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[0] !== [] && empty($filter[1])) {
             $filterByDepartment = "'" . $filter[0][0] . "'";
@@ -133,8 +133,8 @@ class ExitManager extends AbstractManager
                 };
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
-            from `exit`
-            left join `exit_has_type_jump` on `id_exit`=exit.id
+            from" . self::TABLE .
+            "left join " . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
             left join `type_jump` on `id_type_jump`=type_jump.id
             WHERE exit.department IN (" .  $filterByDepartment . ")
             GROUP BY exit.id;";
@@ -149,8 +149,8 @@ class ExitManager extends AbstractManager
                 };
             };
             $query = "SELECT exit.name, exit.image, exit.department, exit.height, exit.id 
-            from `exit`
-            join `exit_has_type_jump` on `id_exit`=exit.id
+            from" . self::TABLE .
+            "join" . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
             join `type_jump` on `id_type_jump`=type_jump.id
             WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ")
             GROUP BY exit.id;";
