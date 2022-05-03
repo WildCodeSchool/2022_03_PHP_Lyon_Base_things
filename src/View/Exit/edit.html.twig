@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block content %}
+
+	{% if islogin == true %}
+
+		<div class="container">
+			{% include 'Exit/_formEdit.html.twig' %}
+		</div>
+		
+	{% endif %}
+
+{% endblock %}
