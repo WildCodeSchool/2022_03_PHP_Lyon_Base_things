@@ -1,6 +1,7 @@
 <?php
 
 /* creation of the ExitManager class to manage the connection to the database */
+
 namespace App\Model;
 
 class ExitManager extends AbstractManager
@@ -47,6 +48,9 @@ class ExitManager extends AbstractManager
         return (int)$this->pdo->lastInsertId();
     }
 
+    /**
+     * Insert exit has jump type in database
+     */
     public function insertJumpType(int $id, array $jumpTypes): void
     {
         foreach ($jumpTypes as $jumpType) {
@@ -57,14 +61,54 @@ class ExitManager extends AbstractManager
             $statement->execute();
         }
     }
+
+    /**
+     * Insert exit has jump type in database
+     */
+    public function updateExitHasTypeJump(int $id, array $jumpTypes): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE_HAS_TYPE_JUMP . " WHERE id_exit=:id_exit");
+        $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        foreach ($jumpTypes as $jumpType) {
+            $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE_HAS_TYPE_JUMP . "(`id_exit`, `id_type_jump`) 
+            values (:id_exit, :id_type_jump)");
+            $statement->bindValue('id_exit', $id, \PDO::PARAM_INT);
+            $statement->bindValue('id_type_jump', $jumpType, \PDO::PARAM_INT);
+            $statement->execute();
+        }
+    }
+
     /**
     * Update exit in database
     */
     public function update(array $exit): bool
     {
-        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `title` = :title WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET
+        `name` = :name,
+        `department` = :department,
+        `country` = :country,
+        `height` = :height,
+        `access_duration` = :access_duration,
+        `gps_coordinates` = :gps_coordinates,
+        `acces` = :acces,
+        `remark` = :remark,
+        `video` = :video,
+        `image` = :image
+        WHERE id=:id");
+
         $statement->bindValue('id', $exit['id'], \PDO::PARAM_INT);
-        $statement->bindValue('title', $exit['title'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
+        $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
+        $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
+        $statement->bindValue('height', $exit['height'], \PDO::PARAM_STR);
+        $statement->bindValue('access_duration', $exit['access_duration'], \PDO::PARAM_STR);
+        $statement->bindValue('gps_coordinates', $exit['gps_coordinates'], \PDO::PARAM_STR);
+        $statement->bindValue('acces', $exit['acces'], \PDO::PARAM_STR);
+        $statement->bindValue('remark', $exit['remark'], \PDO::PARAM_STR);
+        $statement->bindValue('video', $exit['video'], \PDO::PARAM_STR);
+        $statement->bindValue('image', $exit['image'], \PDO::PARAM_STR);
 
         return $statement->execute();
     }
@@ -77,7 +121,8 @@ class ExitManager extends AbstractManager
            from `exit`
            left join `exit_has_type_jump` on `id_exit`=exit.id
            left join `type_jump` on `id_type_jump`=type_jump.id
-           WHERE type_jump.id IN (" . $filterByJumpTypes . ");";
+           WHERE type_jump.id IN (" . $filterByJumpTypes . ")
+           GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[0] !== [] && empty($filter[1])) {
             $filterByDepartment = "'" . $filter[0][0] . "'";
@@ -91,7 +136,8 @@ class ExitManager extends AbstractManager
             from `exit`
             left join `exit_has_type_jump` on `id_exit`=exit.id
             left join `type_jump` on `id_type_jump`=type_jump.id
-            WHERE exit.department IN (" .  $filterByDepartment . ");";
+            WHERE exit.department IN (" .  $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } else {
             $filterByJumpTypes = implode(', ', $filter[1]);
@@ -106,7 +152,8 @@ class ExitManager extends AbstractManager
             from `exit`
             join `exit_has_type_jump` on `id_exit`=exit.id
             join `type_jump` on `id_type_jump`=type_jump.id
-            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ");";
+            WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ")
+            GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         };
     }
