@@ -52,12 +52,14 @@ class ExitController extends AbstractController
                     $filterByJumpTypes = $_POST['jumpTypes'];
                     $_SESSION['filterByJumpTypes'] = $filterByJumpTypes;
                 } else {
+                    unset($_SESSION['filterByJumpTypes']);
                     $filterByJumpTypes = [];
                 };
                 if (!empty($_POST['department'])) {
                     $filterByDepartment = $_POST['department'];
                     $_SESSION['filterByDepartment'] = $filterByDepartment;
                 } else {
+                    unset($_SESSION['filterByJumpTypes']);
                     $filterByDepartment = [];
                 };
                 $filter = [$filterByDepartment, $filterByJumpTypes];
