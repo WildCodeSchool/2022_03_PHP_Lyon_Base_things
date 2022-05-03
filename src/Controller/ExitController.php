@@ -4,7 +4,8 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
-use App\Controller\AdminController;
+use Doctrine\Common\Collections\Expr\Value;
+use App\Service\AddFormService;
 
 class ExitController extends AbstractController
 {
@@ -13,9 +14,8 @@ class ExitController extends AbstractController
     */
     public function index(): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         $isFilterActive = $this->isFilterActive();
         $listOfActiveFilters = [];
         if (!empty($this->retrieveFilters())) {
@@ -109,10 +109,9 @@ class ExitController extends AbstractController
      */
     public function show(int $id): string
     {
-        $adminController = new AdminController();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
         return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
                                                             'typeJumpByExit' => $typeJumpByExit,
@@ -126,6 +125,7 @@ class ExitController extends AbstractController
     {
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
+        $isLogIn = AdminController::isLogIn();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // clean $_POST data
@@ -144,31 +144,8 @@ class ExitController extends AbstractController
 
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
-        ]);
+            'islogin' => $isLogIn]);
     }
-
-    /**
-     * Add a new exit
-     */
-    public function add(): ?string
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
-            $exit = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation is ok, insert and redirection
-            $exitManager = new ExitManager();
-            $id = $exitManager->insert($exit);
-
-            header('Location:/exits/show?id=' . $id);
-            return null;
-        }
-
-        return $this->twig->render('Exit/add.html.twig');
-    }
-
     /**
      * Delete a specific exit
      */
@@ -184,6 +161,42 @@ class ExitController extends AbstractController
     }
 
     /**
-    * List filtered exits
-    */
+     * Créer nouvel exit
+     */
+    public function add(): ?string
+    {
+        $isLogIn = AdminController::isLogIn();
+        $errorMessages = [];
+        $accessmessage = AdminController::accessDenied();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+            $exit = AddFormService::trimPostData(); // suppression des espace
+            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+            $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
+            $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
+            if (!empty($_FILES['image']['name'])) {
+                $explodeName = explode('.', basename($_FILES['image']['name']));
+                $name = $explodeName[0];
+                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+                $uniqName = $name . uniqid('', true) . "." . $extension;
+                $uploadFile = $uploadDir . $uniqName;
+                $errorMessages = AddFormService::validateExtension($errorMessages);
+                $errorMessages = AddFormService::validateMaxFileSize($errorMessages);
+            } if (empty($errorMessages)) {
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $exit ['image'] = '/' . $uploadFile;
+                $exitManager = new ExitManager();
+                $id = $exitManager->insert($exit);
+                if (!empty($exit['jumpTypes'])) {
+                    $exit['value'] = $exit['jumpTypes'];
+                    $exitManager->insertJumpType($id, $exit['value']);
+                }
+                header('Location:/exits/show?id=' . $id);
+                return null;
+            }
+        }
+        return $this->twig->render('Exit/add.html.twig', ['error_messages' => $errorMessages,
+                                                            'islogin' => $isLogIn,
+                                                            'accessdenied' => $accessmessage]);
+    }
 }

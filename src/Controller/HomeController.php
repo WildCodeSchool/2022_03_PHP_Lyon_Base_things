@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\AdminController;
-
 class HomeController extends AbstractController
 {
     /**
@@ -11,8 +9,7 @@ class HomeController extends AbstractController
      */
     public function index(): string
     {
-        $adminController = new AdminController();
-        $isLogIn = $adminController->isLogIn();
+        $isLogIn = AdminController::isLogIn();
         return $this->twig->render('Home/index.html.twig', ['islogin' => $isLogIn]);
     }
 }
