@@ -257,13 +257,11 @@ class ExitController extends AbstractController
      */
     public function unsetFilters(): void
     {
-        if (isset($_SESSION["filterByJumpTypes"]))
-        {
+        if (isset($_SESSION["filterByJumpTypes"])) {
             unset($_SESSION['filterByJumpTypes']);
         }
 
-        if (isset($_SESSION["filterByDepartment"]))
-        {
+        if (isset($_SESSION["filterByDepartment"])) {
             unset($_SESSION['filterByDepartment']);
         }
 
