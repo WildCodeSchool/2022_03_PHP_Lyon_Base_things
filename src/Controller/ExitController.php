@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Model\ExitManager;
 use App\Model\TypeJumpManager;
+use App\Controller\AdminController;
+use App\Service\ExitFilterService;
 use Doctrine\Common\Collections\Expr\Value;
 use App\Service\AddFormService;
 
@@ -17,20 +19,21 @@ class ExitController extends AbstractController
     public function index(): string
     {
         $exitManager = new ExitManager();
+        $isFilterActive = ExitFilterService::isFilterActive();
         $isLogIn = AdminController::isLogIn();
-        $isFilterActive = $this->isFilterActive();
+        $isFilterActive = ExitFilterService::isFilterActive();
         $jumpFiltersList = [];
         $depFiltersList = [];
-        if (!empty($this->retrieveFilters())) {
-            $filter = $this->retrieveFilters();
-            $depFiltersList = $this->depFiltersList($filter);
-            $jumpFiltersList = $this->JumpFiltersList($filter);
+        if (!empty(ExitFilterService::retrieveFilters())) {
+            $filter = ExitFilterService::retrieveFilters();
+            $depFiltersList = ExitFilterService::depFiltersList($filter);
+            $jumpFiltersList = ExitFilterService::jumpFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
             header('location: /exits');
-        } elseif (!empty($this->sessionRetrieveFilters())) {
-            $filter = $this->sessionRetrieveFilters();
-            $jumpFiltersList = $this->jumpFiltersList($filter);
-            $depFiltersList = $this->depFiltersList($filter);
+        } elseif (!empty(ExitFilterService::sessionRetrieveFilters())) {
+            $filter = ExitFilterService::sessionRetrieveFilters();
+            $jumpFiltersList = ExitFilterService::jumpFiltersList($filter);
+            $depFiltersList = ExitFilterService::depFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
         } else {
             $exits = $exitManager->selectAll('name');
@@ -45,103 +48,6 @@ class ExitController extends AbstractController
             'jumpFiltersList' => $jumpFiltersList
             ]);
     }
-
-    /**
-     * Retrieve filters from user
-     */
-    public function retrieveFilters()
-    {
-        // retrieve data from user
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($_POST)) {
-                if (!empty($_POST['jumpTypes'])) {
-                    $filterByJumpTypes = $_POST['jumpTypes'];
-                    $_SESSION['filterByJumpTypes'] = $filterByJumpTypes;
-                } else {
-                    unset($_SESSION['filterByJumpTypes']);
-                    $filterByJumpTypes = [];
-                };
-                if (!empty($_POST['department'])) {
-                    $filterByDepartment = $_POST['department'];
-                    $_SESSION['filterByDepartment'] = $filterByDepartment;
-                } else {
-                    unset($_SESSION['filterByDepartment']);
-                    $filterByDepartment = [];
-                };
-                $filter = [$filterByDepartment, $filterByJumpTypes];
-                return $filter;
-            };
-        };
-    }
-    public function sessionRetrieveFilters()
-    {
-       // retrieve data from user
-        if (!empty($_SESSION['filterByJumpTypes']) || !empty($_SESSION['filterByDepartment'])) {
-            if (!empty($_SESSION['filterByJumpTypes'])) {
-                $filterByJumpTypes = $_SESSION['filterByJumpTypes'];
-            } else {
-                $filterByJumpTypes = [];
-            };
-            if (!empty($_SESSION['filterByDepartment'])) {
-                $filterByDepartment = $_SESSION['filterByDepartment'];
-            } else {
-                $filterByDepartment = [];
-            };
-            $filter = [$filterByDepartment, $filterByJumpTypes];
-            return $filter;
-        };
-    }
-
-    /**
-     * List the active filters as a string in order to be reminded to user
-     */
-    public function depFiltersList($filter)
-    {
-        if ($this->isFilterActive() == true) {
-            $filterByDepartment = $filter[0];
-            if (count($filterByDepartment) == 0) {
-                $depFiltersList = "";
-            } else {
-                $depFiltersList = implode("/ ", $filterByDepartment);
-            }
-            return $depFiltersList;
-        };
-    }
-    public function jumpFiltersList($filter)
-    {
-        if ($this->isFilterActive() == true) {
-            $filterByJumpTypes = $filter[1];
-            if (count($filterByJumpTypes) == 0) {
-                $jumpFiltersList = "";
-            } else {
-                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
-                $jumpFiltersList = implode("/ ", $filterByJumpTypes);
-            }
-            return $jumpFiltersList;
-        };
-    }
-    public function convertTypeJumpValueInId($filterByJumpTypes): array|string
-    {
-        $convertTable = ["Static-line", "Sans Glisseur", "Lisse", "Track Pantz", "Track Pantz Monopièce", "Wingsuit"];
-        $convertedFilter = [];
-        foreach ($filterByJumpTypes as $filterByJumpType) {
-            $convertedFilter[] = $convertTable[$filterByJumpType - 1];
-        }
-        return $convertedFilter;
-    }
-
-    /**
-     * Indicates if a filter have been done
-     */
-    public function isFilterActive(): bool
-    {
-        if (!empty($this->retrieveFilters()) || $this->sessionRetrieveFilters()) {
-            return true;
-        } else {
-            return false;
-        };
-    }
-
     /**
      * Show informations for a specific exit
      */
