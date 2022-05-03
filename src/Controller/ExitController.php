@@ -19,25 +19,31 @@ class ExitController extends AbstractController
         $exitManager = new ExitManager();
         $isLogIn = AdminController::isLogIn();
         $isFilterActive = $this->isFilterActive();
-        $listOfActiveFilters = [];
+        $jumpFiltersList = [];
+        $depFiltersList = [];
         if (!empty($this->retrieveFilters())) {
             $filter = $this->retrieveFilters();
-            $listOfActiveFilters = $this->listOfActiveFilters($filter);
+            $depFiltersList = $this->depFiltersList($filter);
+            $jumpFiltersList = $this->JumpFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
             header('location: /exits');
         } elseif (!empty($this->sessionRetrieveFilters())) {
             $filter = $this->sessionRetrieveFilters();
-            $listOfActiveFilters = $this->listOfActiveFilters($filter);
+            $jumpFiltersList = $this->jumpFiltersList($filter);
+            $depFiltersList = $this->depFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
         } else {
             $exits = $exitManager->selectAll('name');
             $filter = null;
         }
-        return $this->twig->render(
-            'Exit/index.html.twig',
-            ['exits' => $exits,'islogin' => $isLogIn, 'filters' => $filter,
-            'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters]
-        );
+        return $this->twig->render('Exit/index.html.twig', [
+            'exits' => $exits,
+            'islogin' => $isLogIn,
+            'filters' => $filter,
+            'isFilterActive' => $isFilterActive,
+            'depFiltersList' => $depFiltersList,
+            'jumpFiltersList' => $jumpFiltersList
+            ]);
     }
 
     /**
@@ -59,7 +65,7 @@ class ExitController extends AbstractController
                     $filterByDepartment = $_POST['department'];
                     $_SESSION['filterByDepartment'] = $filterByDepartment;
                 } else {
-                    unset($_SESSION['filterByJumpTypes']);
+                    unset($_SESSION['filterByDepartment']);
                     $filterByDepartment = [];
                 };
                 $filter = [$filterByDepartment, $filterByJumpTypes];
@@ -89,26 +95,31 @@ class ExitController extends AbstractController
     /**
      * List the active filters as a string in order to be reminded to user
      */
-    public function listOfActiveFilters($filter)
+    public function depFiltersList($filter)
     {
         if ($this->isFilterActive() == true) {
             $filterByDepartment = $filter[0];
-            $filterByJumpTypes = $filter[1];
-            if (count($filterByDepartment) == 0 && count($filterByJumpTypes) == 0) {
-                $listOfActiveFilters = [];
-            } elseif (count($filterByDepartment) == 0) {
-                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
-                $listOfActiveFilters = implode("/ ", $filterByJumpTypes);
-            } elseif (count($filterByJumpTypes) == 0) {
-                $listOfActiveFilters = implode("/ ", $filterByDepartment);
+            if (count($filterByDepartment) == 0) {
+                $depFiltersList = "";
             } else {
-                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
-                $listOfActiveFilters = implode("/ ", $filterByDepartment) . "/" . implode("/ ", $filterByJumpTypes);
-            };
-            return $listOfActiveFilters;
+                $depFiltersList = implode("/ ", $filterByDepartment);
+            }
+            return $depFiltersList;
         };
     }
-
+    public function jumpFiltersList($filter)
+    {
+        if ($this->isFilterActive() == true) {
+            $filterByJumpTypes = $filter[1];
+            if (count($filterByJumpTypes) == 0) {
+                $jumpFiltersList = "";
+            } else {
+                $filterByJumpTypes = $this->convertTypeJumpValueInId($filterByJumpTypes);
+                $jumpFiltersList = implode("/ ", $filterByJumpTypes);
+            }
+            return $jumpFiltersList;
+        };
+    }
     public function convertTypeJumpValueInId($filterByJumpTypes): array|string
     {
         $convertTable = ["Static-line", "Sans Glisseur", "Lisse", "Track Pantz", "Track Pantz Monopièce", "Wingsuit"];
