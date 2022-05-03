@@ -95,3 +95,8 @@
 		</div>
 	</main>
 {% endblock %}
+{% block script %}
+	{% if deleteMessage is not empty %}
+		<script src="/assets/js/script.js"></script>
+	{% endif %}
+{% endblock %}
