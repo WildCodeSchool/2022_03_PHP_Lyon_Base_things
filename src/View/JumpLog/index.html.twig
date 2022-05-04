@@ -14,7 +14,11 @@
 						Filtrer par <br> Jumper
 					</a>
 					<ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
-							<li class="ms-1">{% include "_departmentListCheckbox.html.twig" %}</li>
+						<li class="ms-1">
+						{% for pseudoForFilter in pseudoForFilters %}
+							<div><input type="checkbox" name="department[]" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}"><label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label></div>
+						{% endfor %}
+						</li>
 					</ul>
 				</li>
 			</div>
