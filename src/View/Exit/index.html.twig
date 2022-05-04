@@ -32,19 +32,19 @@
                 <button type="submit" class="btn btn-outline-primary mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
                 </div>
             </form>
+            {% if islogin == true %}
+            <a href="/exits/add" class="col-10 mb-3"><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
+            {% endif %}
             {% if isFilterActive == true %}
-            <div class="container">
+            <div class="container mb-3 mb-md-0">
                 <div class="row justify-content-center">
                     <div class="filter_active col-12 col-md-4">
                         <h5 class="text-center">Filtres actifs :</h5>   
-                        <h6 class="text-center">{{ depFiltersList }}</h6>
-                        <h6 class="text-center">{{ jumpFiltersList }}</h6>
+                        <p class="text-center mb-1">{{ depFiltersList }}</p>
+                        <p class="text-center">{{ jumpFiltersList }}</p>
                     </div>
                 </div>
             </div>
-            {% endif %}
-            {% if islogin == true %}
-            <a href="/exits/add" class="col-10 mb-3"><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
             {% endif %}
             {# display of the list of exits #}
             {% for exit in exits %}
