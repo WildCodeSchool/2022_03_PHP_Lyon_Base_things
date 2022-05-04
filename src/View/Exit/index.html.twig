@@ -32,73 +32,71 @@
 
 	{% endif %}
 
-	{# creation of a drop-down list to contain the filters #}
-	<main class="container-fluid">
-		<div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5">
-			<h1 class="col-sm-12 col-xl-12 text-center m-5">Liste des exits</h1>
-			<form class="container" method="POST">
-				<div class="row gx-lg-0 mt-3 justify-content-center">
-					<li class="list-group col-5 col-sm-4 col-md-2 col-lg-2 col-xl-2">
-						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Filtrer par
-							<br>
-							départements
-						</a>
-						<ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
-							<li class="ms-1">{% include "_departmentListCheckbox.html.twig" %}</li>
-						</ul>
-					</li>
-					<li class="list-group ps-lg-4 ps-xl-4 col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
-						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Filtrer par
-							<br>
-							type de saut
-						</a>
-						<ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
-							<li class="ms-1">{% include "_typeJumpList.html.twig" %}</li>
-						</ul>
-					</li>
-				</div>
-				<div class="row justify-content-center">
-					<button type="submit" class="btn btn-outline-primary m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
-					<a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1">
-						<button type="button" class="btn btn-outline-primary w-100">Reinitialiser les filtres</button>
-					</a>
-				</div>
-			</form>
-			{% if isFilterActive == true %}
-				<p>Filtres actifs :
-					{{ listOfActiveFilters }}</p>
-			{% endif %}
-			{% if islogin == true %}
-				<a href="/exits/add" class="">
-					<button type="button" class="btn btn-primary">Ajouter un exit</button>
-				</a>
-			{% endif %}
-			{# display of the list of exits #}
-			{% for exit in exits %}
-				<div class="card-container pb-5 mb-5 col-11 col-sm-5 col-md-5 col-lg-4 col-xl-3">
-					<a href="/exits/show?id={{ exit.id }}" class="link link-dark text-decoration-none">
-						<div class="card text-center">
-							<div class="card-body">
-								<h5 class="card-title text-dark">{{ exit.name}}</h5>
-							</div>
-							<img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
-							<ul class="list-group">
-								<li class="list-group-item">Lieu :
-									{{exit.department}}</li>
-								<li class="list-group-item" id="exit-height">{{exit.height}}</li>
-								<span class="list-item">
-									<li class="list-group-item">Voir le détail de l'exit</li>
-								</span>
-							</ul>
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-		</div>
-	</main>
+    {# creation of a drop-down list to contain the filters #}
+    <main class="container-fluid">
+        <div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5">
+            <h1 class="col-sm-12 col-xl-12 text-center m-5" >Liste des exits</h1>
+            <form class="container" method="POST">
+                <div class="row gx-lg-0 mt-3 justify-content-center">
+                    <li class="list-group col-5 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+                        <a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filtrer par <br> départements
+                        </a>
+                        <ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
+                                <li class="ms-1">{% include "_departmentListCheckbox.html.twig" %}</li>
+                        </ul>
+                    </li>
+                    <li class="list-group ps-lg-4 ps-xl-4 col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+                        <a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filtrer par <br> type de saut
+                        </a>
+                        <ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
+                                <li class="ms-1">{% include "_typeJumpList.html.twig" %}</li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="row justify-content-center">
+                <button type="submit" class="btn btn-outline-primary m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
+                <a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1"><button type="button" class="btn btn-outline-primary w-100">Reinitialiser les filtres</button></a>
+                </div>
+            </form>
+            {% if islogin == true %}
+            <a href="/exits/add" class=""><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
+            {% endif %}
+            {% if isFilterActive == true %}
+            <div class="container mb-3 mb-md-0">
+                <div class="row justify-content-center">
+                    <div class="filter_active col-12 col-md-4">
+                        <h5 class="text-center">Filtres actifs :</h5>   
+                        <p class="text-center mb-1">{{ depFiltersList }}</p>
+                        <p class="text-center">{{ jumpFiltersList }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {# display of the list of exits #}
+            {% for exit in exits %}
+            <div class="card-container pb-5 mb-5 col-11 col-sm-5 col-md-5 col-lg-4 col-xl-3">
+                <a href="/exits/show?id={{ exit.id }}" class="link link-dark text-decoration-none"> 
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">{{ exit.name}}</h5>
+                        </div>           
+                        <img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
+                        <ul class="list-group">
+                            <li class="list-group-item">Lieu : {{exit.department}}</li>
+                            <li class="list-group-item" id="exit-height">{{exit.height}}</li>
+                            <span class="list-item"><li class="list-group-item">Voir le détail de l'exit</li></span>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
 {% endblock %}
+
 {% block script %}
 		<script src="/assets/js/script.js"></script>
 {% endblock %}
+
