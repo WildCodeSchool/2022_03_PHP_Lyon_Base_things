@@ -15,8 +15,10 @@
 					</a>
 					<ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
 						<li class="ms-1">
+						{% set i = 1 %}
 						{% for pseudoForFilter in pseudoForFilters %}
-							<div><input type="checkbox" name="department[]" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}"><label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label></div>
+							<div><input type="checkbox" name="pseudoFilter{{ i }}" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}"><label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label></div>
+						{% set i = i+1 %}
 						{% endfor %}
 						</li>
 					</ul>

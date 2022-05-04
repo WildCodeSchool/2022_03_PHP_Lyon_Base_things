@@ -10,7 +10,7 @@ use App\Controller\JumpLogController;
 class JumpLogFilterService extends JumpLogController
 {
     /**
-     * Retrieve filters from user
+     * Retrieve pseudo for filter
      */
     public static function retrievePseudoForFilters(array $jumpLogs): array
     {
