@@ -21,6 +21,7 @@ return [
     'login' => ['AdminController', 'logVerification',],
     'logout' => ['AdminController', 'logout',],
     'exits/show' => ['ExitController', 'show', ['id']],
+    'exits/delete' => ['ExitController', 'hide',],
     'exits/hide' => ['ExitController', 'hide',],
     'jumplog' => ['JumpLogController', 'index',],
     'exits/edit' => ['ExitController', 'edit', ['id']],
