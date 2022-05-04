@@ -37,6 +37,7 @@ class ExitController extends AbstractController
         );
     }
 
+
     /**
      * Retrieve filters from user
      */
@@ -248,5 +249,21 @@ class ExitController extends AbstractController
             'islogin' => $isLogIn,
             'accessdenied' => $accessmessage
         ]);
+    }
+
+    /**
+     * Unset filters
+     */
+    public function unsetFilters(): void
+    {
+        if (isset($_SESSION["filterByJumpTypes"])) {
+            unset($_SESSION['filterByJumpTypes']);
+        }
+
+        if (isset($_SESSION["filterByDepartment"])) {
+            unset($_SESSION['filterByDepartment']);
+        }
+
+        header('Location:/exits');
     }
 }
