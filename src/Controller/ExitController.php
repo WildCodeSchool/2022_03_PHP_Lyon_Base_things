@@ -24,6 +24,10 @@ class ExitController extends AbstractController
         $isFilterActive = ExitFilterService::isFilterActive();
         $jumpFiltersList = [];
         $depFiltersList = [];
+        $deleteExitName = '';
+        if (isset($_GET['deleteExitName'])) {
+            $deleteExitName = $_GET['deleteExitName'];
+        }
         if (!empty(ExitFilterService::retrieveFilters())) {
             $filter = ExitFilterService::retrieveFilters();
             $depFiltersList = ExitFilterService::depFiltersList($filter);
@@ -36,7 +40,7 @@ class ExitController extends AbstractController
             $depFiltersList = ExitFilterService::depFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
         } else {
-            $exits = $exitManager->selectAll('name');
+            $exits = $exitManager->selectAllExit('name');
             $filter = null;
         }
         return $this->twig->render('Exit/index.html.twig', [
@@ -45,7 +49,8 @@ class ExitController extends AbstractController
             'filters' => $filter,
             'isFilterActive' => $isFilterActive,
             'depFiltersList' => $depFiltersList,
-            'jumpFiltersList' => $jumpFiltersList
+            'jumpFiltersList' => $jumpFiltersList,
+            'deleteExitName' => $deleteExitName,
             ]);
     }
 
@@ -132,9 +137,9 @@ class ExitController extends AbstractController
     }
 
     /**
-     * Delete a specific exit
+     * Hide a specific exit
      */
-    public function delete(): void
+    public function hide(): void
     {
         $isLogIn = AdminController::isLogIn();
 
@@ -142,9 +147,10 @@ class ExitController extends AbstractController
             header('Location: /login');
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
+            $name = trim($_POST['name']);
             $exitManager = new ExitManager();
-            $exitManager->delete((int)$id);
-            header('Location:/exits');
+            $exitManager->hide((int)$id);
+            header('Location: /exits/?deleteExitName=' . $name);
         }
     }
 
@@ -189,5 +195,21 @@ class ExitController extends AbstractController
             'islogin' => $isLogIn,
             'accessdenied' => $accessmessage
         ]);
+    }
+
+    /**
+     * Unset filters
+     */
+    public function unsetFilters(): void
+    {
+        if (isset($_SESSION["filterByJumpTypes"])) {
+            unset($_SESSION['filterByJumpTypes']);
+        }
+
+        if (isset($_SESSION["filterByDepartment"])) {
+            unset($_SESSION['filterByDepartment']);
+        }
+
+        header('Location:/exits');
     }
 }

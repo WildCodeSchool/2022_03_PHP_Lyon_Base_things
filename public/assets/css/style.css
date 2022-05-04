@@ -138,6 +138,10 @@ nav span{
 .card-img-top{
     height: 50%;
 }
+
+.hiddenMessage {
+    display: none;
+}
 /* css login form */
 #login_form_container {
     height: 100vh;
