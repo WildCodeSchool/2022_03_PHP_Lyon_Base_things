@@ -89,6 +89,8 @@
 	</div>
 	<p class="m-0 fw-bold">Commentaire :</p>
 	{{ jumpLog.comment }}
-</div></div><form action="/jumplog/deleteJump" method="POST">
-<input type="hidden" name="id" value="{{ jumpLog.id }}">
-<button class="btn btn-info m-2 bg-danger">Supprimer le saut</button></form></div>{% endfor %}</div></div></main>{% endblock %}
+</div></div>{% if islogin == true %}
+<form action="/jumplog/deleteJump" method="POST">
+	<input type="hidden" name="id" value="{{ jumpLog.id }}">
+	<button class="btn btn-info m-2 bg-danger">Supprimer le saut</button>
+</form>{% endif %}</div>{% endfor %}</div></div></main>{% endblock %}

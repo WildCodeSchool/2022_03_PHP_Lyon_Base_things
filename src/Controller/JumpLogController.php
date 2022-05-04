@@ -25,7 +25,11 @@ class JumpLogController extends AbstractController
      */
     public function deleteJump(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $isLogIn = AdminController::isLogIn();
+
+        if (!$isLogIn) {
+            header('Location: /login');
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $jumpLogManager = new JumpLogManager();
             $jumpLogManager->deleteJump((int)$id);
