@@ -18,7 +18,7 @@
 	<div class="container d-flex flex-column flex-md-row">
 
 		<div class="container">
-			<img class="img-fluid rounded " src="{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
+			<img class="img-fluid rounded " src="/{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
 		</div>
 
 		<div class="my-3 container">
@@ -56,22 +56,25 @@
 
 	</div>
 
-	<div class="container d-flex">
+	<div class="container d-flex pb-5">
 
 		<form action="/exits/">
 			<input type="hidden" name="id" value="{{ exit.id }}">
-			<button class ="btn btn-info mt-2">Retour</button>
+			<button class="btn btn-info m-2">Retour</button>
 		</form>
 
 		{% if islogin == true %}
+			<form action="/exits/edit" method="GET">
+				<input type="hidden" name="id" value="{{ exit.id }}">
+				<button class="btn btn-info m-2 bg-warning">Modifier</button>
+			</form>
 			<form action="/exits/delete" method="POST">
 				<input type="hidden" name="id" value="{{ exit.id }}">
-				<button class ="btn btn-info m-2 bg-danger">Supprimer</button>
+				<button class="btn btn-info m-2 bg-danger">Supprimer</button>
 			</form>
 		{% endif %}
-		
+
 	</div>
-	
 
 
 {% endblock %}

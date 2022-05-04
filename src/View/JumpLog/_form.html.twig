@@ -8,60 +8,78 @@
 		<form  class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="name"><strong>Nom ou pseudo</strong>
+					<label class="col-6 col-lg-6"  for="pseudo"><strong>Nom ou pseudo</strong>
 					</label>
-					<input class="col-11 col-lg-8" type="text" value="{{ jump_log.id_user }}" name="name" id="name" maxlength="150" placeholder="jean_jacques_du_6_9" required>
+					<input class="col-11 col-lg-8" type="text" value="{{ user.pseudo }}" name="pseudo" id="pseudo" maxlength="150" placeholder="jean_jacques_du_6_9" required>
 					</div>
 				<div class="mb-4">
                 <div class="mb-4">
-					<label class="col-6 col-lg-6"  for="name"><strong>Nom de l'exit</strong>
+					<label class="col-6 col-lg-6"  for="id_exit"><strong>Nom de l'exit</strong>
 					</label>
-					<input class="col-11 col-lg-8" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Saut d'eau" required>
+					<select class="col-11 col-lg-8" value="{{ jump_log.id_exit }}" name="id_exit" id="id_exit" maxlength="50" required>
+						{% include "_exitList.html.twig" %}
+					</select>
+				<div class="mb-4">
+					<label class="col-6 col-lg-6"  for="date_of_jump"><strong>Date</strong>
+					</label>
+					<input class="col-11 col-lg-8" type="text" value="{{ jump_log.date_of_jump }}" name="date_of_jump" id="date_of_jump" maxlength="150" placeholder="jean_jacques_du_6_9" required>
 					</div>
 				<div class="mb-4">
-					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="department"><strong>Département</strong>
+
+				<div class="mb-4">
+					<label class="col-6 col-lg-6"  for="id_type_jump"><strong>Type de saut</strong>
 					</label>
-					<select class="col-11 col-lg-3 mb-4 mb-lg-0" name="department" id="department" maxlength="50" required>
-						{% include "_departmentList.html.twig" %}
-					</select>
-					<label class="col-6 col-lg-2 text-lg-end me-lg-2"  for="country-select"><strong>Choisir un pays</strong>
-					</label>
-					<select class="col-11 col-lg-2 me-lg-2" name="country" id="country" maxlength="50" required>
-						{% include "_countryList.html.twig" %}
+					<select class="col-11 col-lg-8" value="{{ jump_log.id_type_jump }}" name="id_type_jump" id="id_type_jump" maxlength="50" required>
+						{% include "_typeJumpList.html.twig" %}
 					</select>
 				</div>
+
+				<div class="mb-4">
+					<p>Matériel :</p>
+				</div>
+
 				<div class="mb-4 ms-md-1">
 					<label class="col-6 col-lg-1 text-lg-end"  for="container"><strong>Harnais</strong>
 					</label>
 					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0"  type="text" value="{{ jump_log.container }}" name="container" id="container" maxlength="150" placeholder="Zak 3" required>
-					<label class="col-6 col-lg-2 text-lg-end" for="canopy"><strong>Voile</strong>
-					</label>
-					<input class="col-11 col-lg-2 text-center m-2" type="text" value="{{ jump_log.canopy }}" name="canopy" id="canopy" maxlength="150" placeholder="troll">
-					<label class="col-6 col-lg-2 text-lg-end" for="suit"><strong>Suit</strong>
-					</label>
-					<input class="col-11 col-lg-2 text-center m-2" type="text" value="{{ jump_log.suit }}" name="suit" id="suit" maxlength="150" placeholder="freak">
 				</div>
-				<label class="col-6 col-lg-1 text-lg-end"  for="navbarDropdown"><strong>Type de saut</strong></label>
-				<select class="col-11 col-lg-3 mb-4 mb-lg-0" name="department" id="department" maxlength="50" required>
-						{% include "_typeJumpList.html.twig" %}
-					</select>
+				<div class="mb-4 ms-md-1">	
+					<label class="col-6 col-lg-1 text-lg-end" for="canopy"><strong>Voile</strong>
+					</label>
+					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0" type="text" value="{{ jump_log.canopy }}" name="canopy" id="canopy" maxlength="150" placeholder="troll">
+				</div>
+				<div class="mb-4 ms-md-1">
+					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="suit"><strong>Suit</strong>
+					</label>
+					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0" type="text" value="{{ jump_log.suit }}" name="suit" id="suit" maxlength="150" placeholder="freak">
+				</div>
+
+
+
+				<div class="mb-4">
+					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="weather"><strong>Météo</strong>
+					</label>
+					<input class="col-11 col-lg-3 mb-4 mb-lg-0" type="text" value="{{ jump_log.weather }}" name="weather" id="weather" maxlength="150" required>
+					</input>
+					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="wind"><strong>Vent</strong>
+					</label>
+					<input class="col-11 col-lg-3 mb-4 mb-lg-0" type="text" value="{{ jump_log.wind }}" name="wind" id="wind" maxlength="150" required>
+					</input>
+				</div>
+					
+		
 				<div class="mb-4 me-lg-2">
-					<label class="col-6 col-lg-2 text-lg-end" for="gps_coordinates"><strong>Coordonnées GPS</strong></label>
-					<input class="col-11 col-lg-3 mb-4 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="41 24.2028, 2 10.4418">
 					<label class="col-6 col-lg-2  mb-2 text-lg-end" for="image"><strong>Image</strong></label>
-					<input class="col-11 col-lg-3" type="file" name="image" id="image"/>
+					<input class="col-11 col-lg-3" type="file" value="{{ jump_log.image }}" name="image" id="image"/>
 				</div>
 				<div class="mb-4">
 					<label class="col-6" for="video"><strong>Vidéo</strong></label>
-					<input class="col-11 col-lg-8" type="text" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
+					<input class="col-11 col-lg-8" type="text" value="{{ jump_log.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
 				</div>
+				
 				<div>
-					<label class="col-6" for="acces"><strong>Accès</strong></label>
-					<P class="mb-4"><textarea class="col-11 col-lg-8" id="acces" name="acces" rows="3" cols="30" placeholder="Detaillé l'accés ici"></textarea></p>
-				</div>
-				<div>
-					<label class="col-6" for="remark"><strong>Remarques</strong></label>
-					<p class="mb-4"><textarea class="col-11 col-lg-8" id="remark" name="remark" rows="3" cols="30" placeholder="vos remarque concernant l'exit"></textarea></p>
+					<label class="col-6" for="comment"><strong>Remarques</strong></label>
+					<p class="mb-4"><textarea class="col-11 col-lg-8" value="{{ jump_log.comment }}" id="comment" name="comment" rows="3" cols="30" placeholder="remarques sur le saut"></textarea></p>
 				</div>	
 				<div class="row form-group justify-content-center mt-3 mb-4">
 					<input type="submit" class="btn btn-lg btn-primary btn-block col-6 col-md-3" value="Créer">

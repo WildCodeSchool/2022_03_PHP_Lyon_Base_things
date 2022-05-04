@@ -164,6 +164,12 @@ nav span{
 }
 
 /* css add form*/
+
+.edit-img-display {
+    max-width: 200px;
+}
+
+/* css add form*/
 .access_denied{
     --bs-text-opacity: .8;
 }

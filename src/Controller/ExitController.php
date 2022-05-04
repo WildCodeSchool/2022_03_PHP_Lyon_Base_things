@@ -1,19 +1,21 @@
 <?php
 
 /* creation of the ExitController class to pass requests to the database */
+
 namespace App\Controller;
 
 use App\Model\ExitManager;
 use App\Controller\AdminController;
 use App\Service\ExitFilterService;
+use App\Model\TypeJumpManager;
 use Doctrine\Common\Collections\Expr\Value;
 use App\Service\AddFormService;
 
 class ExitController extends AbstractController
 {
     /**
-    * List exits
-    */
+     * List exits
+     */
     public function index(): string
     {
         $exitManager = new ExitManager();
@@ -30,8 +32,10 @@ class ExitController extends AbstractController
         }
         return $this->twig->render(
             'Exit/index.html.twig',
-            ['exits' => $exits,'islogin' => $isLogIn, 'filter' => $filter,
-            'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters]
+            [
+                'exits' => $exits, 'islogin' => $isLogIn, 'filter' => $filter,
+                'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters
+            ]
         );
     }
 
@@ -44,9 +48,12 @@ class ExitController extends AbstractController
         $exit = $exitManager->selectOneById($id);
         $isLogIn = AdminController::isLogIn();
         $typeJumpByExit = $exitManager->selectTypeJumpByExitId($id);
-        return $this->twig->render('Exit/show.html.twig', ['exit' => $exit,
-                                                            'typeJumpByExit' => $typeJumpByExit,
-                                                            'islogin' => $isLogIn]);
+
+        return $this->twig->render('Exit/show.html.twig', [
+            'exit' => $exit,
+            'typeJumpByExit' => $typeJumpByExit,
+            'islogin' => $isLogIn
+        ]);
     }
 
     /**
@@ -54,39 +61,79 @@ class ExitController extends AbstractController
      */
     public function edit(int $id): ?string
     {
+
+        $isLogIn = AdminController::isLogIn();
         $exitManager = new ExitManager();
         $exit = $exitManager->selectOneById($id);
-        $isLogIn = AdminController::isLogIn();
+        $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
+        $typeJumpManager = new TypeJumpManager();
+        $typeJump = $typeJumpManager->selectAll();
+        $errorMessages = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
-            $exit = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
+            $exit = AddFormService::trimPostData(); // nettoyage des données
+            // verifié si certain champ sont vide
+            $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
+            $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
+            $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
+            $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $authorizedExtensions = ['jpg', 'jpeg', 'png']; // definir les extension autorisé
+            $maxFileSize = 2000000; // definir le poid max de l'image
+            if (empty($_FILES['image']['name'])) { // verifié si on upload une image
+                // on renvoi l'ancien chemin pour mettre en BDD
+                $uploadFile = $exit['image'];
+            } else { // on ajoute un uniqid au nom de l'image
+                $explodeName = explode('.', basename($_FILES['image']['name']));
+                $name = $explodeName[0];
+                $extension = $explodeName[1];
+                $uniqName = $name . uniqid('', true) . "." . $extension;
+                $uploadFile = $uploadDir . $uniqName;
+            }
+            if ((!in_array($extension, $authorizedExtensions))) {
+                $errorMessages = "Format d'image non supporté !
+                    Seuls les formats Jpg , Jpeg ou Png sont supportés.";
+            }
+            if (
+                file_exists($_FILES['image']['tmp_name']) &&
+                filesize($_FILES['image']['tmp_name']) > $maxFileSize
+            ) {
+                $errorMessages = 'Votre image doit faire moins de 2M !';
+            }
+            move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+            $exit['image'] = $uploadFile;
             // if validation is ok, update and redirection
             $exitManager->update($exit);
+            if (!empty($exit['jumpTypes'])) {
+                $exit['value'] = $exit['jumpTypes'];
+                $exitManager->updateExitHasTypeJump($id, $exit['value']);
+            }
 
             header('Location: /exits/show?id=' . $id);
 
             // we are redirecting so we don't want any content rendered
             return null;
         }
-
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
-            'islogin' => $isLogIn]);
+            'typesJumpsByExit' => $typeJumpByExitId,
+            'typesJumps' => $typeJump,
+            'islogin' => $isLogIn
+        ]);
     }
+
     /**
      * Delete a specific exit
      */
     public function delete(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $isLogIn = AdminController::isLogIn();
+
+        if (!$isLogIn) {
+            header('Location: /login');
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
             $exitManager->delete((int)$id);
-
             header('Location:/exits');
         }
     }
@@ -113,9 +160,10 @@ class ExitController extends AbstractController
                 $uploadFile = $uploadDir . $uniqName;
                 $errorMessages = AddFormService::validateExtension($errorMessages);
                 $errorMessages = AddFormService::validateMaxFileSize($errorMessages);
-            } if (empty($errorMessages)) {
+            }
+            if (empty($errorMessages)) {
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-                $exit ['image'] = '/' . $uploadFile;
+                $exit['image'] = $uploadFile;
                 $exitManager = new ExitManager();
                 $id = $exitManager->insert($exit);
                 if (!empty($exit['jumpTypes'])) {
@@ -126,8 +174,10 @@ class ExitController extends AbstractController
                 return null;
             }
         }
-        return $this->twig->render('Exit/add.html.twig', ['error_messages' => $errorMessages,
-                                                            'islogin' => $isLogIn,
-                                                            'accessdenied' => $accessmessage]);
+        return $this->twig->render('Exit/add.html.twig', [
+            'error_messages' => $errorMessages,
+            'islogin' => $isLogIn,
+            'accessdenied' => $accessmessage
+        ]);
     }
 }
