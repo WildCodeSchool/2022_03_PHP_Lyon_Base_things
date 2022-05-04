@@ -27,7 +27,6 @@ class ExitController extends AbstractController
         } else {
             $exits = $exitManager->selectAll('name');
             $filter = null;
-            var_dump($_SESSION);
         }
         return $this->twig->render(
             'Exit/index.html.twig',
