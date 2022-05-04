@@ -7,6 +7,7 @@ class JumpLogManager extends AbstractManager
     public const TABLE = 'jump_log';
     public const TABLE_HAS_TYPE_JUMP = '`exit_has_type_jump`';
     public const TABLE_USER = '`user`';
+    public const TABLE_EXIT = '`exit`';
 
     /**
      * Get all jump with exit from database.
@@ -24,6 +25,16 @@ class JumpLogManager extends AbstractManager
         return $this->pdo->query($query)->fetchAll();
     }
 
+    public function selectExits(string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT * FROM ' . static::TABLE_EXIT;
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+
+        return $this->pdo->query($query)->fetchAll();
+    }
+
     public function insertJumpLog(int $idUser, array $jumpLog): void
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " 
@@ -34,7 +45,7 @@ class JumpLogManager extends AbstractManager
          :canopy, :suit, :weather, :wind, :video, :image, :comment)");
         $statement->bindValue('id_user', $idUser, \PDO::PARAM_INT);
         $statement->bindValue('date_of_jump', $jumpLog['date_of_jump'], \PDO::PARAM_STR);
-        $statement->bindValue('id_exit', $jumpLog['id_exit'], \PDO::PARAM_INT);
+        $statement->bindValue('id_exit', $jumpLog['id_exit'], \PDO::PARAM_STR);
         $statement->bindValue('id_type_jump', $jumpLog['id_type_jump'], \PDO::PARAM_STR);
         $statement->bindValue('container', $jumpLog['container'] . ':00', \PDO::PARAM_STR);
         $statement->bindValue('canopy', $jumpLog['canopy'], \PDO::PARAM_STR);

@@ -5,9 +5,9 @@
 namespace App\Controller;
 
 use App\Model\ExitManager;
+use App\Model\TypeJumpManager;
 use App\Controller\AdminController;
 use App\Service\ExitFilterService;
-use App\Model\TypeJumpManager;
 use Doctrine\Common\Collections\Expr\Value;
 use App\Service\AddFormService;
 
@@ -21,22 +21,32 @@ class ExitController extends AbstractController
         $exitManager = new ExitManager();
         $isFilterActive = ExitFilterService::isFilterActive();
         $isLogIn = AdminController::isLogIn();
-        $listOfActiveFilters = [];
+        $isFilterActive = ExitFilterService::isFilterActive();
+        $jumpFiltersList = [];
+        $depFiltersList = [];
         if (!empty(ExitFilterService::retrieveFilters())) {
             $filter = ExitFilterService::retrieveFilters();
-            $listOfActiveFilters = ExitFilterService::listOfActiveFilters($filter);
+            $depFiltersList = ExitFilterService::depFiltersList($filter);
+            $jumpFiltersList = ExitFilterService::jumpFiltersList($filter);
+            $exits = $exitManager->exitsFiltered($filter);
+            header('location: /exits');
+        } elseif (!empty(ExitFilterService::sessionRetrieveFilters())) {
+            $filter = ExitFilterService::sessionRetrieveFilters();
+            $jumpFiltersList = ExitFilterService::jumpFiltersList($filter);
+            $depFiltersList = ExitFilterService::depFiltersList($filter);
             $exits = $exitManager->exitsFiltered($filter);
         } else {
-            $exits = $exitManager->selectAll('name');
+            $exits = $exitManager->selectAllExit('name');
             $filter = null;
         }
-        return $this->twig->render(
-            'Exit/index.html.twig',
-            [
-                'exits' => $exits, 'islogin' => $isLogIn, 'filter' => $filter,
-                'isFilterActive' => $isFilterActive, 'listOfActiveFilters' => $listOfActiveFilters
-            ]
-        );
+        return $this->twig->render('Exit/index.html.twig', [
+            'exits' => $exits,
+            'islogin' => $isLogIn,
+            'filters' => $filter,
+            'isFilterActive' => $isFilterActive,
+            'depFiltersList' => $depFiltersList,
+            'jumpFiltersList' => $jumpFiltersList
+            ]);
     }
 
     /**
@@ -122,9 +132,9 @@ class ExitController extends AbstractController
     }
 
     /**
-     * Delete a specific exit
+     * Hide a specific exit
      */
-    public function delete(): void
+    public function hide(): void
     {
         $isLogIn = AdminController::isLogIn();
 
@@ -133,7 +143,7 @@ class ExitController extends AbstractController
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
-            $exitManager->delete((int)$id);
+            $exitManager->hide((int)$id);
             header('Location:/exits');
         }
     }

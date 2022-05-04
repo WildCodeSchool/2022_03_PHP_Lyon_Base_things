@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\JumpLogManager;
 use App\Controller\AdminController;
 use App\Service\AddFormService;
+use App\Model\ExitManager;
 
 class JumpLogController extends AbstractController
 {
@@ -26,13 +27,14 @@ class JumpLogController extends AbstractController
      */
     public function add(): ?string
     {
+        $jumpLogManager = new JumpLogManager();
+        $exits = $jumpLogManager->selectExits();
         $errorMessages = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
             //$jumpLog = AddFormService::trimPostData(); // suppression des espaces
             $jumpLog = $_POST;
             $pseudo = $_POST['pseudo'];
-            var_dump($_POST);
             $uploadFile = $uploadDir . basename($_FILES['image']['name']);
             // $errorMessages = AddFormService::isEmpty($jumpLog, $errorMessages);
             // $errorMessages = AddFormService::checkLengthData($jumpLog, $errorMessages);
@@ -48,16 +50,17 @@ class JumpLogController extends AbstractController
             if (empty($errorMessages)) {
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
                 $jumpLog['image'] = $uploadFile;
-                var_dump($jumpLog);
-                $jumpLogManager = new JumpLogManager();
                 $idUser = $jumpLogManager->insertPseudo($pseudo);
-                $jumpLogManager->insertJumpLog($idUser, $jumpLog);
+                echo $idUser;
                 var_dump($jumpLog);
+                $jumpLogManager->insertJumpLog($idUser, $jumpLog);
+                header('Location:/jumplog');
                 return null;
             }
         }
         return $this->twig->render('jumplog/add.html.twig', [
             'error_messages' => $errorMessages,
+            'exits' => $exits
         ]);
     }
 }

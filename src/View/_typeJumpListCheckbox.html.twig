@@ -1,26 +1,29 @@
 
 {# creation of jump type checkbox list #}
+
+    
+
 <div>
-    <input type="checkbox" name="jumpTypes[]" value ="1" id="Static-line">
+    <input type="checkbox" name="jumpTypes[]" value ="1" id="Static-line" {% if 1 in filters[1] %} checked {% endif %}>   
     <label for="Static-line">Static-line</label>
 </div>
 <div>
-    <input type="checkbox" name="jumpTypes[]" value="2" id="Sans Glisseur">
+    <input type="checkbox" name="jumpTypes[]" value="2" id="Sans Glisseur" {% if 2 in filters[1] %} checked {% endif %}>
     <label for="Sans Glisseur">Sans Glisseur</label>
 </div>
 <div>
-    <input type="checkbox" name="jumpTypes[]" value="3" id="Lisse">
+    <input type="checkbox" name="jumpTypes[]" value="3" id="Lisse" {% if 3 in filters[1] %} checked {% endif %}>
     <label for="Lisse">Lisse</label>
 </div>
 <div>
-    <input type="checkbox" name="jumpTypes[]" value="4" id="Track Pantz">
+    <input type="checkbox" name="jumpTypes[]" value="4" id="Track Pantz" {% if 4 in filters[1] %} checked {% endif %}>
     <label for="ATrack Pantzin">Track Pantz</label>
 </div>
 <div>
-    <input type="checkbox" name="jumpTypes[]" value="5" id="Track Pantz Monopièce">
+    <input type="checkbox" name="jumpTypes[]" value="5" id="Track Pantz Monopièce" {% if 5 in filters[1] %} checked {% endif %}>
     <label for="Track Pantz Monopièce">Track Pantz Monopièce</label>
 </div>
 <div>
-    <input type="checkbox" name="jumpTypes[]" value="6" id="Wingsuit">
+    <input type="checkbox" name="jumpTypes[]" value="6" id="Wingsuit" {% if 6 in filters[1] %} checked {% endif %}>
     <label for=" Wingsuit"> Wingsuit</label>
 </div>
