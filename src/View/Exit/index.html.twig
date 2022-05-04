@@ -7,7 +7,7 @@
 {% block content %}
     {# creation of a drop-down list to contain the filters #}
     <main class="container-fluid">
-        <div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-5">
+        <div class="row justify-content-center gap-sm-3 gap-md-3 gap-lg-3 gap-xl-4">
             <h1 class="col-sm-12 col-xl-12 text-center m-5" >Liste des exits</h1>
             <form class="container" method="POST">
                 <div class="row gx-lg-0 mt-3 justify-content-center">
@@ -32,10 +32,10 @@
                 <button type="submit" class="btn btn-outline-primary m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
                 <a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1"><button type="button" class="btn btn-outline-primary w-100">Reinitialiser les filtres</button></a>
                 </div>
-            </form>
             {% if islogin == true %}
-            <a href="/exits/add" class=""><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
+            <div class="row justify-content-center mb-2 mt-1"><a href="/exits/add" class="m-0 p-0 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"><button type="button" class="btn btn-outline-primary col-12">Ajouter un exit</button></a></div>
             {% endif %}
+            </form>
             {% if isFilterActive == true %}
             <div class="container mb-3 mb-md-0">
                 <div class="row justify-content-center">
