@@ -25,7 +25,7 @@ class ExitController extends AbstractController
             $listOfActiveFilters = $this->listOfActiveFilters($filter);
             $exits = $exitManager->exitsFiltered($filter);
         } else {
-            $exits = $exitManager->selectAll('name');
+            $exits = $exitManager->selectAllExit('name');
             $filter = null;
         }
         return $this->twig->render(
@@ -191,9 +191,9 @@ class ExitController extends AbstractController
     }
 
     /**
-     * Delete a specific exit
+     * Hide a specific exit
      */
-    public function delete(): void
+    public function hide(): void
     {
         $isLogIn = AdminController::isLogIn();
 
@@ -202,7 +202,7 @@ class ExitController extends AbstractController
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
             $exitManager = new ExitManager();
-            $exitManager->delete((int)$id);
+            $exitManager->hide((int)$id);
             header('Location:/exits');
         }
     }

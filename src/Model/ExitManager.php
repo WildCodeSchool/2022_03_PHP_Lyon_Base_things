@@ -157,4 +157,27 @@ class ExitManager extends AbstractManager
             return $this->pdo->query($query)->fetchAll();
         };
     }
+
+            /**
+     * Delete row form an ID
+     */
+    public function hide(int $id): void
+    {
+        $statement = $this->pdo->prepare("UPDATE " . static::TABLE . " SET `active` = 0 WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+        /**
+     * Get all row from database.
+     */
+    public function selectAllExit(string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT * FROM ' . static::TABLE . 'WHERE active=true';
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
