@@ -29,14 +29,15 @@
                     </li>
                 </div>
                 <div class="row justify-content-center">
-                <button type="submit" class="btn btn-outline-primary mt-3 mb-5 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
+                <button type="submit" class="btn btn-outline-primary m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
+                <a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1"><button type="button" class="btn btn-outline-primary w-100">Reinitialiser les filtres</button></a>
                 </div>
             </form>
-            {% if isFilterActive == true %}    
+            {% if isFilterActive == true %}
                  <p>Filtres actifs : {{ listOfActiveFilters }}</p>   
             {% endif %}
             {% if islogin == true %}
-            <a href="/exits/add" class="col-10 mb-3"><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
+            <a href="/exits/add" class=""><button type="button" class="btn btn-primary">Ajouter un exit</button></a>
             {% endif %}
             {# display of the list of exits #}
             {% for exit in exits %}
