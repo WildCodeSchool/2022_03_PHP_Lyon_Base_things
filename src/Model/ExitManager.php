@@ -31,9 +31,9 @@ class ExitManager extends AbstractManager
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " 
         (`name`, `department`, `country`, `height`, `access_duration`, `gps_coordinates`, `acces`,
-        `remark`, `video`, `image`) 
+        `remark`, `video`, `image`, `active`) 
         VALUES 
-        (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces, :remark, :video, :image)");
+        (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces, :remark, :video, :image, 1)");
         $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
         $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
         $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
