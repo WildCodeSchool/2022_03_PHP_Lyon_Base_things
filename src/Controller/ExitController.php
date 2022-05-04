@@ -190,4 +190,20 @@ class ExitController extends AbstractController
             'accessdenied' => $accessmessage
         ]);
     }
+
+    /**
+     * Unset filters
+     */
+    public function unsetFilters(): void
+    {
+        if (isset($_SESSION["filterByJumpTypes"])) {
+            unset($_SESSION['filterByJumpTypes']);
+        }
+
+        if (isset($_SESSION["filterByDepartment"])) {
+            unset($_SESSION['filterByDepartment']);
+        }
+
+        header('Location:/exits');
+    }
 }

@@ -25,4 +25,5 @@ return [
     'jumplog' => ['JumpLogController', 'index',],
     'exits/edit' => ['ExitController', 'edit', ['id']],
     'exits/add' => ['ExitController', 'add',],
+    'unsetFilters' => ['ExitController', 'unsetFilters',],
 ];
