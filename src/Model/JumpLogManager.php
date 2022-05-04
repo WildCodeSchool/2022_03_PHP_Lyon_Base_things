@@ -12,7 +12,7 @@ class JumpLogManager extends AbstractManager
     /**
      * Get all jump with exit from database.
      */
-    public function selectJumpExit(string $orderBy = '', string $direction = 'ASC'): array
+    public function selectJumpExit(string $orderBy = '', string $direction = 'DESC'): array
     {
         $query = 'SELECT jump_log.*, u.pseudo AS \'u_pseudo\', e.name AS \'e_name\', tj.name AS \'tj_name\' 
                     FROM ' . self::TABLE . ' INNER JOIN `user` u ON u.id = jump_log.id_user 
