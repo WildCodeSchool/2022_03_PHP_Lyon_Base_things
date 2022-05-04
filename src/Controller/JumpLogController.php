@@ -19,4 +19,18 @@ class JumpLogController extends AbstractController
 
         return $this->twig->render('JumpLog/index.html.twig', ['jumpLogs' => $jumpLogs, 'islogin' => $isLogIn]);
     }
+
+        /**
+     * Delete a specific item
+     */
+    public function deleteJump(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = trim($_POST['id']);
+            $jumpLogManager = new JumpLogManager();
+            $jumpLogManager->deleteJump((int)$id);
+
+            header('Location:/jumplog');
+        }
+    }
 }
