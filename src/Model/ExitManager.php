@@ -31,9 +31,10 @@ class ExitManager extends AbstractManager
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " 
         (`name`, `department`, `country`, `height`, `access_duration`, `gps_coordinates`, `acces`,
-        `remark`, `video`, `image`) 
+        `remark`, `video`, `image`, `active`) 
         VALUES 
-        (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces, :remark, :video, :image)");
+        (:name, :department, :country, :height, :access_duration, :gps_coordinates, :acces,
+        :remark, :video, :image, 1)");
         $statement->bindValue('name', $exit['name'], \PDO::PARAM_STR);
         $statement->bindValue('department', $exit['department'], \PDO::PARAM_STR);
         $statement->bindValue('country', $exit['country'], \PDO::PARAM_STR);
@@ -156,5 +157,28 @@ class ExitManager extends AbstractManager
             GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         };
+    }
+
+            /**
+     * Delete row form an ID
+     */
+    public function hide(int $id): void
+    {
+        $statement = $this->pdo->prepare("UPDATE " . static::TABLE . " SET `active` = 0 WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+        /**
+     * Get all row from database.
+     */
+    public function selectAllExit(string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT * FROM ' . static::TABLE . 'WHERE active=true';
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+
+        return $this->pdo->query($query)->fetchAll();
     }
 }
