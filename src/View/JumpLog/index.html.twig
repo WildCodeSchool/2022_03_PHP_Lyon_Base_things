@@ -7,6 +7,22 @@
 {% block content %}
 	<main>
 		<h1 class="text-center">Liste de sauts</h1>
+		<form class="container" method="POST">
+			<div class="row gx-lg-0 mt-3 justify-content-center">
+				<li class="list-group col-5 col-sm-4 col-md-2 col-lg-2 col-xl-2">
+					<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Filtrer par <br> Jumper
+					</a>
+					<ul class="dropdown-menu overflow-auto bg-secondary text-light" aria-labelledby="navbarDropdown" id="dropdown-menu">
+							<li class="ms-1">{% include "_departmentListCheckbox.html.twig" %}</li>
+					</ul>
+				</li>
+			</div>
+			<div class="row justify-content-center">
+				<button type="submit" class="btn btn-outline-primary m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">Filtrer</button>
+				<a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1"><button type="button" class="btn btn-outline-primary w-100">Reinitialiser le filtre</button></a>
+			</div>
+		</form>
 		{% set i = 0 %}
 		<div class="container">
 			<div class="row">
