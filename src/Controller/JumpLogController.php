@@ -22,12 +22,21 @@ class JumpLogController extends AbstractController
         $filterActivated = '';
         $arrayFilterActivated = [];
 
+        /* If POST received >>> retrieval of filters in the POST */
         if (!empty($_SERVER['REQUEST_METHOD'] === 'POST')) {
             $arrayFilterActivated = $_POST;
-            $filterActivated = implode("', '", $_POST);
-            $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump', 'DESC', $filterActivated);
-            $filterActivated = implode("/ ", $_POST);
+            $_SESSION['pseudoFilterActivated'] = $arrayFilterActivated;
         }
+
+        /* If record present in session >>> retrieval of filters in $_SESSION */
+        if (!empty($_SESSION['pseudoFilterActivated'])) {
+            $arrayFilterActivated = $_SESSION['pseudoFilterActivated'];
+        }
+
+        $filterActivated = implode("', '", $arrayFilterActivated);
+        $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump', 'DESC', $filterActivated);
+
+        $filterActivated = implode("/ ", $arrayFilterActivated);
 
         return $this->twig->render('JumpLog/index.html.twig', [
             'jumpLogs' => $jumpLogs,
