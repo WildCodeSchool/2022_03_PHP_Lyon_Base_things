@@ -20,16 +20,20 @@ class JumpLogController extends AbstractController
         $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump', 'DESC');
         $pseudoForFilters = JumpLogFilterService::retrievePseudoForFilters($jumpLogs);
         $filterActivated = '';
+        $arrayFilterActivated = [];
 
         if (!empty($_SERVER['REQUEST_METHOD'] === 'POST')) {
+            $arrayFilterActivated = $_POST;
             $filterActivated = implode("', '", $_POST);
             $jumpLogs = $jumpLogManager->selectJumpExit('date_of_jump', 'DESC', $filterActivated);
+            $filterActivated = implode("/ ", $_POST);
         }
 
         return $this->twig->render('JumpLog/index.html.twig', [
             'jumpLogs' => $jumpLogs,
             'pseudoForFilters' => $pseudoForFilters,
             'filterActivated' => $filterActivated,
+            'arrayFilterActivated' => $arrayFilterActivated,
             'islogin' => $isLogIn
         ]);
     }

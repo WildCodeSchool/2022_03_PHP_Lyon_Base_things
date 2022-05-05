@@ -17,8 +17,18 @@
 						<li class="ms-1">
 						{% set i = 1 %}
 						{% for pseudoForFilter in pseudoForFilters %}
-							<div><input type="checkbox" name="pseudoFilter{{ i }}" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}"><label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label></div>
-						{% set i = i+1 %}
+							{% if pseudoForFilter in arrayFilterActivated %}
+								<div>
+									<input type="checkbox" name="pseudoFilter{{ i }}" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}" checked>
+									<label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label>
+								</div>
+							{% else %}
+								<div>
+									<input type="checkbox" name="pseudoFilter{{ i }}" value="{{pseudoForFilter}}" id="{{pseudoForFilter}}">
+									<label for="{{pseudoForFilter}}">{{pseudoForFilter}}</label>
+								</div>
+							{% endif %}
+							{% set i = i+1 %}
 						{% endfor %}
 						</li>
 					</ul>
@@ -29,6 +39,18 @@
 				<a class="p-0 m-1 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" href="/unsetFilters" data-toggle="modal" data-target="#myModal1"><button type="button" class="btn btn-outline-primary w-100">Reinitialiser le filtre</button></a>
 			</div>
 		</form>
+
+		{% if filterActivated %}
+		<div class="container mb-3 mb-md-0">
+			<div class="row justify-content-center">
+				<div class="filter_active col-12 col-md-4">
+					<h5 class="text-center">Filtres actifs :</h5>   
+					<p class="text-center mb-1">{{ filterActivated }}</p>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
 		{% set i = 0 %}
 		<div class="container">
 			<div class="row">
