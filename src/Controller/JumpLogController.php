@@ -37,6 +37,7 @@ class JumpLogController extends AbstractController
                 $jumpLog[$key] = trim($val);
             }
             $errorMessages = AddFormService::checkLengthDataJump($jumpLog, $errorMessages);
+            $errorMessages = AddFormService::isEmptyDataJump($jumpLog, $errorMessages);
             $pseudo = $_POST['pseudo'];
             $uploadFile = '';
             if (!empty($_FILES['image']['name'])) {
@@ -52,8 +53,6 @@ class JumpLogController extends AbstractController
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
                 $jumpLog['image'] = $uploadFile;
                 $idUser = $jumpLogManager->insertPseudo($pseudo);
-                echo $idUser;
-                var_dump($jumpLog);
                 $jumpLogManager->insertJumpLog($idUser, $jumpLog);
                 header('Location:/jumplog');
                 return null;
@@ -63,5 +62,23 @@ class JumpLogController extends AbstractController
             'error_messages' => $errorMessages,
             'exits' => $exits
         ]);
+    }
+
+        /**
+     * Delete a specific item
+     */
+    public function deleteJump(): void
+    {
+        $isLogIn = AdminController::isLogIn();
+
+        if (!$isLogIn) {
+            header('Location: /login');
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = trim($_POST['id']);
+            $jumpLogManager = new JumpLogManager();
+            $jumpLogManager->deleteJump((int)$id);
+
+            header('Location:/jumplog');
+        }
     }
 }

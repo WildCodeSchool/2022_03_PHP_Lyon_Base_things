@@ -39,23 +39,19 @@ abstract class AddFormService
 
     public static function checkLengthDataJump(array $jumplog, array $errorMessages): array
     {
-        if (strlen($jumplog['date_of_jump']) > 10) {
-            $errorMessages[] = 'Le champs Date doit être inferieur a 10 caractères';
+        if (
+            strlen($jumplog['pseudo']) > 50 ||
+            strlen($jumplog['container']) > 50 ||
+            strlen($jumplog['canopy']) > 50 ||
+            strlen($jumplog['suit']) > 50 ||
+            strlen($jumplog['weather']) > 50 ||
+            strlen($jumplog['wind']) > 50
+        ) {
+            $errorMessages[] = 'Les champs Pseudo, Harnais, Voile, Suit, 
+            Météo et Vent doivent être inferieurs a 50 caractères';
         }
-        if (strlen($jumplog['container']) > 50) {
-            $errorMessages[] = 'Le champs Harnais doit être inferieur a 50 caractères';
-        }
-        if (strlen($jumplog['canopy']) > 50) {
-            $errorMessages[] = 'Le champs Voile doit être inferieur a 50 caractères';
-        }
-        if (strlen($jumplog['suit']) > 50) {
-            $errorMessages[] = 'Le champs Suit doit être inferieur a 50 caractères';
-        }
-        if (strlen($jumplog['weather']) > 50) {
-            $errorMessages[] = 'Le champs Météo doit être inferieur a 50 caractères';
-        }
-        if (strlen($jumplog['wind']) > 50) {
-            $errorMessages[] = 'Le champs Vent doit être inferieur a 50 caractères';
+        if (strlen($jumplog['id_type_jump']) > 1 || strlen($jumplog['id_type_jump']) == 0) {
+            $errorMessages[] = 'Veuillez sélectionner le type de saut dans le menu déroulant';
         }
         return $errorMessages;
     }
@@ -92,10 +88,23 @@ abstract class AddFormService
             empty($exit['height']) ||
             empty($exit['acces'])
         ) {
-            $errorMessages[] = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoire';
+            $errorMessages[] = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoires';
         }
         if (empty($exit['jumpTypes'])) {
             $errorMessages[] = 'Vous devez choisir au moins un Type de saut';
+        }
+        return $errorMessages;
+    }
+
+    public static function isEmptyDataJump(array $jumplog, array $errorMessages): array
+    {
+        if (
+            empty($jumplog['pseudo']) ||
+            empty($jumplog['id_exit']) ||
+            empty($jumplog['date_of_jump']) ||
+            empty($jumplog['id_type_jump'])
+        ) {
+            $errorMessages[] = "Les champs Pseudo, Nom de l'exit, date du saut et type de saut sont obligatoires";
         }
         return $errorMessages;
     }
