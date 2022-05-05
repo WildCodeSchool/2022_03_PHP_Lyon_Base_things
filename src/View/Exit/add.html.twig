@@ -1,5 +1,4 @@
 {% extends 'layout.html.twig' %}
-
 {% block content %}
     {% if accessdenied %}
         <h1 class="access_denied text-center text-danger bg-light">{{accessdenied}}</h1>
@@ -7,3 +6,4 @@
         {% include 'Exit/_form.html.twig' %}
     {% endif %}
 {% endblock %}
+{% block script %}<script src="/assets/js/script.js"></script>{% endblock %}
