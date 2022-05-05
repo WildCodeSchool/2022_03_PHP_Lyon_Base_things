@@ -66,6 +66,7 @@ class JumpLogController extends AbstractController
      */
     public function add(): ?string
     {
+        $isLogIn = AdminController::isLogIn();
         $jumpLogManager = new JumpLogManager();
         $exits = $jumpLogManager->selectExits();
         $errorMessages = [];
@@ -99,7 +100,8 @@ class JumpLogController extends AbstractController
         }
         return $this->twig->render('JumpLog/add.html.twig', [
             'error_messages' => $errorMessages,
-            'exits' => $exits
+            'exits' => $exits,
+            'islogin' => $isLogIn
         ]);
     }
 

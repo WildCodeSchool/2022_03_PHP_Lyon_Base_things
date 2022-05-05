@@ -62,82 +62,84 @@
     {% set i = 0 %}
     <div class="container">
         <div class="row">
-            {% for jumpLog in jumpLogs %}
-                {% set i = i + 1 %}
-                <div class="col-12 mt-3 text-center">
-                    <button class="btn col-12 border-0 jumploglist row text-center m-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="false" aria-controls="collapse{{ i }}">
-                        <div class="row p-0 m-0 d-flex justify-content-center align-items-center">
-                            <span class="jumplogspan col-3 text-center p-0">
-                                {{ jumpLog.date_of_jump|date("d/m/y") }}
-                            </span>
-                            <span class="jumplogspan col-5 col-md-4 p-0">
-                                {{ jumpLog.u_pseudo }}
-                            </span>
-                            <span class="col-4 col-md-5 p-0">
-                                {{ jumpLog.e_name }}
-                            </span>
-                        </div>
-                    </button>
-                </div>
-                <div class="collapse" id="collapse{{ i }}">
-                    <div class="mt-1 mb-2 py-3 px-3 row">
-                        <div class="col-12 col-lg-6 d-flex align-items-center">
-                            {% if jumpLog.image is empty %}
-                                <img src="{{ jumpLog.e_image }}" class="col-12 mb-2">
-                            {% else %}
-                                <img src="{{ jumpLog.image }}" class="col-12 mb-2">
-                            {% endif %}
-                        </div>
-                        <div class="col-12 col-lg-6 align-items-center">
-                            <a href="exits/show?id={{ jumpLog.id_exit}}">
-                                <h2 class="text-center">{{ jumpLog.e_name}}</h2>
-                            </a>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <p class="col-6">
-                                    <span class="fw-bold">Saut n° :</span>
-                                    {{ i }}</p>
-                                <p class="col-5">
-                                    <span class="fw-bold">Date :</span>
-                                    {{ jumpLog.date_of_jump }}</p>
-                                <div class="col-1"></div>
-                                <p class="col-6">
-                                    <span class="fw-bold">Type de saut :</br></span></p>
-                                </p>{{ jumpLog.tj_name }}</p>
-                                <p class="col-5"><span class="fw-bold">Materiel :</span></p>
-                                </br>- {{ jumpLog.container }}
-                                </br>- {{ jumpLog.canopy }}
-                                </br>- {{ jumpLog.suit }}
-                                {% if jumpLog.weather is not empty %}
-                                    <div class="col-1"></div>
-                                    <p class="col-6"><span class="fw-bold">Météo :</span>{{ jumpLog.weather }}</p>
-                                {% else %}
-                                {% endif %}
-                                {% if jumpLog.weather is not empty %}
-                                    <p class="col-5"><span class="fw-bold">Vent :</span>{{ jumpLog.wind }}</p>
-                                {% else %}
-                                {% endif %}
-                                {% if jumpLog.video is not empty %}
-                                    <p class="text-center">
-                                        <a href="{{ jumpLog.video }}" target="_blank" class="text-center">
-                                        <button class="btn btn-info m-2 w-25">Vidéo</button>
-                                        </a>
-                                    </p>
-                                {% else %}
-                                {% endif %}
-                            </div>
-                            <p class="m-0 fw-bold">Commentaire :</p>
-                            {{ jumpLog.comment }}
-                        </div>
-                    </div>
-                    {% if islogin == true %}
-                    <form action="/jumplog/deleteJump" method="POST">
-                        <input type="hidden" name="id" value="{{ jumpLog.id }}">
-                        <button class="btn btn-info m-2 bg-danger">Supprimer le saut</button>
-                    </form>
-                    {% endif %}
-                </div>
-            {% endfor %}
+			<div class="mb-5">
+				{% for jumpLog in jumpLogs %}
+					{% set i = i + 1 %}
+					<div class="col-12 mt-3 text-center">
+						<button class="btn col-12 border-0 jumploglist row text-center m-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="false" aria-controls="collapse{{ i }}">
+							<div class="row p-0 m-0 d-flex justify-content-center align-items-center">
+								<span class="jumplogspan col-3 text-center p-0">
+									{{ jumpLog.date_of_jump|date("d/m/y") }}
+								</span>
+								<span class="jumplogspan col-5 col-md-4 p-0">
+									{{ jumpLog.u_pseudo }}
+								</span>
+								<span class="col-4 col-md-5 p-0">
+									{{ jumpLog.e_name }}
+								</span>
+							</div>
+						</button>
+					</div>
+					<div class="collapse" id="collapse{{ i }}">
+						<div class="mt-1 mb-2 py-3 px-3 row">
+							<div class="col-12 col-lg-6 d-flex align-items-center">
+								{% if jumpLog.image is empty %}
+									<img src="{{ jumpLog.e_image }}" class="col-12 mb-2">
+								{% else %}
+									<img src="{{ jumpLog.image }}" class="col-12 mb-2">
+								{% endif %}
+							</div>
+							<div class="col-12 col-lg-6 align-items-center">
+								<a href="exits/show?id={{ jumpLog.id_exit}}">
+									<h2 class="text-center">{{ jumpLog.e_name}}</h2>
+								</a>
+								<div class="row">
+									<div class="col-1"></div>
+									<p class="col-6">
+										<span class="fw-bold">Saut n° :</span>
+										{{ i }}</p>
+									<p class="col-5">
+										<span class="fw-bold">Date :</span>
+										{{ jumpLog.date_of_jump }}</p>
+									<div class="col-1"></div>
+									<p class="col-6">
+										<span class="fw-bold">Type de saut :</br></span></p>
+									</p>{{ jumpLog.tj_name }}</p>
+									<p class="col-5"><span class="fw-bold">Materiel :</span></p>
+									</br>- {{ jumpLog.container }}
+									</br>- {{ jumpLog.canopy }}
+									</br>- {{ jumpLog.suit }}
+									{% if jumpLog.weather is not empty %}
+										<div class="col-1"></div>
+										<p class="col-6"><span class="fw-bold">Météo :</span>{{ jumpLog.weather }}</p>
+									{% else %}
+									{% endif %}
+									{% if jumpLog.weather is not empty %}
+										<p class="col-5"><span class="fw-bold">Vent :</span>{{ jumpLog.wind }}</p>
+									{% else %}
+									{% endif %}
+									{% if jumpLog.video is not empty %}
+										<p class="text-center">
+											<a href="{{ jumpLog.video }}" target="_blank" class="text-center">
+											<button class="btn btn-info m-2 w-25">Vidéo</button>
+											</a>
+										</p>
+									{% else %}
+									{% endif %}
+								</div>
+								<p class="m-0 fw-bold">Commentaire :</p>
+								{{ jumpLog.comment }}
+							</div>
+						</div>
+						{% if islogin == true %}
+						<form action="/jumplog/deleteJump" method="POST">
+							<input type="hidden" name="id" value="{{ jumpLog.id }}">
+							<button class="btn btn-info m-2 bg-danger">Supprimer le saut</button>
+						</form>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
         </div>
     </div>
 </main>
