@@ -37,6 +37,29 @@ abstract class AddFormService
         return $errorMessages;
     }
 
+    public static function checkLengthDataJump(array $jumplog, array $errorMessages): array
+    {
+        if (strlen($jumplog['date_of_jump']) > 10) {
+            $errorMessages[] = 'Le champs Date doit être inferieur a 10 caractères';
+        }
+        if (strlen($jumplog['container']) > 50) {
+            $errorMessages[] = 'Le champs Harnais doit être inferieur a 50 caractères';
+        }
+        if (strlen($jumplog['canopy']) > 50) {
+            $errorMessages[] = 'Le champs Voile doit être inferieur a 50 caractères';
+        }
+        if (strlen($jumplog['suit']) > 50) {
+            $errorMessages[] = 'Le champs Suit doit être inferieur a 50 caractères';
+        }
+        if (strlen($jumplog['weather']) > 50) {
+            $errorMessages[] = 'Le champs Météo doit être inferieur a 50 caractères';
+        }
+        if (strlen($jumplog['wind']) > 50) {
+            $errorMessages[] = 'Le champs Vent doit être inferieur a 50 caractères';
+        }
+        return $errorMessages;
+    }
+
     public static function validateExtension(array $errorMessages): array
     {
         $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));

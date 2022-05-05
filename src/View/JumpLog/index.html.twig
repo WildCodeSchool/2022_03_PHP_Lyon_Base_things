@@ -31,7 +31,11 @@
 					<div class="collapse" id="collapse{{ i }}">
 						<div class="mt-1 mb-2 py-3 px-3 row">
 							<div class="col-12 col-lg-6 d-flex align-items-center">
-								<img src="{{ jumpLog.image}}" class="col-12 mb-2">
+								{% if jumpLog.image is empty %}
+                        <img src="{{ jumpLog.e_image }}" class="col-12 mb-2">
+                        {% else %}
+                            <img src="{{ jumpLog.image }}" class="col-12 mb-2">
+                            {% endif %}
 							</div>
 							<div class="col-12 col-lg-6 align-items-center">
 								<a href="exits/show?id={{ jumpLog.id_exit}}"><h2 class="text-center">{{ jumpLog.e_name}}</h2></a>

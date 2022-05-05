@@ -36,8 +36,9 @@ class JumpLogController extends AbstractController
             foreach ($_POST as $key => $val) {
                 $jumpLog[$key] = trim($val);
             }
+            $errorMessages = AddFormService::checkLengthDataJump($jumpLog, $errorMessages);
             $pseudo = $_POST['pseudo'];
-            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+            $uploadFile = '';
             if (!empty($_FILES['image']['name'])) {
                 $explodeName = explode('.', basename($_FILES['image']['name']));
                 $name = $explodeName[0];

@@ -24,6 +24,10 @@ class ExitController extends AbstractController
         $isFilterActive = ExitFilterService::isFilterActive();
         $jumpFiltersList = [];
         $depFiltersList = [];
+        $deleteExitName = '';
+        if (isset($_GET['deleteExitName'])) {
+            $deleteExitName = $_GET['deleteExitName'];
+        }
         if (!empty(ExitFilterService::retrieveFilters())) {
             $filter = ExitFilterService::retrieveFilters();
             $depFiltersList = ExitFilterService::depFiltersList($filter);
@@ -45,7 +49,8 @@ class ExitController extends AbstractController
             'filters' => $filter,
             'isFilterActive' => $isFilterActive,
             'depFiltersList' => $depFiltersList,
-            'jumpFiltersList' => $jumpFiltersList
+            'jumpFiltersList' => $jumpFiltersList,
+            'deleteExitName' => $deleteExitName,
             ]);
     }
 
@@ -142,9 +147,10 @@ class ExitController extends AbstractController
             header('Location: /login');
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = trim($_POST['id']);
+            $name = trim($_POST['name']);
             $exitManager = new ExitManager();
             $exitManager->hide((int)$id);
-            header('Location:/exits');
+            header('Location: /exits/?deleteExitName=' . $name);
         }
     }
 
