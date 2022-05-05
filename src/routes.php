@@ -24,6 +24,7 @@ return [
     'exits/delete' => ['ExitController', 'hide',],
     'exits/hide' => ['ExitController', 'hide',],
     'jumplog' => ['JumpLogController', 'index',],
+    'jumplog/add' => ['JumpLogController', 'add',],
     'exits/edit' => ['ExitController', 'edit', ['id']],
     'exits/add' => ['ExitController', 'add',],
     'unsetFilters' => ['ExitController', 'unsetFilters',],
