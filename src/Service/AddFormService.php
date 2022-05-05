@@ -37,6 +37,25 @@ abstract class AddFormService
         return $errorMessages;
     }
 
+    public static function checkLengthDataJump(array $jumplog, array $errorMessages): array
+    {
+        if (
+            strlen($jumplog['pseudo']) > 50 ||
+            strlen($jumplog['container']) > 50 ||
+            strlen($jumplog['canopy']) > 50 ||
+            strlen($jumplog['suit']) > 50 ||
+            strlen($jumplog['weather']) > 50 ||
+            strlen($jumplog['wind']) > 50
+        ) {
+            $errorMessages[] = 'Les champs Pseudo, Harnais, Voile, Suit, 
+            Météo et Vent doivent être inferieurs a 50 caractères';
+        }
+        if (strlen($jumplog['id_type_jump']) > 1 || strlen($jumplog['id_type_jump']) == 0) {
+            $errorMessages[] = 'Veuillez sélectionner le type de saut dans le menu déroulant';
+        }
+        return $errorMessages;
+    }
+
     public static function validateExtension(array $errorMessages): array
     {
         $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
@@ -69,10 +88,23 @@ abstract class AddFormService
             empty($exit['height']) ||
             empty($exit['acces'])
         ) {
-            $errorMessages[] = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoire';
+            $errorMessages[] = 'Les champs Nom, Pays, Département, Hauteur, Accès sont obligatoires';
         }
         if (empty($exit['jumpTypes'])) {
             $errorMessages[] = 'Vous devez choisir au moins un Type de saut';
+        }
+        return $errorMessages;
+    }
+
+    public static function isEmptyDataJump(array $jumplog, array $errorMessages): array
+    {
+        if (
+            empty($jumplog['pseudo']) ||
+            empty($jumplog['id_exit']) ||
+            empty($jumplog['date_of_jump']) ||
+            empty($jumplog['id_type_jump'])
+        ) {
+            $errorMessages[] = "Les champs Pseudo, Nom de l'exit, date du saut et type de saut sont obligatoires";
         }
         return $errorMessages;
     }
