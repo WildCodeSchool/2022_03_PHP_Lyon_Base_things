@@ -46,4 +46,16 @@ class JumpLogController extends AbstractController
             'islogin' => $isLogIn
         ]);
     }
+
+    /**
+     * Unset filters
+     */
+    public function unsetPseudoFilters(): void
+    {
+        if (isset($_SESSION["pseudoFilterActivated"])) {
+            unset($_SESSION['pseudoFilterActivated']);
+        }
+
+        header('Location:/jumplog');
+    }
 }
