@@ -28,6 +28,7 @@ return [
     'exits/edit' => ['ExitController', 'edit', ['id']],
     'exits/add' => ['ExitController', 'add',],
     'unsetFilters' => ['ExitController', 'unsetFilters',],
+    'unsetPseudoFilters' => ['JumpLogController', 'unsetPseudoFilters',],
     'jumplog/deleteJump' => ['JumpLogController', 'deleteJump', ['id']],
-    'tutoriaux' => ['TutoriauxController', 'index',],
+    'tutoriaux' => ['TutorialsController', 'index',],
 ];
