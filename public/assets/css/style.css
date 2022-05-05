@@ -199,12 +199,30 @@ nav span{
     background-repeat: no-repeat;
     background-position: center;
 }
-/* css filtre*/
+/* css filtre */
 
 .filter_active {
     background-color: var(--text-bg-color);
     border-radius: 15px;
 }
+
+/* CSS Tuto */
+
+.tutoriaux{
+    border: 1px solid black;
+    background-color: #c4dee6;
+    border-radius: 25px;
+    margin-bottom: 5em;
+    padding: 3em;
+}
+
+.tutoCit{
+    border: 1px solid black;
+    background-color: #d8e5e9;
+    border-radius: 20px;
+    padding: 1em;
+}
+
 @media screen and (min-width: 768px) {
     .nav-img-container {
         height: 75vh;
