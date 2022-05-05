@@ -21,4 +21,14 @@ class JumpLogManager extends AbstractManager
 
         return $this->pdo->query($query)->fetchAll();
     }
+
+        /**
+     * Delete jump from jumplog
+     */
+    public function deleteJump(int $id): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . static::TABLE . " WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
