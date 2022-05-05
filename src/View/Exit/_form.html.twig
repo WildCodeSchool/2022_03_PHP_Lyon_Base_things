@@ -3,9 +3,8 @@
 <div class="add_form_container container">
 	<h1 class = "text-center">Ajouter un nouvel exit</h1>
 	<div class="row">
-	<h3 class = "error_message bg-light text-danger text-center" id="error_messages"></h3>
 		{% for error_message in error_messages %}
-			<h3 class = "error_message bg-light text-danger text-center"> {{error_message}}</h3>
+			<h3 class = "error_message text-danger text-center"> {{error_message}}</h3>
 		{% endfor %}
 		<form class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
@@ -34,6 +33,7 @@
 					</label>
 					<input class="col-11 col-lg-2 text-center m-2" type="time" value="{{ exit.acces_duration }}" name="access_duration" id="access_duration" placeholder="jean">
 				</div>
+				<h6 class = "error_message col-md-8 text-danger text-center" id="error_messages"></h6>
 				<label class="col-6 col-lg-5 d-lg-none"  for="navbarDropdown"><strong>Type de saut</strong></label>
 				<div class="d-flex justify-content-center mb-5 col-lg-6">
 					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut</strong></label>
@@ -58,7 +58,7 @@
 				</div>
 				<div>
 					<label class="col-6" for="acces"><strong>Accès</strong></label>
-					<P class="mb-4"><textarea class="col-11 col-lg-8" id="acces" name="acces" rows="3" cols="10" placeholder="Detaillé l'accés ici"></textarea></p>
+					<P class="mb-4"><textarea class="col-11 col-lg-8" id="acces" name="acces" rows="3" cols="10" placeholder="Detaillé l'accés ici" required></textarea></p>
 				</div>
 				<div>
 					<label class="col-6" for="remark"><strong>Remarques</strong></label>
@@ -67,8 +67,11 @@
 				<div class="row form-group justify-content-center mt-3 mb-4">
 					<input type="submit" class="btn btn-lg btn-primary btn-block col-6 col-md-3" id="add_button" value="Créer" onclick="return is_checked('jumpTypes[]')">
 				</div>				
-
 			</div>
+		</form>
+		<form class="mb-5" action="/exits/">
+			<input type="hidden" name="id" value="{{ exit.id }}">
+			<button class="btn btn-info m-2">Retour</button>
 		</form>
 	</div>
 </div>
