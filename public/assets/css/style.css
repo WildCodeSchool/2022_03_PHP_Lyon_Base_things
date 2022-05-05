@@ -205,6 +205,10 @@ nav span{
     background-color: var(--text-bg-color);
     border-radius: 15px;
 }
+
+.tab{
+    padding: 4.5em;
+}
 @media screen and (min-width: 768px) {
     .nav-img-container {
         height: 75vh;

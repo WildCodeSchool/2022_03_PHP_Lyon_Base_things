@@ -53,12 +53,12 @@
                                     {{ jumpLog.date_of_jump }}</p>
                                 <div class="col-1"></div>
                                 <p class="col-6">
-                                    <span class="fw-bold">Type de saut :</br></span></p>
-                                </p>{{ jumpLog.tj_name }}</p>
-                                <p class="col-5"><span class="fw-bold">Materiel :</span></p>
-                                </br>- {{ jumpLog.container }}
-                                </br>- {{ jumpLog.canopy }}
-                                </br>- {{ jumpLog.suit }}
+                                    <span class="fw-bold">Type de saut :</br></span>
+                                {{ jumpLog.tj_name }}</p>
+                                <p class="col-5"><span class="fw-bold">Materiel :</span>
+                                <br><span class="tab">- {{ jumpLog.container }}</span>
+                                <br><span class="tab">- {{ jumpLog.canopy }}</span>
+                                <br><span class="tab">- {{ jumpLog.suit }}</span></p>
                                 {% if jumpLog.weather is not empty %}
                                     <div class="col-1"></div>
                                     <p class="col-6"><span class="fw-bold">Météo :</span>{{ jumpLog.weather }}</p>

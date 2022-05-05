@@ -58,7 +58,7 @@ class JumpLogController extends AbstractController
                 return null;
             }
         }
-        return $this->twig->render('jumplog/add.html.twig', [
+        return $this->twig->render('JumpLog/add.html.twig', [
             'error_messages' => $errorMessages,
             'exits' => $exits
         ]);
