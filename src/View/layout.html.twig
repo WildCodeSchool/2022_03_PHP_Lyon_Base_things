@@ -41,14 +41,16 @@
                 <li class="border-bottom"></li>
                 {% if islogin is defined %}
                 {% if islogin == false %}
-                <li><a class="dropdown-item" href="#">Créer son compte</a></li>
                 <li><a class="dropdown-item" href="/login">Se connecter</a></li>
+                <li class="border-bottom"></li>
+                <li><a href="/jumplog/add" class="dropdown-item">Ajouter un saut</a></li>
                 {% endif %}
                 {% if islogin == true %}
                 <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
                 </br>
                 <li class="border-bottom"></li>
-                <a href="/exits/add" class="dropdown-item">Ajouter un exit</a>
+                <li><a href="/exits/add" class="dropdown-item">Ajouter un exit</a></li>
+                <li><a href="/jumplog/add" class="dropdown-item">Ajouter un saut</a></li>
                 {% endif %}
                 {% endif %}
             </ul>
