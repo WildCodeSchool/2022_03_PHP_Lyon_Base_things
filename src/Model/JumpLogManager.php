@@ -47,7 +47,7 @@ class JumpLogManager extends AbstractManager
         $statement->bindValue('date_of_jump', $jumpLog['date_of_jump'], \PDO::PARAM_STR);
         $statement->bindValue('id_exit', $jumpLog['id_exit'], \PDO::PARAM_STR);
         $statement->bindValue('id_type_jump', $jumpLog['id_type_jump'], \PDO::PARAM_STR);
-        $statement->bindValue('container', $jumpLog['container'] . ':00', \PDO::PARAM_STR);
+        $statement->bindValue('container', $jumpLog['container'], \PDO::PARAM_STR);
         $statement->bindValue('canopy', $jumpLog['canopy'], \PDO::PARAM_STR);
         $statement->bindValue('suit', $jumpLog['suit'], \PDO::PARAM_STR);
         $statement->bindValue('weather', $jumpLog['weather'], \PDO::PARAM_STR);

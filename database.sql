@@ -146,13 +146,13 @@ CREATE TABLE `role` (
 CREATE TABLE `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pseudo` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
-  `last_name` VARCHAR(150) NOT NULL,
-  `first_name` VARCHAR(150) NOT NULL,
+  `password` VARCHAR(50),
+  `last_name` VARCHAR(150),
+  `first_name` VARCHAR(150),
   `date_of_birth` DATE,
-  `email` VARCHAR(320) NOT NULL,
+  `email` VARCHAR(320),
   `postal_adress` TEXT,
-  `id_role` INT NOT NULL,
+  `id_role` INT,
   PRIMARY KEY (`id`),
   CONSTRAINT fk_user_role
   FOREIGN KEY (id_role)             

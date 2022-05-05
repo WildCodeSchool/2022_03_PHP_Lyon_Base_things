@@ -31,13 +31,13 @@ class JumpLogController extends AbstractController
         $exits = $jumpLogManager->selectExits();
         $errorMessages = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
-            //$jumpLog = AddFormService::trimPostData(); // suppression des espaces
-            $jumpLog = $_POST;
+            $uploadDir = 'assets/images/';
+            $jumpLog = [];
+            foreach ($_POST as $key => $val) {
+                $jumpLog[$key] = trim($val);
+            }
             $pseudo = $_POST['pseudo'];
             $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-            // $errorMessages = AddFormService::isEmpty($jumpLog, $errorMessages);
-            // $errorMessages = AddFormService::checkLengthData($jumpLog, $errorMessages);
             if (!empty($_FILES['image']['name'])) {
                 $explodeName = explode('.', basename($_FILES['image']['name']));
                 $name = $explodeName[0];
