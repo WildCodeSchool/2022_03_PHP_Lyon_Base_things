@@ -17,9 +17,10 @@
 					<label class="col-6 col-lg-6"  for="id_exit"><strong>Nom de l'exit</strong>
 					</label>
 					<select class="col-11 col-lg-8" value="{{ jump_log.id_exit }}" name="id_exit" id="id_exit" maxlength="50" required>
-						{% for exit in exits %}
-                    <option value="{{ exit.id }}">{{ exit.name }}</option>
-                {% endfor %}
+					<option></option>
+					{% for exit in exits %}
+						<option value="{{ exit.id }}">{{ exit.name }}</option>
+                	{% endfor %}
 					</select>
 				<div class="mb-4">
 					<label class="col-6 col-lg-6"  for="date_of_jump"><strong>Date</strong>
