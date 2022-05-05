@@ -91,48 +91,38 @@ class ExitController extends AbstractController
             $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
             $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
             $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
-            $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-            $authorizedExtensions = ['jpg', 'jpeg', 'png']; // definir les extension autorisé
-            $maxFileSize = 2000000; // definir le poid max de l'image
-            if (empty($_FILES['image']['name'])) { // verifié si on upload une image
-                // on renvoi l'ancien chemin pour mettre en BDD
-                $uploadFile = $exit['image'];
-            } else { // on ajoute un uniqid au nom de l'image
+            // on renvoi l'ancien chemin pour mettre en BDD
+            $uploadFile = $exit['image'];
+            if (!empty($_FILES['image']['name'])) { // on ajoute un uniqid au nom de l'image
                 $explodeName = explode('.', basename($_FILES['image']['name']));
                 $name = $explodeName[0];
-                $extension = $explodeName[1];
+                $extension = strToLower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
                 $uniqName = $name . uniqid('', true) . "." . $extension;
                 $uploadFile = $uploadDir . $uniqName;
-            }
-            if ((!in_array($extension, $authorizedExtensions))) {
-                $errorMessages = "Format d'image non supporté !
-                    Seuls les formats Jpg , Jpeg ou Png sont supportés.";
-            }
-            if (
-                file_exists($_FILES['image']['tmp_name']) &&
-                filesize($_FILES['image']['tmp_name']) > $maxFileSize
-            ) {
-                $errorMessages = 'Votre image doit faire moins de 2M !';
-            }
-            move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
-            $exit['image'] = $uploadFile;
-            // if validation is ok, update and redirection
-            $exitManager->update($exit);
-            if (!empty($exit['jumpTypes'])) {
-                $exit['value'] = $exit['jumpTypes'];
-                $exitManager->updateExitHasTypeJump($id, $exit['value']);
-            }
+                $errorMessages = AddFormService::validateExtension($errorMessages);
+                $errorMessages = AddFormService::validateMaxFileSize($errorMessages);
+            } if (empty($errorMessages)) {
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile);
+                $exit['image'] = $uploadFile;
+                // if validation is ok, update and redirection
+                $exitManager->update($exit);
+                if (!empty($exit['jumpTypes'])) {
+                    $exit['value'] = $exit['jumpTypes'];
+                    $exitManager->updateExitHasTypeJump($id, $exit['value']);
+                }
 
-            header('Location: /exits/show?id=' . $id);
+                header('Location: /exits/show?id=' . $id);
 
-            // we are redirecting so we don't want any content rendered
-            return null;
+                // we are redirecting so we don't want any content rendered
+                return null;
+            }
         }
         return $this->twig->render('Exit/edit.html.twig', [
             'exit' => $exit,
             'typesJumpsByExit' => $typeJumpByExitId,
             'typesJumps' => $typeJump,
-            'islogin' => $isLogIn
+            'islogin' => $isLogIn,
+            'error_messages' => $errorMessages
         ]);
     }
 

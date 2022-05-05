@@ -64,7 +64,7 @@ class ExitFilterService extends ExitController
             if (count($filterByDepartment) == 0) {
                 $depFiltersList = "";
             } else {
-                $depFiltersList = implode("/ ", $filterByDepartment);
+                $depFiltersList = implode(" / ", $filterByDepartment);
             }
             return $depFiltersList;
         };
@@ -77,7 +77,7 @@ class ExitFilterService extends ExitController
                 $jumpFiltersList = "";
             } else {
                 $filterByJumpTypes = self::convertTypeJumpValueInId($filterByJumpTypes);
-                $jumpFiltersList = implode("/ ", $filterByJumpTypes);
+                $jumpFiltersList = implode(" / ", $filterByJumpTypes);
             }
             return $jumpFiltersList;
         };
