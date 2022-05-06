@@ -30,4 +30,5 @@ return [
     'unsetFilters' => ['ExitController', 'unsetFilters',],
     'unsetPseudoFilters' => ['JumpLogController', 'unsetPseudoFilters',],
     'jumplog/deleteJump' => ['JumpLogController', 'deleteJump', ['id']],
+    'tutoriaux' => ['TutorialsController', 'index',],
 ];
