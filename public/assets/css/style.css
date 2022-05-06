@@ -180,7 +180,9 @@ nav span{
 
 .error_message {
     --bs-text-opacity: .8;
+    background-color: var(--text-bg-color);
 }
+
 .add_form_container {
     background-color: var(--text-bg-color);
 }
@@ -204,6 +206,10 @@ nav span{
 .filter_active {
     background-color: var(--text-bg-color);
     border-radius: 15px;
+}
+
+.tab{
+    padding: 4.5em;
 }
 @media screen and (min-width: 768px) {
     .nav-img-container {

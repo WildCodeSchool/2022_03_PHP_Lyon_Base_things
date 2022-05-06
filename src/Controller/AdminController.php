@@ -7,6 +7,7 @@ class AdminController extends AbstractController
 {
     public function logVerification(): ?string
     {
+        $isLogIn = AdminController::isLogIn();
         $errorMessage = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
@@ -24,7 +25,7 @@ class AdminController extends AbstractController
                 $errorMessage = 'Veuillez renseigner votre login et votre mot de passe !';
             }
         }
-        return $this->twig->render('Login/logIn.html.twig', ['error_message' => $errorMessage]);
+        return $this->twig->render('Login/logIn.html.twig', ['error_message' => $errorMessage, 'islogin' => $isLogIn]);
     }
 
     public function logout(): void
