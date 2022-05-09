@@ -93,38 +93,38 @@
 								<a href="exits/show?id={{ jumpLog.id_exit}}">
 									<h2 class="text-center">{{ jumpLog.e_name}}</h2>
 								</a>
-								<div class="row">
-									<div class="col-1"></div>
+								<div class="row justify-content-end">
+									<div class="row col-12">
 									<p class="col-6">
 										<span class="fw-bold">Saut n° :</span>
 										{{ i }}</p>
-									<p class="col-5">
+									<p class="col-6">
 										<span class="fw-bold">Date :</span>
 										{{ jumpLog.date_of_jump }}</p>
-									<div class="col-1"></div>
 									<p class="col-6">
 										<span class="fw-bold">Type de saut :</br></span></p>
-									</p>{{ jumpLog.tj_name }}</p>
-									<p class="col-5"><span class="fw-bold">Materiel :</span></p>
-									</br>- {{ jumpLog.container }}
-									</br>- {{ jumpLog.canopy }}
-									</br>- {{ jumpLog.suit }}
+									<p class="col-6">{{ jumpLog.tj_name }}</p>
+									{% if (jumpLog.container is not empty) or (jumpLog.canopy is not empty) or (jumpLog.suit is not empty) %}
+									<p class="col-6">
+										<span class="fw-bold">Materiel : </span> 
+										{% if jumpLog.container is not empty %} <br> - {{ jumpLog.container }} {% endif %}
+										{% if jumpLog.canopy is not empty %} <br> - {{ jumpLog.canopy }} {% endif %}
+										{% if jumpLog.suit is not empty %} <br> - {{ jumpLog.suit }} {% endif %}
+                                    </p>
+									{% endif %}
 									{% if jumpLog.weather is not empty %}
-										<div class="col-1"></div>
 										<p class="col-6"><span class="fw-bold">Météo :</span>{{ jumpLog.weather }}</p>
-									{% else %}
 									{% endif %}
 									{% if jumpLog.weather is not empty %}
-										<p class="col-5"><span class="fw-bold">Vent :</span>{{ jumpLog.wind }}</p>
-									{% else %}
+										<p class="col-6"><span class="fw-bold">Vent :</span> {{ jumpLog.wind }}</p>
 									{% endif %}
+									</div>
 									{% if jumpLog.video is not empty %}
 										<p class="text-center">
 											<a href="{{ jumpLog.video }}" target="_blank" class="text-center">
 											<button class="btn btn-info m-2 w-25">Vidéo</button>
 											</a>
 										</p>
-									{% else %}
 									{% endif %}
 								</div>
 								<p class="m-0 fw-bold">Commentaire :</p>
