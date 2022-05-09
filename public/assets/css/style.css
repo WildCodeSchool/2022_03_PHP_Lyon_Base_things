@@ -201,6 +201,10 @@ nav span{
     background-repeat: no-repeat;
     background-position: center;
 }
+.jumplogTab {
+    width: auto;
+    margin-left: 2em;
+}
 /* css filtre */
 
 .filter_active {
