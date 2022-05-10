@@ -108,4 +108,20 @@ abstract class AddFormService
         }
         return $errorMessages;
     }
+
+    public static function validateUrl(array $jumplog, array $errorMessages): array
+    {
+        if ($jumplog['video'] != filter_var($jumplog['video'], FILTER_VALIDATE_URL)) {
+            $errorMessages[] = "merci de renseigner une url pour le champ vidéo";
+        }
+        return $errorMessages;
+    }
+
+    public static function checkDate(array $jumplog, array $errorMessages): array
+    {
+        if ($jumplog['date_of_jump'] < 2022) {
+            $errorMessages[] = "Vous ne pouvez pas saisir une date inferieur a 2022";
+        }
+        return $errorMessages;
+    }
 }

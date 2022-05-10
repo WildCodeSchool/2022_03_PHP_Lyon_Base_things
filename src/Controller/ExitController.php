@@ -90,6 +90,7 @@ class ExitController extends AbstractController
             // verifié si certain champ sont vide
             $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
             $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
+            $errorMessages = AddFormService::validateUrl($exit, $errorMessages);
             $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
             // on renvoi l'ancien chemin pour mettre en BDD
             $uploadFile = $exit['image'];
@@ -158,6 +159,7 @@ class ExitController extends AbstractController
             $uploadFile = $uploadDir . basename($_FILES['image']['name']);
             $errorMessages = AddFormService::isEmpty($exit, $errorMessages);
             $errorMessages = AddFormService::checkLengthData($exit, $errorMessages);
+            $errorMessages = AddFormService::validateUrl($exit, $errorMessages);
             if (!empty($_FILES['image']['name'])) {
                 $explodeName = explode('.', basename($_FILES['image']['name']));
                 $name = $explodeName[0];
