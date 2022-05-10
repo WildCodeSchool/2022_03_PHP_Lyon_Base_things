@@ -10,7 +10,13 @@
 	<div class="container d-flex flex-column flex-md-row">
 
 		<div class="container">
+		{% if exit.image is not empty %}
 			<img class="img-fluid rounded " src="/{{ exit.image }}" alt="Photo de l'exit {{ exit.name }}">
+		{% else %}
+		<div class="d-flex justify-content-center align-items-center">
+		<img class="img-fluid rounded " src="https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg" alt="Photo de l'exit {{ exit.name }}">
+		</div>
+		{% endif %}
 		</div>
 
 		<div class="my-3 container">
