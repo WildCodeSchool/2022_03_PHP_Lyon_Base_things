@@ -14,7 +14,7 @@
 					<input class="col-11 col-lg-8" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Juste un saut" required>
 					</div>
 				<div class="mb-4">
-					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="department"><strong>Département*</strong>
+					<label class="col-6 col-lg-1 me-lg-1 text-lg-end depLabel" for="department"><strong class="depStrong">Département *</strong>
 					</label>
 					<select class="col-11 col-lg-3 mb-4 mb-lg-0" name="department" id="department" maxlength="50" required>
 						{% include "_departmentList.html.twig" %}
@@ -36,7 +36,7 @@
 				<h6 class = "error_message col-md-8 text-danger text-center" id="error_messages"></h6>
 				<label class="col-6 col-lg-5 d-lg-none"  for="navbarDropdown"><strong>Type de saut</strong></label>
 				<div class="d-flex justify-content-center mb-5 col-lg-6">
-					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut</strong></label>
+					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut *</strong></label>
 					<li class="list-group col-11 col-lg-5 border border-rounded bg-white me-lg-3" id="add-form-checkbox">
 						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Choisir un type de saut *
