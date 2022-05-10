@@ -35,12 +35,17 @@
 			<p>
 				<strong>Durée d'accès :</strong>
 				{{ exit.access_duration }}</p>
+			
+			{% if exit.gps_coordinates is not empty %}
 			<p>
 				<strong>Point GPS :</strong>
 				<a href="https://www.google.com/maps/place/{{ exit.gps_coordinates }}" target="_blank">{{ exit.gps_coordinates }}</a>
 			</p>
+			{% endif %}
 
+			{% if exit.video is not empty %}
 			<a href="{{ exit.video }}" class="btn btn-dark mb-4" tabindex="-1" role="button" aria-disabled="true" target="_blank">Vidéo</a>
+			{% endif %}
 
 		</div>
 
@@ -50,8 +55,11 @@
 
 		<h2>Accès</h2>
 		<p class="text-justify background-p p-4">{{ exit.acces }}</p>
+
+		{% if exit.remark is not empty %}
 		<h2 class="mt-5">Remarques</h2>
 		<p class="text-justify background-p p-4">{{ exit.remark }}</p>
+		{% endif %}
 
 	</div>
 
