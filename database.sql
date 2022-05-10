@@ -172,7 +172,7 @@ VALUES
 Monter par la route qui part le plus à gauche de celui-ci. Arrivé sur le plateau, passer la maisons qui élève des chiens, après la fontaine d''eau potable un chemin privé part sur la gauche.
 
 Le suivre en restant discret. Environ en 43.974205 , 6.998488 quitter le sentier vers l''Est et traverser la végétation dense vers l''exit, environ en 43.975625 , 7.003191 (progression pas facile).', 
-    'Remarque 1', 'https://www.youtube.com/watch?v=mVzEf03SRZM', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=mVzEf03SRZM', 
     'assets/images/400px-Chamane_Et_Enfant-ligne626d7856db4f08.34405753.jpg', 
     1
   ), 
@@ -192,7 +192,7 @@ Traverser le découvert plein Ouest et rentrer dans la forêt.
 Il suffit maintenant de marcher dans la forêt vers le Sud jusqu''au vide.
 
 Le saut se trouve juste à droite du "V" qui coupe la face, sur une vire.', 
-    'Remarque 2', 'https://www.youtube.com/watch?v=hvRrBtc5h3I', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=hvRrBtc5h3I', 
     'assets/images/400px-Archeplan626d783c660718.23336872.jpg', 
     1
   ), 
@@ -206,7 +206,7 @@ De la, prendre le petit sentier qui descend vers le Sud sur 100m et prendre à d
 Ensuite, marcher plein Sud jusqu''à la cascade. L''exit est facile à trouver, juste à gauche de la cascade sur une petite pointe.
 
 Retour en contournant la cascade par la droite (sentier).', 
-    'Remarque 3', 'https://www.dailymotion.com/video/x2fu4ds', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.dailymotion.com/video/x2fu4ds', 
     'assets/images/400px-Coca626d7880591ce8.31744037.jpg', 
     1
   ), 
@@ -218,7 +218,7 @@ Retour en contournant la cascade par la droite (sentier).',
 Marcher en suivant la piste principale allant aux Granges de la Pia puis trouver le sentier de rando montant au Castel Tournou.
 
 Arriver sous le saut, on monte par la droite et on rejoint facilement le bord où plusieurs exit sont possibles.', 
-    'Remarque 4', 'https://www.youtube.com/watch?v=-eC-61OLkEQ', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=-eC-61OLkEQ', 
     'assets/images/400px-Grandmanti626d78a6b6ff52.96256002.jpg', 
     1
   ), 
@@ -238,7 +238,7 @@ Prendre à gauche ici et vers l''Ouest puis le Sud jusqu''au sommet du rocher (C
 Plusieurs exits possibles, l''original se trouve en descendant sur la gauche pour trouver une vire confortable. Ici le rockdrop est d''environ 75m et il y a 3 pas d''élan possibles.
 
 D''autres départs sont envisageables, mais attention la paroi n''est pas régulière, surtout vers les hauteur d''ouverture.', 
-    'Remarque 5', 'https://www.youtube.com/watch?v=-eC-61OLkEQ', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=-eC-61OLkEQ', 
     'assets/images/400px-Granier626d78ba3bcc69.85485918.jpg', 
     1
   ), 
@@ -250,7 +250,7 @@ D''autres départs sont envisageables, mais attention la paroi n''est pas régul
 On a ici un bon visuel du saut.
 
 Marcher maintenant sur la route vers le sud afin de rejoindre l''autre côté de la crête où se trouve le saut et proche d''un petit parking, monter dans le talus afin de rejoindre l''exit à vue.', 
-    'Remarque 6', 'https://www.youtube.com/watch?v=S9ErwpqMKbg', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=S9ErwpqMKbg', 
     'assets/images/400px-Penat626d78d4eb9de2.87020175.jpg', 
     1
   ), 
@@ -263,7 +263,7 @@ Marcher maintenant sur la route vers le sud afin de rejoindre l''autre côté de
 Départ de Pré Conté (906m) au-dessus de St Mury, ou de Pré Marcel (1290m) au dessus de St Agnès. Possibilité de dormir au refuge Jean Collet (1970m). Rejoindre le lac Blanc, puis monter vers le glacier de Freydane puis par les rochers ou un névé, atteindre le col de la Balmette au Nord. Le col de la Balmette 2650m est le col situé au pied de l''arête N du Grand Pic. Emprunter la voie normale jusqu’au sommet (nombreux itinéraires possibles, se redescend également sans corde, un seul passage «délicat»). De la croix sommitale, parcourir l’arête 15m au Nord pour descendre de 20m en désescalade (facile mais rochers instables) pour atteindre une dalle où l’on s’équipe: exit. Spit sortie de voie+corde en place qui permet tout juste de voir la pierre taper à 7s dans le névé supérieur de la face N (pas de bruit!!) bien visible sur les photos.  Monter un brin de 15m en plus pour pouvoir voir la face.
 
 Départ Versant Allemont depuis le lieu dit Le Mollard conseillé pour le saut en WS. 4h en quasi autonavette.', 
-    'Remarque 7', 'https://youtu.be/AG_3-KLHpM0', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://youtu.be/AG_3-KLHpM0', 
     'assets/images/400px-Ansage626d77c0ced749.50863894.jpg', 
     1
   ), 
@@ -273,7 +273,7 @@ Départ Versant Allemont depuis le lieu dit Le Mollard conseillé pour le saut e
     '01:25:00', '', 'Depuis le col de Marcieu, monter sur le plateau par le pas du ragris ou le pas de l''aulp du seuil. Monter à la station au sommet, le glisseur bas est évident.
 
 Pour atteindre le saut de wingsuit descendre sur le gros pilier plein sud, 2 pas équipés de cordes à descendre un peu expos.', 
-    'Remarque 8', 'https://www.youtube.com/watch?v=E6-Q2WXgwF0', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=E6-Q2WXgwF0', 
     'assets/images/400px-Aiguillette626d77aac246b6.65031505.png', 
     1
   ), 
@@ -281,7 +281,7 @@ Pour atteindre le saut de wingsuit descendre sur le gros pilier plein sud, 2 pas
     'Fou Allier !', 'Haute-Loire', 'France', 
     '75 mètres de verticale, 100 jusqu’au posé', 
     '00:10:00', '', 'Bien vérifier l’axe de départ, en cas de grosse orientation à gauche les réflexes doivent être au rendez vous!', 
-    'Remarque 9', 'https://www.youtube.com/watch?v=3YZGaGYx8HU', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=3YZGaGYx8HU', 
     'assets/images/400px-Souspierre626d78ea4880c2.38420051.jpeg', 
     1
   ), 
@@ -297,7 +297,7 @@ Environ 1km après ces derniers, se garer au bord de la route (en 43.769291 , 5.
 Suivre le GR 97 vers le nord et, arrivé dans le talweg derrière le saut (environ 43.769291 , 5.347224), monter le talus à travers la végétation jusqu''au vide.
 
 Il est ensuite facile de trouver un exit convenable. Cordelette présente pour indiquer l''exit original.', 
-    'Remarque 10', 'https://www.youtube.com/watch?v=l0B-jPHyMY4', 
+    'Un endroit sympa, belle vue sur la vallée; gros départ en courant possible.', 'https://www.youtube.com/watch?v=l0B-jPHyMY4', 
     'assets/images/400px-Chanteloube626d786c261036.57235342.jpeg', 
     1
   );
