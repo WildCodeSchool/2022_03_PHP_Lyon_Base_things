@@ -229,8 +229,23 @@ nav span{
     padding: 1em;
 }
 
+/* CSS form exit */
+.depLabel{
+    white-space:nowrap;
+}
+
+@media screen and (min-width: 990px) {
+    .depStrong{
+        margin-left: -50px;
+    }
+}
+
 @media screen and (min-width: 768px) {
     .nav-img-container {
         height: 75vh;
     }
+    .strongDep{
+        margin-left: -50px;
+    }
 }
+
