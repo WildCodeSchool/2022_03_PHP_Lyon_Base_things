@@ -82,6 +82,7 @@ class ExitController extends AbstractController
         $exit = $exitManager->selectOneById($id);
         $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
         $typeJumpManager = new TypeJumpManager();
+        $accessmessage = AdminController::accessDenied();
         $typeJump = $typeJumpManager->selectAll();
         $errorMessages = [];
 
@@ -122,7 +123,8 @@ class ExitController extends AbstractController
             'typesJumpsByExit' => $typeJumpByExitId,
             'typesJumps' => $typeJump,
             'islogin' => $isLogIn,
-            'error_messages' => $errorMessages
+            'error_messages' => $errorMessages,
+            'accessdenied' => $accessmessage
         ]);
     }
 
