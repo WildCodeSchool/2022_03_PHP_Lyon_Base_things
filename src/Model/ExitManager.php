@@ -123,6 +123,7 @@ class ExitManager extends AbstractManager
             "left join" . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
             left join `type_jump` on `id_type_jump`=type_jump.id
             WHERE type_jump.id IN (" . $filterByJumpTypes . ")
+            AND active=true
             GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } elseif ($filter[0] !== [] && empty($filter[1])) {
@@ -138,6 +139,7 @@ class ExitManager extends AbstractManager
             "left join " . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
             left join `type_jump` on `id_type_jump`=type_jump.id
             WHERE exit.department IN (" .  $filterByDepartment . ")
+            AND active=true
             GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         } else {
@@ -154,6 +156,7 @@ class ExitManager extends AbstractManager
             "join" . self::TABLE_HAS_TYPE_JUMP . "on `id_exit`=exit.id
             join `type_jump` on `id_type_jump`=type_jump.id
             WHERE type_jump.id IN (" . $filterByJumpTypes . ") AND exit.department IN (" . $filterByDepartment . ")
+            AND active=true
             GROUP BY exit.id;";
             return $this->pdo->query($query)->fetchAll();
         };

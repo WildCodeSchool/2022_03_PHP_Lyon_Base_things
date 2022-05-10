@@ -39,17 +39,17 @@
                 <li><a class="dropdown-item" href="/exits">Topo des exits</a></li>
                 <br>
                 <li class="border-bottom"></li>
-                {% if islogin is defined %}
                 {% if islogin == false %}
-                <li><a class="dropdown-item" href="#">Créer son compte</a></li>
                 <li><a class="dropdown-item" href="/login">Se connecter</a></li>
                 {% endif %}
                 {% if islogin == true %}
                 <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
+                {% endif %}
                 </br>
                 <li class="border-bottom"></li>
+                <a href="/jumplog/add" class="dropdown-item">Ajouter un saut</a>
+                {% if islogin == true %}
                 <a href="/exits/add" class="dropdown-item">Ajouter un exit</a>
-                {% endif %}
                 {% endif %}
             </ul>
         </div>  
@@ -66,5 +66,3 @@
     {% block script %}{% endblock %}
 </body>
 </html>
-
-
