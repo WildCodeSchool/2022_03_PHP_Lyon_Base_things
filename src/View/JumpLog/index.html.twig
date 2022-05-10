@@ -127,8 +127,10 @@
 										</p>
 									{% endif %}
 								</div>
+								{% if jumpLog.comment is not empty %}
 								<p class="m-0 fw-bold">Commentaire :</p>
 								{{ jumpLog.comment }}
+								{% endif %}
 							</div>
 						</div>
 						{% if islogin == true %}

@@ -8,13 +8,13 @@
 		<form  class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="pseudo"><strong>Nom ou pseudo</strong>
+					<label class="col-6 col-lg-6"  for="pseudo"><strong>Nom ou pseudo *</strong>
 					</label>
 					<input class="col-11 col-lg-8" type="text" value="{{ user.pseudo }}" name="pseudo" id="pseudo" maxlength="50" placeholder="jean_jacques_du_6_9" required>
 					</div>
 				<div class="mb-4">
                 <div class="mb-4">
-					<label class="col-6 col-lg-6"  for="id_exit"><strong>Nom de l'exit</strong>
+					<label class="col-6 col-lg-6"  for="id_exit"><strong>Nom de l'exit *</strong>
 					</label>
 					<select class="col-11 col-lg-8" value="{{ jump_log.id_exit }}" name="id_exit" id="id_exit" maxlength="50" required>
 					<option></option>
@@ -23,14 +23,14 @@
                 	{% endfor %}
 					</select>
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="date_of_jump"><strong>Date</strong>
+					<label class="col-6 col-lg-6"  for="date_of_jump"><strong>Date *</strong>
 					</label>
 					<input class="col-11 col-lg-8" type="date" value="{{ jump_log.date_of_jump }}" name="date_of_jump" id="date_of_jump" maxlength="10" placeholder="jean_jacques_du_6_9" required>
 					</div>
 				<div class="mb-4">
 
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="id_type_jump"><strong>Type de saut</strong>
+					<label class="col-6 col-lg-6"  for="id_type_jump"><strong>Type de saut *</strong>
 					</label>
 					<select class="col-11 col-lg-8" value="{{ jump_log.id_type_jump }}" name="id_type_jump" id="id_type_jump" maxlength="50" required>
 						{% include "_typeJumpList.html.twig" %}
@@ -94,6 +94,7 @@
 			<input type="hidden" name="id" value="{{ exit.id }}">
 			<button class="btn btn-info m-2">Retour</button>
 		</form>
+		<p class="d-flex justify-content-start"> * Champ obligatoire </p>
 	</div>
 </div>
 
