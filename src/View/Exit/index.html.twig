@@ -81,8 +81,14 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{ exit.name}}</h5>
-                        </div>           
-                        <img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
+                        </div>
+                        {% if exit.image == "assets/images/" %}
+                            <img class="card-img-top" src="https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg" alt="Pas de photo disponible">
+                        {% elseif exit.image is empty %}
+                            <img class="card-img-top" src="https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg" alt="Pas de photo disponible">
+                        {% else %}
+                            <img src="/{{exit.image}}" class="card-img-top" alt="photo montrant le point de saut">
+                        {% endif %}
                         <ul class="list-group">
                             <li class="list-group-item">Lieu : {{exit.department}}</li>
                             <li class="list-group-item" id="exit-height">{{exit.height}}</li>
