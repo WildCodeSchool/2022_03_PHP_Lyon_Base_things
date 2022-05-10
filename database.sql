@@ -158,7 +158,7 @@ CREATE TABLE `jump_log` (
 -- --------------------------------------------
 -- Ajout de données dans la table exit
 -- --------------------------------------------
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -301,7 +301,7 @@ Il est ensuite facile de trouver un exit convenable. Cordelette présente pour i
     'assets/images/400px-Chanteloube626d786c261036.57235342.jpeg', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -408,7 +408,7 @@ Une fois en haut, suivre le vide vers le Nord pour trouver l''exit assez éviden
     '', 'assets/images/600px-Chapellestpons627a541624cbd0.62950099.jpg', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -550,7 +550,7 @@ L''exit est au niveau d''un petit "V" légèrement positif (44.217262 , 6.27652)
     '', 'assets/images/East627a5e7e6fa6f2.95061275.jpg', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -697,7 +697,7 @@ De l’exit wingsuit, regarder à gauche de l’autre côté du petit cirque se 
     'assets/images/400px-Issioule2627a66e91bcbb5.47333310.png', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -833,7 +833,7 @@ Première : Timothée Maurel et Pierre Lebreton en juin 2019',
     '', 'assets/images/cadiere627a75c68769a2.08349097.png', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
@@ -912,7 +912,7 @@ VALUES
     '', 'assets/images/450px-Roche_Cordant627a73d8ae07b9.06119599.jpg', 
     1
   );
-INSERT INTO base_things.`exit` (
+INSERT INTO `exit` (
   name, department, country, height, 
   access_duration, gps_coordinates, 
   acces, remark, video, image, active
