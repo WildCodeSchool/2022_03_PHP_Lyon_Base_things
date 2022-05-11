@@ -80,6 +80,8 @@ class JumpLogController extends AbstractController
             }
             $errorMessages = AddFormService::checkLengthDataJump($jumpLog, $errorMessages);
             $errorMessages = AddFormService::isEmptyDataJump($jumpLog, $errorMessages);
+            $errorMessages = AddFormService::validateUrl($jumpLog, $errorMessages);
+            $errorMessages = AddFormService::checkDate($jumpLog, $errorMessages);
             $pseudo = $_POST['pseudo'];
             $uploadFile = '';
             if (!empty($_FILES['image']['name'])) {

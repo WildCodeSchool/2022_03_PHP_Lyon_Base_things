@@ -50,11 +50,11 @@
 					<label class="col-6 col-lg-2 text-lg-end" for="gps_coordinates"><strong>Coordonnées GPS</strong></label>
 					<input class="col-11 col-lg-3 mb-4 mb-lg-0" type="text" value="{{ exit.gps_coordinates }}" name="gps_coordinates" id="gps_coordinates" maxlength="50" placeholder="41 24.2028, 2 10.4418">
 					<label class="col-6 col-lg-2  mb-2 text-lg-end" for="image"><strong>Image</strong></label>
-					<input class="col-11 col-lg-3" type="file" name="image" id="image"/>
+					<input class="col-11 col-lg-3" type="file" name="image" id="image" accept=".jpg, .jpeg, .png"/>
 				</div>
 				<div class="mb-4">
 					<label class="col-6" for="video"><strong>Vidéo</strong></label>
-					<input class="col-11 col-lg-8" type="text" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
+					<input class="col-11 col-lg-8" type="url" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
 				</div>
 				<div>
 					<label class="col-6" for="acces"><strong>Accès</strong></label>
