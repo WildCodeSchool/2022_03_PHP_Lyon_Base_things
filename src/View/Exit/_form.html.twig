@@ -9,24 +9,24 @@
 		<form class="add_form" method="post" enctype="multipart/form-data">
 			<div class="text-center">
 				<div class="mb-4">
-					<label class="col-6 col-lg-6"  for="name"><strong>Nom</strong>
+					<label class="col-6 col-lg-6"  for="name"><strong>Nom *</strong>
 					</label>
 					<input class="col-11 col-lg-8" type="text" value="{{ exit.name }}" name="name" id="name" maxlength="150" placeholder="Juste un saut" required>
 					</div>
 				<div class="mb-4">
-					<label class="col-6 col-lg-1 me-lg-1 text-lg-end" for="department"><strong>Département</strong>
+					<label class="col-6 col-lg-1 me-lg-1 text-lg-end depLabel" for="department"><strong class="depStrong">Département *</strong>
 					</label>
 					<select class="col-11 col-lg-3 mb-4 mb-lg-0" name="department" id="department" maxlength="50" required>
 						{% include "_departmentList.html.twig" %}
 					</select>
-					<label class="col-6 col-lg-2 text-lg-end me-lg-2"  for="country-select"><strong>Choisir un pays</strong>
+					<label class="col-6 col-lg-2 text-lg-end me-lg-2"  for="country-select"><strong>Choisir un pays *</strong>
 					</label>
 					<select class="col-11 col-lg-2 me-lg-2" name="country" id="country" maxlength="50" required>
 						{% include "_countryList.html.twig" %}
 					</select>
 				</div>
 				<div class="mb-4 ms-md-1">
-					<label class="col-6 col-lg-1 text-lg-end"  for="height"><strong>Hauteur</strong>
+					<label class="col-6 col-lg-1 text-lg-end"  for="height"><strong>Hauteur *</strong>
 					</label>
 					<input class="col-11 col-lg-3 ms-lg-1 mb-4 mb-lg-0"  type="text" value="{{ exit.height }}" name="height" id="height" maxlength="150" placeholder="390 metre " required>
 					<label class="col-6 col-lg-2 text-lg-end" for="access_duration"><strong>Temps d'accès</strong>
@@ -36,10 +36,10 @@
 				<h6 class = "error_message col-md-8 text-danger text-center" id="error_messages"></h6>
 				<label class="col-6 col-lg-5 d-lg-none"  for="navbarDropdown"><strong>Type de saut</strong></label>
 				<div class="d-flex justify-content-center mb-5 col-lg-6">
-					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut</strong></label>
+					<label class="form_label_type_saut col-6 col-lg-5 text-lg-end d-lg-block me-lg-2"  for="navbarDropdown"><strong>Type de saut *</strong></label>
 					<li class="list-group col-11 col-lg-5 border border-rounded bg-white me-lg-3" id="add-form-checkbox">
 						<a class="dropdown-toggle link-dark text-decoration-none text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Choisir un type de saut
+							Choisir un type de saut *
 						</a>
 						<ul class="dropdown-menu bg-secondary text-light" aria-labelledby="navbarDropdown">
 							<li class="ms-1">{% include "_typeJumpListCheckbox.html.twig" %}</li>
@@ -57,7 +57,7 @@
 					<input class="col-11 col-lg-8" type="url" value="{{ exit.video }}" name="video" id="video" placeholder="https://www.youtube.com/watch?v=FNdzA_UUdIc">
 				</div>
 				<div>
-					<label class="col-6" for="acces"><strong>Accès</strong></label>
+					<label class="col-6" for="acces"><strong>Accès *</strong></label>
 					<P class="mb-4"><textarea class="col-11 col-lg-8" id="acces" name="acces" rows="3" cols="10" placeholder="Detaillé l'accés ici" required></textarea></p>
 				</div>
 				<div>
@@ -73,7 +73,9 @@
 			<input type="hidden" name="id" value="{{ exit.id }}">
 			<button class="btn btn-info m-2">Retour</button>
 		</form>
+		<p> * Champ obligatoire </p>
 	</div>
+	
 </div>
 
 
