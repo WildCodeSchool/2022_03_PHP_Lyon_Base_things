@@ -82,6 +82,7 @@ class ExitController extends AbstractController
         $exit = $exitManager->selectOneById($id);
         $typeJumpByExitId = $exitManager->selectTypeJumpByExitId($id);
         $typeJumpManager = new TypeJumpManager();
+        $accessMessage = AdminController::accessDenied();
         $typeJump = $typeJumpManager->selectAll();
         $errorMessages = [];
 
@@ -122,7 +123,8 @@ class ExitController extends AbstractController
             'typesJumpsByExit' => $typeJumpByExitId,
             'typesJumps' => $typeJump,
             'islogin' => $isLogIn,
-            'error_messages' => $errorMessages
+            'error_messages' => $errorMessages,
+            'accessdenied' => $accessMessage
         ]);
     }
 
@@ -151,7 +153,7 @@ class ExitController extends AbstractController
     {
         $isLogIn = AdminController::isLogIn();
         $errorMessages = [];
-        $accessmessage = AdminController::accessDenied();
+        $accessMessage = AdminController::accessDenied();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $uploadDir = 'assets/images/'; // definir le dossier de stockage de l'image
             $exit = AddFormService::trimPostData(); // suppression des espace
@@ -183,7 +185,7 @@ class ExitController extends AbstractController
         return $this->twig->render('Exit/add.html.twig', [
             'error_messages' => $errorMessages,
             'islogin' => $isLogIn,
-            'accessdenied' => $accessmessage
+            'accessdenied' => $accessMessage
         ]);
     }
 
